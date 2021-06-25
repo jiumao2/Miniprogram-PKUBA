@@ -1,0 +1,56 @@
+<!--miniprogram/pages/view_apply_details/view_apply_details.wxml-->
+<view class="weui-cells__title">详细信息</view>
+<view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell">
+        <view class="weui-cell__bd">申请方</view>
+        <view class="weui-cell__ft">{{request_detail.requester}}</view>
+    </view>
+    <view class="weui-cell">
+        <view class="weui-cell__bd">主队</view>
+        <view class="weui-cell__ft">{{request_detail.home_team}}</view>
+    </view>
+    <view class="weui-cell">
+        <view class="weui-cell__bd">客队</view>
+        <view class="weui-cell__ft">{{request_detail.away_team}}</view>
+    </view>
+    <view class="weui-cell">
+        <view class="weui-cell__bd">原时间</view>
+        <view class="weui-cell__ft">
+        {{request_detail.month}}.{{request_detail.date}} {{request_detail.hour}}:{{request_detail.minute}}</view>
+    </view>
+    <view class="weui-cell">
+        <view class="weui-cell__bd">原场地</view>
+        <view class="weui-cell__ft">{{request_detail.place}}</view>
+    </view>
+    <view class="weui-cell">
+        <view class="weui-cell__bd">新时间</view>
+        <view class="weui-cell__ft">{{request_detail.month_new}}.{{request_detail.date_new}} {{request_detail.hour_new}}:{{request_detail.minute_new}}</view>
+    </view>
+    <view class="weui-cell">
+        <view class="weui-cell__bd">状态</view>
+        <view class="weui-cell__ft">{{request_detail.stateInfo}}</view>
+    </view>
+    <view class="weui-cell">
+        <view class="weui-cell__bd">申请时间</view>
+        <view class="weui-cell__ft">{{request_detail.month_req}}.{{request_detail.date_req}} {{request_detail.hour_req}}:{{request_detail.minute_req}}</view>
+    </view>
+</view>
+
+<text>\n</text>
+<view wx:if="{{request_detail.state==1 && (!request_detail.from_myself)}}">
+      <a class="weui-btn weui-btn_primary" bindtap="accept">接受</a>
+      <a class="weui-btn weui-btn_primary" bindtap="reject">拒绝</a>
+</view>
+<view wx:if="{{request_detail.state==1 && (request_detail.from_myself)}}">
+      <a class="weui-btn weui-btn_primary" bindtap="reject">撤销</a>
+</view>
+
+<view class="fadeIn {{hideLoading ? 'fadeOut' : ''}}" wx:if="{{loading}}">
+	<view class="weui-mask_transparent"></view>
+	<view class="weui-toast">
+		<view class="weui-primary-loading weui-primary-loading_transparent">
+			<view class="weui-primary-loading__dot"></view>
+		</view>
+		<view class="weui-toast__content">加载中</view>
+	</view>
+</view>

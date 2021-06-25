@@ -1,0 +1,13 @@
+<!--miniprogram/pages/error_page/error_page.wxml-->
+<view class="weui-msg">
+  <view class="weui-msg__icon-area"><i class="weui-icon-warn weui-icon_msg"></i></view>
+  <view class="weui-msg__text-area">
+    <h2 class="weui-msg__title">操作失败</h2>
+    <view class="weui-msg__desc">{{errInfo}}</view>
+  </view>
+  <view class="weui-msg__opr-area">
+    <view class="weui-btn-area">
+      <a href="javascript:history.back();" class="weui-btn weui-btn_default" bindtap="ok_back">确定</a>
+    </view>
+  </view>
+</view>

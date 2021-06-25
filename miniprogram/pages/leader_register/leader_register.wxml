@@ -1,0 +1,64 @@
+<!--miniprogram/pages/leader_register/leader_register.wxml-->
+<view class="weui-form">
+		<view class="weui-form__text-area">
+			<h2 class="weui-form__title">领队注册</h2>
+			<view class="weui-form__desc">请填写真实信息，注册后不可修改</view>
+		</view>
+		<view class="weui-form__control-area">
+			<view class="weui-cells__group weui-cells__group_form">
+				<view class="weui-cells__title">基本信息</view>
+				<view class="weui-cells weui-cells_form">
+					<view class="weui-cell weui-cell_active weui-cell_select weui-cell_select-after">
+            <view class="weui-cell__hd">
+							<label class="weui-label">所属球队</label>
+						</view>
+						<view class="weui-cell__bd">
+                            <picker bindchange="bindPickerChange2" range="{{array2}}">
+                                <view class="weui-select">{{array2[value2]}}</view>
+                            </picker>
+						</view>
+					</view>
+					<view class="weui-cell weui-cell_active">
+						<view class="weui-cell__hd">							
+                            <label class="weui-label">姓名</label>
+                        </view>
+						<view class="weui-cell__bd">
+							<input class="weui-input" placeholder="填写本人真实姓名" placeholder-class="weui-input__placeholder" bindinput="nameInput"/>
+						</view>
+					</view>
+					<view class="weui-cell weui-cell_active">
+						<view class="weui-cell__hd">							
+                            <label class="weui-label">联系电话</label>
+                        </view>
+						<view class="weui-cell__bd">
+							<input class="weui-input" placeholder="填写绑定的电话号码" type="number" placeholder-class="weui-input__placeholder" bindinput="phoneInput"/>
+						</view>
+					</view>
+					<view class="weui-cell weui-cell_active weui-cell_select weui-cell_select-after">
+            <view class="weui-cell__hd">
+							<label class="weui-label">参加比赛</label>
+						</view>
+						<view class="weui-cell__bd">
+                            <picker bindchange="bindPickerChange" range="{{array1}}">
+                                <view class="weui-select">{{array1[value1]}}</view>
+                            </picker>
+						</view>
+					</view>
+
+				</view>
+			</view>
+		</view>
+		<view class="weui-form__opr-area">
+			<a class="weui-btn weui-btn_primary" bindtap="register">确定</a>
+		</view>
+	</view>
+
+	<view class="fadeIn {{hideLoading ? 'fadeOut' : ''}}" wx:if="{{loading}}">
+			<view class="weui-mask_transparent"></view>
+			<view class="weui-toast">
+				<view class="weui-primary-loading weui-primary-loading_transparent">
+					<view class="weui-primary-loading__dot"></view>
+				</view>
+				<view class="weui-toast__content">加载中</view>
+			</view>
+		</view>
