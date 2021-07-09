@@ -1,12 +1,21 @@
-# 云开发 quickstart
+# 北大篮协小程序
 
-这是云开发的快速启动指引，其中演示了如何上手使用云开发的三大基础能力：
+用于新生杯、北大杯的赛程管理
 
-- 数据库：一个既可在小程序前端操作，也能在云函数中读写的 JSON 文档型数据库
-- 文件存储：在小程序前端直接上传/下载云端文件，在云开发控制台可视化管理
-- 云函数：在云端运行的代码，微信私有协议天然鉴权，开发者只需编写业务逻辑代码
+数据库内容：
+1. 赛程 schedule
+主队home 客队away 日期date 时间time 场地place 性别sex 组别group 
 
-## 参考文档
+2. 申请调整 apply
+主队home 客队away 原日期date 原时间time 原场地place 性别sex 组别group 新日期date_new 新时间time_new 新场地place_new 申请日期apply_date 申请时间 apply_time 申请方applicant 申请状态state
 
-- [云开发文档](https://developers.weixin.qq.com/miniprogram/dev/wxcloud/basis/getting-started.html)
+3. 领队leader
+球队team 姓名name 球队性别sex 组别group 手机phone 特征码openID
 
+4.Meta
+男篮，女甲，女乙，时间，
+
+
+
+
+ 

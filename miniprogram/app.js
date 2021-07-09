@@ -14,6 +14,9 @@ App({
       })
     }
 
-    this.globalData = {}
+    this.globalData = {
+      array_group1: ["生科","化学","法学","信科"],
+      array_group2: ["医学","中文","元培","光华"],
+    }
   }
 })
