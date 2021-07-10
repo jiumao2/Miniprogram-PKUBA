@@ -19,12 +19,13 @@ Page({
       now.getMonth(),
       now.getDate()+3
     )
-    if (time_ddl.getTime()>this.data.request_detail.time_new.getTime()){
+    if (time_ddl.getTime()<this.data.request_detail.time_new.getTime()){
     wx.cloud.callFunction({
       name: "update_request",
       data:{
         request:this.data.request_detail,
-        new_state: 2
+        new_state: 2,
+        to_delete: false
       },
       success: res => {
         app.globalData.request_detail.state = 2
@@ -42,7 +43,8 @@ Page({
         name: "update_request",
         data:{
           request:this.data.request_detail,
-          new_state: 0
+          new_state: 0,
+          to_delete: false
         },
         success: res => {
           app.globalData.request_detail.state = 0
@@ -63,6 +65,30 @@ Page({
     }
   },
 
+  recall(){
+    if(this.data.loading) return
+    this.setData({
+      loading: true
+    })
+    app.globalData.request_detail.state = 0
+    wx.cloud.callFunction({
+      name: "update_request",
+      data:{
+        request:this.data.request_detail,
+        new_state: 0,
+        to_delete: true,
+      },
+      success: res => {
+        wx.navigateBack({
+          delta: 0,
+        })
+      },
+      fail: err =>{
+        console.log(err)
+      }
+    })
+  },
+
   reject(){
     if(this.data.loading) return
     this.setData({
@@ -73,7 +99,8 @@ Page({
       name: "update_request",
       data:{
         request:this.data.request_detail,
-        new_state: 0
+        new_state: 0,
+        to_delete: false,
       },
       success: res => {
         wx.navigateBack({

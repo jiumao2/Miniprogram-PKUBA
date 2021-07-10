@@ -42,7 +42,7 @@
       <a class="weui-btn weui-btn_primary" bindtap="reject">拒绝</a>
 </view>
 <view wx:if="{{request_detail.state==1 && (request_detail.from_myself)}}">
-      <a class="weui-btn weui-btn_primary" bindtap="reject">撤销</a>
+      <a class="weui-btn weui-btn_primary" bindtap="recall">撤销</a>
 </view>
 
 <view class="fadeIn {{hideLoading ? 'fadeOut' : ''}}" wx:if="{{loading}}">

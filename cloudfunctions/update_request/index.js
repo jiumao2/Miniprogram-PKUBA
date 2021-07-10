@@ -14,11 +14,17 @@ exports.main = async (event, context) => {
   })
   const _ = db.command
 
-  db.collection('Request').doc(event.request._id).update({
-    data:{
-      state: event.new_state
-    }
-  })
+  if (event.to_delete){
+    db.collection('Request').doc(event.request._id).remove()
+  }
+  else{
+    db.collection('Request').doc(event.request._id).update({
+      data:{
+        state: event.new_state
+      }
+    })    
+  }
+
   if (event.new_state==2){
     db.collection('Schedule').doc(event.request.game_id).update({
       data:{

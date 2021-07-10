@@ -15,8 +15,22 @@ App({
     }
 
     this.globalData = {
-      array_group1: ["生科","化学","法学","信科"],
-      array_group2: ["医学","中文","元培","光华"],
+      TEAMS: [
+        ["生科","化学","法学","信科"],
+        ["医学","中文","元培","光华"]],
+      PLACE_NAMES: ['五四东一','五四东二','五四东三'],
+      GROUP_NAMES: ['男篮','女篮'],
+      MAX_GAMES_NUM: [
+        [{hour:10,minute:50,max_game:2},{hour:12,minute:50,max_game:3},{hour:12,minute:50,max_game:3},{hour:12,minute:50,max_game:3}],
+        [{hour:12,minute:50,max_game:2}],
+        [{hour:12,minute:50,max_game:2}],
+        [{hour:12,minute:50,max_game:2}],
+        [{hour:12,minute:50,max_game:2}],
+        [{hour:12,minute:50,max_game:2}],
+        [{hour:10,minute:50,max_game:2},{hour:12,minute:50,max_game:3},{hour:12,minute:50,max_game:3},{hour:12,minute:50,max_game:3}],
+      ],
+      ROUND_START_DAY: 1,
+      ROUND_END_DAY: 1,
     }
   }
 })

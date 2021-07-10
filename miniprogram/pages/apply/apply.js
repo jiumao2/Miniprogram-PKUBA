@@ -110,19 +110,21 @@ Page({
       apply_date.getFullYear(),
       apply_date.getMonth(),
       apply_date.getDate()+3)
-    var game_day=game_date.getDay()
+    {
+    let game_day=game_date.getDay()
     if (game_date.getDay()==0) game_day=7
 
     var date1 = new Date(
       game_date.getFullYear(),
       game_date.getMonth(),
-      game_date.getDate()+8-game_day)  
+      game_date.getDate()+7-game_day+app.globalData.ROUND_END_DAY)  
     var date2 = new Date(
       game_date.getFullYear(),
       game_date.getMonth(),
-      game_date.getDate()-game_day+1)  
-    if (date2>date0) date0 = date2
-
+      game_date.getDate()-game_day+app.globalData.ROUND_START_DAY)  
+    
+    if (date2.getTime()>date0.getTime()) date0 = date2
+    }
     var available_date = [date0]
     var available_time = []
     var temp_date1 = new Date(
@@ -134,7 +136,7 @@ Page({
         available_date[available_date.length-1].getFullYear(),
         available_date[available_date.length-1].getMonth(),
         available_date[available_date.length-1].getDate()+1)
-      if (temp_date <= temp_date1){
+      if (temp_date.getTime() <= temp_date1.getTime()){
         available_date.push(temp_date)
       }
       else{
@@ -142,43 +144,25 @@ Page({
       }
     }
     for(var i=0;i<available_date.length;i++){
-      if(available_date[i].getDay()<=5 && available_date[i].getDay()>=1){
-        available_time.push({
-          date: available_date[i],
-          time_and_place: [{
-            time: new Date(
-              available_date[i].getFullYear(),
-              available_date[i].getMonth(),
-              available_date[i].getDate(),
-              12,50,0
-            ),
-            place_available: ["五四东一","五四东二","五四东三"],
-            max_game_raw: 1,
-            max_game: 1
-          }]
+      var temp = app.globalData.MAX_GAMES_NUM[available_date[i].getDay()]// [{hour:10,minute:50},{hour:12,minute:50},{hour:14,minute:20},{hour:15,minute:50}] 
+      var temp_time_place = []
+      for (var j=0;j<temp.length;j++){
+        temp_time_place.push({
+          time: new Date(
+            available_date[i].getFullYear(),
+            available_date[i].getMonth(),
+            available_date[i].getDate(),
+            temp[j].hour,temp[j].minute,0
+          ),
+          place_available: app.globalData.PLACE_NAMES,
+          max_game_raw: temp[j].max_game,
+          max_game: temp[j].max_game         
         })
-        }
-      else{
-        var temp = [{hour:10,minute:50},{hour:12,minute:50},{hour:14,minute:20},{hour:15,minute:50}] 
-        var temp_time_place = []
-        for (var j=0;j<temp.length;j++){
-          temp_time_place.push({
-            time: new Date(
-              available_date[i].getFullYear(),
-              available_date[i].getMonth(),
-              available_date[i].getDate(),
-              temp[j].hour,temp[j].minute,0
-            ),
-            place_available: ["五四东一","五四东二","五四东三"],
-            max_game_raw: 1,
-            max_game: 3              
-          })
-        }
-        available_time.push({
-          date: available_date[i],
-          time_and_place: temp_time_place
-        })          
       }
+      available_time.push({
+        date: available_date[i],
+        time_and_place: temp_time_place
+      })          
     }
     console.log(available_date)
     console.log(available_time)
