@@ -45,6 +45,13 @@ Page({
     this.setData({
       loading: true,
     })
+    if (this.data.time_place_rawdata.length == 0){
+      app.globalData.errInfo = "该比赛没有可以调整的时间"
+      wx.navigateTo({
+        url: '../error_page/error_page',
+      })
+      return
+    }
     wx.cloud.callFunction({
       name: "check_request",
       data:{
