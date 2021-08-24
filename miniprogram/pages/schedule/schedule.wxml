@@ -1,15 +1,16 @@
 <!--miniprogram/pages/schedule.wxml-->
-
 <view class="page__bd">
-    <view>
+    <!-- <view class='head_view'>
         <view class="weui-form__text-area">
-			<h1 class="weui-form__title">赛程</h1>
+			<text class="title_view">新生杯赛程</text>
 		</view>
-        <view class='title'>
-            <text style="color:blue" >蓝色文字为男篮  </text>
-            <text style="color:red" >红色文字为女篮</text>
-        </view>
-    </view>
+        </view> -->
+        <!-- <view class='title'>
+            <text class="man_view">蓝色文字为男篮</text>
+            <text space="nbsp" decode="true">&nbsp;&nbsp;</text>
+            <text class="woman_view">红色文字为女篮</text>
+        </view> -->
+    
 
     <view wx:for="{{future_date}}" wx:for-index="i1" wx:for-item="array_date">
         <view class="weui-cells__title">
@@ -17,8 +18,9 @@
         </view>
         <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell" wx:for="{{future_game[i1]}}" wx:for-index="i2" wx:for-item="game">
-                <view class="weui-cell__bd" style="color:{{game.sex ? 'blue':'red' }}">
-                    {{game.hour}}:{{game.minute}} {{game.home_team}}VS{{game.away_team}}
+                <view class="weui-cell__bd">
+                    <text decode="true" space="nbsp">{{game.hour}}:{{game.minute}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                    <text style="color:{{game.sex ? 'rgb(27, 111, 236)':'rgb(255, 72, 0)' }}">{{game.home_team}} VS {{game.away_team}}</text>
                 </view>
                 <view class="weui-cell__ft" >{{game.place}}</view>
             </view>
@@ -27,7 +29,7 @@
 
     <text>\n</text>
     <view wx:if="{{old_date.length>0}}" class="weui-form__text-area">
-			<h2 class="weui-form__title">已结束</h2>
+			<text class="over_view">以下为已结束赛程</text>
 	</view>
 
     <view wx:for="{{old_date}}" wx:for-index="i1" wx:for-item="array_date">
@@ -36,8 +38,9 @@
         </view>
         <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell" wx:for="{{old_game[i1]}}" wx:for-index="i2" wx:for-item="game">
-                <view class="weui-cell__bd" style="color:{{game.sex ? 'blue':'red' }}">
-                    {{game.hour}}:{{game.minute}} {{game.home_team}}VS{{game.away_team}}
+                <view class="weui-cell__bd">
+                    <text decode="true" space="nbsp">{{game.hour}}:{{game.minute}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                    <text style="color:{{game.sex ? 'rgb(27, 111, 236)':'rgb(255, 72, 0)' }}">{{game.home_team}} VS {{game.away_team}}</text>
                 </view>
                 <view class="weui-cell__ft" >{{game.place}}</view>
             </view>

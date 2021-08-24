@@ -1,1 +1,31 @@
 /* miniprogram/pages/schedule.wxss */
+.man_view {
+  color: rgb(27, 111, 236);
+  font-weight: bold;
+}
+
+.woman_view {
+  color: rgb(255, 72, 0);
+  font-weight: bold;
+}
+
+.head_view{
+  background-image: url('https://img0.baidu.com/it/u=2844196330,1463351835&fm=26&fmt=auto&gp=0.jpg');
+  background-size: 100% 100%;
+}
+
+.title_view {
+  font-family: FangSong;
+  font-weight: 900;
+  font-size: 36px;
+  font-stretch:extra-expanded;
+  color:lightyellow;
+}
+
+.over_view {
+  font-family: FangSong;
+  font-weight: 900;
+  font-size: 24px;
+  font-stretch:extra-expanded;
+  color:rgb(54, 54, 0);
+}

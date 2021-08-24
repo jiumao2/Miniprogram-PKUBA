@@ -8,12 +8,10 @@ cloud.init({
 
 // 云函数入口函数
 exports.main = async (event, context) => {
-  const wxContext = cloud.getWXContext()
   db = cloud.database({
     env: "pkuba-9gkc109xc039fc34"
   })
   const _ = db.command
-  const MAX_LIMIT = 100
   
   let count1 = await db.collection('Schedule').where({
     time: event.new_time.time
@@ -22,7 +20,7 @@ exports.main = async (event, context) => {
 
   let count2 = await db.collection('Request').where({
     time_new: event.new_time.time,
-    state: _.eq(1).or(_.eq(2))
+    state: _.gte(1)
   }).get()
   let len2 = count2.data.length
   var place_not_available = []

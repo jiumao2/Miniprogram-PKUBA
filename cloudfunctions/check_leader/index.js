@@ -9,7 +9,7 @@ cloud.init({
 exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext()
 
-  if (!event.name || !event.team || !event.group || !event.phone){
+  if (!event.name || !event.team || !event.group || !event.email){
     return {
       total: 2,
       info: "wrong info",

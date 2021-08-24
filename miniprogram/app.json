@@ -1,6 +1,5 @@
 {
   "pages": [
-
     "pages/index/index",
     "pages/schedule/schedule",
     "pages/leader_home/leader_home",
@@ -8,8 +7,9 @@
     "pages/drawing/drawing",
     "pages/view_apply/view_apply",
     "pages/view_apply_details/view_apply_details",
-    "pages/leader_register/leader_register",    
-    "pages/error_page/error_page"
+    "pages/leader_register/leader_register",
+    "pages/error_page/error_page",
+    "pages/apply_cross_round/apply_cross_round"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

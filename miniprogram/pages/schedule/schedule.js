@@ -1,4 +1,5 @@
 // miniprogram/pages/schedule.js
+var app = getApp()
 Page({
 
   /**
@@ -55,6 +56,9 @@ Page({
             }
             break
           }
+          if (i == schedule.length-1){
+            old_schedule = schedule.reverse()
+          }
         }
         console.log(future_schedule)
         console.log(old_schedule)
@@ -98,7 +102,6 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
   },
 
   /**

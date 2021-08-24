@@ -15,7 +15,7 @@ exports.main = async (event, context) => {
   db.collection('Leader').add({
     data: {
       name: event.name,
-      phone:event.phone,
+      email:event.email,
       sex:event.sex,
       group:event.group,
       register_date: new Date(),

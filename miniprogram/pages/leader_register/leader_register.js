@@ -14,7 +14,7 @@ Page({
     array1: app.globalData.GROUP_NAMES,
     value1: 0,
     name: null,
-    phone: null,
+    email: null,
     team: null,
     sex: true,
     group: app.globalData.GROUP_NAMES[0],
@@ -59,9 +59,9 @@ Page({
       name:e.detail.value
     })
   },
-  phoneInput: function(e){
+  emailInput: function(e){
     this.setData({
-      phone:e.detail.value
+      email:e.detail.value
     })
   },
 
@@ -77,7 +77,7 @@ Page({
       name: "check_leader",
       data: {
         name: this.data.name,
-        phone: this.data.phone,
+        email: this.data.email,
         team: this.data.team,
         group: this.data.group,
         sex: this.data.sex,
@@ -90,7 +90,7 @@ Page({
             name: "leader_register",
             data: {
               name: this.data.name,
-              phone: this.data.phone,
+              email: this.data.email,
               team: this.data.team,
               group: this.data.group,
               sex: this.data.sex,

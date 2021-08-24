@@ -24,7 +24,11 @@
     </view>
     <view class="weui-cell">
         <view class="weui-cell__bd">新时间</view>
-        <view class="weui-cell__ft">{{request_detail.month_new}}.{{request_detail.date_new}} {{request_detail.hour_new}}:{{request_detail.minute_new}}</view>
+        <view class="weui-cell__ft">{{new_time}}</view>
+    </view>
+    <view class="weui-cell">
+        <view class="weui-cell__bd">类型</view>
+        <view class="weui-cell__ft">{{type}}</view>
     </view>
     <view class="weui-cell">
         <view class="weui-cell__bd">状态</view>

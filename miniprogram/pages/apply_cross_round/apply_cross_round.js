@@ -78,7 +78,7 @@ Page({
               game: this.data.games[this.data.value1],
               requester: app.globalData.leader_info.team,
               place_new: place_new,
-              type: 1
+              type: 3
             },
             success: res => {
               wx.navigateBack({
@@ -123,15 +123,15 @@ Page({
     if (game_date.getDay()==0) game_day=7
 
     var date1 = new Date(
-      game_date.getFullYear(),
-      game_date.getMonth(),
-      game_date.getDate()+7-game_day+app.globalData.ROUND_END_DAY)  
-    var date2 = new Date(
-      game_date.getFullYear(),
-      game_date.getMonth(),
-      game_date.getDate()-game_day+app.globalData.ROUND_START_DAY)  
+      apply_date.getFullYear(),
+      apply_date.getMonth(),
+      apply_date.getDate()+24)
+    // var date2 = new Date(
+    //   game_date.getFullYear(),
+    //   game_date.getMonth(),
+    //   game_date.getDate()-game_day+app.globalData.ROUND_START_DAY)  
     
-    if (date2.getTime()>date0.getTime()) date0 = date2
+    // if (date2.getTime()>date0.getTime()) date0 = date2
     }
     var available_date = [date0]
     var available_time = []

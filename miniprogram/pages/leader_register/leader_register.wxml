@@ -28,10 +28,10 @@
 					</view>
 					<view class="weui-cell weui-cell_active">
 						<view class="weui-cell__hd">							
-                            <label class="weui-label">联系电话</label>
+                            <label class="weui-label">E-Mail</label>
                         </view>
 						<view class="weui-cell__bd">
-							<input class="weui-input" placeholder="填写绑定的电话号码" type="number" placeholder-class="weui-input__placeholder" bindinput="phoneInput"/>
+							<input class="weui-input" placeholder="填写接收信息的邮箱" type="text" placeholder-class="weui-input__placeholder" bindinput="emailInput"/>
 						</view>
 					</view>
 					<view class="weui-cell weui-cell_active weui-cell_select weui-cell_select-after">

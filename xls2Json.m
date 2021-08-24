@@ -26,8 +26,9 @@ place(4,1:2) = [14,15];
 data_new = [];
 for k = 1:row
     for j = 1:col
-        if strfind(data{k,j},'VS')
+        if strfind(upper(data{k,j}),'VS')
             temp = data{k,j};
+            temp(temp==' ')=''; % delete all space
             tempdata.sex = true;
             if temp(end-1) == '女'
                 tempdata.sex = false;
@@ -38,7 +39,11 @@ for k = 1:row
                 tempdata.group = meta.games{1};
                 pos_end = 0;
             end
-            pos1 = strfind(data{k,j},'VS')-1;
+            if strfind(data{k,j},'VS')
+                pos1 = strfind(data{k,j},'VS')-1;
+            elseif strfind(data{k,j},'vs')
+                pos1 = strfind(data{k,j},'vs')-1;
+            end
             pos2 = pos1 + 3;
             tempdata.home_team = temp(1:pos1);
             tempdata.away_team = temp(pos2:end-pos_end);
@@ -48,7 +53,7 @@ for k = 1:row
                     break
                 end
             end
-            if strfind(tempdata.home_team,'决赛') | strfind(tempdata.away_team,'决赛')
+            if contains([tempdata.home_team,tempdata.away_team],'决赛') && ~contains([tempdata.home_team,tempdata.away_team],'半决赛')
                 tempdata.adjustable = false;
             else
                 tempdata.adjustable = true;

@@ -87,8 +87,21 @@ Page({
     })
   },
   drawing(){
+    if (this.data.loading) return
+    this.setData({
+      loading: true
+    })
     wx.navigateTo({
       url: '../drawing/drawing',
+    })
+  },
+  apply_cross_round(){
+    if (this.data.loading) return
+    this.setData({
+      loading: true
+    })
+    wx.navigateTo({
+      url: '../apply_cross_round/apply_cross_round',
     })
   },
   /**

@@ -1,2 +1,74 @@
 <!--miniprogram/pages/drawing/drawing.wxml-->
-<text>miniprogram/pages/drawing/drawing.wxml</text>
+<view class="weui-form">
+    <view class="weui-form__text-area">
+        <h2 class="weui-form__title">申请抽签</h2>
+    </view>
+    <view class="weui-form__control-area">
+        <view class="weui-cells__group weui-cells__group_form">
+            <view class="weui-cells">
+                <view class="weui-cell weui-cell_active weui-cell_select-after">
+                    <view class="weui-cell__hd">
+                        <label class="weui-label">场次</label>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <picker bindchange="bindPicker1Change" range="{{array1}}">
+                            <view class="weui-select">{{array1[value1]}}</view>
+                        </picker>
+                    </view>
+                </view>
+
+                <view class="weui-cells__title">申请理由</view>
+                <view class="weui-cells weui-cells_after-title">
+                    <view class="weui-cell weui-cell_active">
+                        <view class="weui-cell__bd">
+                            <textarea class="weui-textarea" placeholder-class="weui-input__placeholder"
+                                placeholder="请输入申请理由" style="height: 3.3em" bindinput="reason" />
+                            <view class="weui-textarea-counter">0/200</view>
+                        </view>
+                    </view>
+                </view>
+
+                <view class="weui-cell weui-cell_uploader">
+                    <view class="weui-cell__bd">
+                        <view class="weui-uploader">
+                            <view class="weui-uploader__hd">
+                                <view class="weui-uploader__overview">
+                                    <view class="weui-uploader__title">证明材料上传</view>
+                                    <view class="weui-uploader__info">{{files.length}}/1</view>
+                                </view>
+                            </view>
+                            <view class="weui-uploader__bd">
+                                <view class="weui-uploader__files" id="uploaderFiles">
+                                    <block wx:for="{{files}}" wx:key="*this">
+                                        <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
+                                            <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
+                                        </view>
+                                    </block>
+
+                                </view>
+                                <view wx:if="{{files.length==0}}" class="weui-uploader__input-box">
+                                    <view class="weui-uploader__input" bindtap="chooseImage"></view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+
+            </view>
+        </view>
+        <view class="weui-form__opr-area">
+            <text>\n</text>
+            <a class="weui-btn weui-btn_primary" bindtap="make_request">提交</a>
+        </view>
+    </view>
+</view>
+
+<view class="fadeIn {{hideLoading ? 'fadeOut' : ''}}" wx:if="{{loading}}">
+    <view class="weui-mask_transparent"></view>
+    <view class="weui-toast">
+        <view class="weui-primary-loading weui-primary-loading_transparent">
+            <view class="weui-primary-loading__dot"></view>
+        </view>
+        <view class="weui-toast__content">加载中</view>
+    </view>
+</view>
