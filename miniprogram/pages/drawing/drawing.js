@@ -101,6 +101,7 @@ Page({
             + "申请日期: "+(now_time.getMonth()+1).toString()+'月'+now_time.getDate()+'日 ' 
             + now_time.getHours()+':'+now_time.getMinutes() + '\n'
             + "申请方: "+app.globalData.leader_info.team +'\n'
+            + "申请理由: "+ this.data.reason + '\n'
             + "组别: " + this.data.games[this.data.value1].group + '\n'
             console.log(text)
             wx.cloud.callFunction({

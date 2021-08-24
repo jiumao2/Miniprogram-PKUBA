@@ -1,7 +1,7 @@
 clear
 meta = ['{' ...
         '"games": ["男篮","女篮"],' ... % 应与app.js中GROUP_NAMES相同
-        '"place_all": ["五四东一","五四东二","五四东三","邱德拔"]' ... % 规定表中每一列所使用的场地
+        '"place_all": ["五四东一","五四东二","五四东三","邱德拔"]' ... 
         '}' ];
 % fid = fopen('meta.json');
 % meta = fread(fid)';
