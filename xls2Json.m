@@ -12,11 +12,11 @@ meta = jsondecode(meta);
 % 规定表中每一列所使用的场地
 place_all = meta.place_all;
 place_num = length(place_all);
-place = zeros(place_num,4);
-place(1,:) = [2,5,8,11];
-place(2,:) = [3,6,9,12];
-place(3,:)= [4,7,10,13];
-place(4,1:2) = [14,15];
+place = cell(place_num,1);
+place{1} = [2,5,8,12,14,17];
+place{2} = [3,6,9,13,15];
+place{3}= [4,7,10];
+place{4} = [11,16];
 
 
 
@@ -48,7 +48,7 @@ for k = 1:row
             tempdata.home_team = temp(1:pos1);
             tempdata.away_team = temp(pos2:end-pos_end);
             for i = 1:place_num
-                if sum(place(i,:)==j)>=1
+                if sum(place{i}==j)>=1
                     tempdata.place = place_all{i};
                     break
                 end
