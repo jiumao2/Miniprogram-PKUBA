@@ -1,6 +1,4 @@
 clear
-% 男篮: ['信科', '元培', '光经', '化学', '医学', '国关', '外院', '心哲', '政管', '数地', '新城', '法社', '物理', '环科', '生历'],
-% 女篮: ['中文', '信科', '信管', '元培', '化学', '医学', '国关', '地空', '城环', '外院', '心理', '政管', '新传', '法学', '物理', '生历', '社会', '艺哲']],
 team_new = {...
     'A1' 'm' '' ...
     'A2' 'm' '' ...
@@ -92,9 +90,9 @@ for k = 1:row
                     tempdata.home_team = team_new{i+2};                    
                 end
                 if strcmp(tempdata.away_team,team_new{i}) && (tempdata.sex == (strcmp(team_new{i+1},'m')))
-                    tempdata.away_team = team_new{i+2};
+                    tempdata.home_team = team_new{i+2};
                 elseif strcmp(tempdata.away_team,team_new{i}) && (tempdata.sex == (~strcmp(team_new{i+1},'f')))
-                    tempdata.away_team = team_new{i+2};                    
+                    tempdata.home_team = team_new{i+2};                    
                 end
             end
             for i = 1:place_num
