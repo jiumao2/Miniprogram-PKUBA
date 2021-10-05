@@ -70,7 +70,7 @@ Page({
             }
             if (flag == 0) place_available.push(place_all[i])
           }
-          var place_new = place_available[Math.floor(Math.random()*place_available.length)]
+          var place_new = place_available[0]
           wx.cloud.callFunction({
             name: "make_request",
             data:{

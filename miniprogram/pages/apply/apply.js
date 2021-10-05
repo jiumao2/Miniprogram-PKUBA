@@ -70,7 +70,8 @@ Page({
             }
             if (flag == 0) place_available.push(place_all[i])
           }
-          var place_new = place_available[Math.floor(Math.random()*place_available.length)]
+          var place_new = place_available[0]
+          console.log(place_new)
           wx.cloud.callFunction({
             name: "make_request",
             data:{
@@ -122,17 +123,34 @@ Page({
     let game_day=game_date.getDay()
     if (game_date.getDay()==0) game_day=7
 
-    var date1 = new Date(
+    if (game_day>=6){    
+      var date1 = new Date(
       game_date.getFullYear(),
       game_date.getMonth(),
-      game_date.getDate()+7-game_day+app.globalData.ROUND_END_DAY)  
-    var date2 = new Date(
-      game_date.getFullYear(),
-      game_date.getMonth(),
-      game_date.getDate()-game_day+app.globalData.ROUND_START_DAY)  
+      game_date.getDate()+7-game_day+app.globalData.ROUND_END_DAY)}
+    else if (game_day >=1 && game_day <= 5){
+      var date1 = new Date(
+        game_date.getFullYear(),
+        game_date.getMonth(),
+        game_date.getDate()-game_day+app.globalData.ROUND_END_DAY)      
+    }
+      
+    if (game_day>=6){
+      var date2 = new Date(
+        game_date.getFullYear(),
+        game_date.getMonth(),
+        game_date.getDate()+(-game_day+app.globalData.ROUND_START_DAY)) 
+      }
+      else if (game_day >=1 && game_day <= 5){
+        var date2 = new Date(
+          game_date.getFullYear(),
+          game_date.getMonth(),
+          game_date.getDate()+(-game_day+app.globalData.ROUND_START_DAY-7))      
+      } 
     
     if (date2.getTime()>date0.getTime()) date0 = date2
     }
+
     var available_date = [date0]
     var available_time = []
     var temp_date1 = new Date(

@@ -49,7 +49,7 @@ Page({
         + "申请日期: "+app.globalData.request_detail.month_req+'月'+app.globalData.request_detail.date_req+'日 ' 
         + app.globalData.request_detail.hour_req+':'+app.globalData.request_detail.minute_req + '\n'
         + "申请方: "+app.globalData.request_detail.requester +'\n'
-        + "申请类型: "+app.globalData.TYPES[app.globalData.type-1] + '\n'
+        + "申请类型: "+app.globalData.TYPES[app.globalData.request_detail.type-1] + '\n'
         + "组别: " + app.globalData.request_detail.group + '\n'
         console.log(text_email)
         wx.cloud.callFunction({
@@ -57,7 +57,7 @@ Page({
           data:{
             text: text_email,
             attachment: 0,
-            subject: app.globalData.TYPES[app.globalData.type-1]+'申请 '+ app.globalData.request_detail.home_team + " VS "+ app.globalData.request_detail.away_team
+            subject: app.globalData.TYPES[app.globalData.request_detail.type-1]+'申请 '+ app.globalData.request_detail.home_team + " VS "+ app.globalData.request_detail.away_team
           },
           success: res =>{
             console.log(res)

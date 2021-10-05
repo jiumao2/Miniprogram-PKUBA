@@ -14,12 +14,12 @@ exports.main = async (event, context) => {
   const _ = db.command
   
   let count1 = await db.collection('Schedule').where({
-    time: event.new_time.time
+    time: new Date(event.new_time.time)
   }).get()
   let len1 = count1.data.length
 
   let count2 = await db.collection('Request').where({
-    time_new: event.new_time.time,
+    time_new: new Date(event.new_time.time),
     state: _.gte(1)
   }).get()
   let len2 = count2.data.length
