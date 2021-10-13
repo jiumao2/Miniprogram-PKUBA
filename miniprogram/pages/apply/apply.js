@@ -150,6 +150,8 @@ Page({
     
     if (date2.getTime()>date0.getTime()) date0 = date2
     }
+    console.log(date0)
+    console.log(date1)
 
     var available_date = [date0]
     var available_time = []
@@ -190,7 +192,6 @@ Page({
         time_and_place: temp_time_place
       })          
     }
-    console.log(available_date)
     console.log(available_time)
     wx.cloud.callFunction({
       name:"search_available_date",
