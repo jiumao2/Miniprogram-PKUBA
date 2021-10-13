@@ -20,7 +20,7 @@ exports.main = async (event, context) => {
 
   let count2 = await db.collection('Request').where({
     time_new: new Date(event.new_time.time),
-    state: _.gte(1)
+    state: _.eq(1).or(_.gte(3))
   }).get()
   let len2 = count2.data.length
   var place_not_available = []
