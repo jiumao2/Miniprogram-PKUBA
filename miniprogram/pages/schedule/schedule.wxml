@@ -40,7 +40,8 @@
             <view class="weui-cell" wx:for="{{old_game[i1]}}" wx:for-index="i2" wx:for-item="game">
                 <view class="weui-cell__bd">
                     <text decode="true" space="nbsp">{{game.hour}}:{{game.minute}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                    <text style="color:{{game.sex ? 'rgb(27, 111, 236)':'rgb(255, 72, 0)' }}">{{game.home_team}} VS {{game.away_team}}</text>
+                    <text wx:if="{{game.home_team_score>0}}" style="color:{{game.sex ? 'rgb(27, 111, 236)':'rgb(255, 72, 0)' }}">{{game.home_team}} {{game.home_team_score}}:{{game.away_team_score}} {{game.away_team}}</text>
+                    <text wx:else style="color:{{game.sex ? 'rgb(27, 111, 236)':'rgb(255, 72, 0)' }}">{{game.home_team}} VS {{game.away_team}}</text>
                 </view>
                 <view class="weui-cell__ft" >{{game.place}}</view>
             </view>

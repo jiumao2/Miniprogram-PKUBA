@@ -87,6 +87,8 @@ for k = 1:row
             pos2 = pos1 + 3;
             tempdata.home_team = temp(1:pos1);
             tempdata.away_team = temp(pos2:end-pos_end);
+            tempdata.home_team_score = -1;
+            tempdata.away_team_score = -1;
             % substitute
             for i = 1:3:length(team_new)
                 if strcmp(tempdata.home_team,team_new{i}) && (tempdata.sex == (strcmp(team_new{i+1},'m')))
