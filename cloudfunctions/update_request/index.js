@@ -30,7 +30,7 @@ exports.main = async (event, context) => {
       data:{
         time: new Date(event.request.time_new),
         place: event.request.place_new,
-        adjustable: false       
+        adjustable: true       
       }
     })
   }

@@ -26,7 +26,8 @@ Page({
     wx.cloud.callFunction({
       "name": "search_request",
       "data":{
-        team: app.globalData.leader_info.team
+        team: app.globalData.leader_info.team,
+        group: app.globalData.leader_info.group
       },
       success: res =>{
         console.log(res.result.data)

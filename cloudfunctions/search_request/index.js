@@ -13,10 +13,13 @@ exports.main = async (event, context) => {
   })
   const _ = db.command
   
-  return db.collection('Request').where(_.or([{
-    home_team: event.team
+  return db.collection('Request').where(_.and([{
+    group: event.group
+  },
+  _.or([{
+    home_team:event.team
   },{
-    away_team: event.team
-  }])).get()
+    away_team:event.team
+  }])])).get()
 
 }

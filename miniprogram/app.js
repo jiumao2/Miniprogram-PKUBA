@@ -29,7 +29,7 @@ App({
         [{hour:12,minute:50,max_game:1},{hour:20,minute:20,max_game:1}],
         [{hour:12,minute:50,max_game:3},{hour:14,minute:20,max_game:3},{hour:15,minute:50,max_game:3},{hour:18,minute:20,max_game:2},{hour:19,minute:50,max_game:2}],
       ],
-      ROUND_START_DAY: 6,
+      ROUND_START_DAY: 1,
       ROUND_END_DAY: 5,
       TYPES: ['普通调整','抽签','跨轮次调整'],
       STATE: ['拒绝','等待确认','通过','抽签申请中','审核中']

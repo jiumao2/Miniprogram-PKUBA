@@ -135,18 +135,10 @@ Page({
         game_date.getDate()-game_day+app.globalData.ROUND_END_DAY)      
     }
       
-    if (game_day>=6){
-      var date2 = new Date(
-        game_date.getFullYear(),
-        game_date.getMonth(),
-        game_date.getDate()+(-game_day+app.globalData.ROUND_START_DAY)) 
-      }
-      else if (game_day >=1 && game_day <= 5){
-        var date2 = new Date(
-          game_date.getFullYear(),
-          game_date.getMonth(),
-          game_date.getDate()+(-game_day+app.globalData.ROUND_START_DAY-7))      
-      } 
+    var date2 = new Date(
+      game_date.getFullYear(),
+      game_date.getMonth(),
+      game_date.getDate()+(-game_day+app.globalData.ROUND_START_DAY)) 
     
     if (date2.getTime()>date0.getTime()) date0 = date2
     }
