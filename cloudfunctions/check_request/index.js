@@ -28,7 +28,7 @@ exports.main = async (event, context) => {
     place_not_available.push(count1.data[i].place)
   }
   for (var i =0;i<count2.data.length;i++){
-    place_not_available.push(count1.data[i].place_new)
+    place_not_available.push(count2.data[i].place_new)
   }
   if (len1+len2<event.new_time.max_game_raw) return{
     state: true,

@@ -213,7 +213,7 @@ Page({
                   available_time[i].time_and_place[j].max_game--
                   var temp_place_new = []
                   for(var i1=0;i1<available_time[i].time_and_place[j].place_available.length;i1++){
-                    if (!available_time[i].time_and_place[j].place_available[i1] == time_not_available[i0].place){
+                    if (available_time[i].time_and_place[j].place_available[i1] != time_not_available[i0].place){
                       temp_place_new.push(available_time[i].time_and_place[j].place_available[i1])
                     }
                   }
