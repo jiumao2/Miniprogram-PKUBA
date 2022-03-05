@@ -18,6 +18,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.setNavigationBarTitle({
+      　　　　title: app.globalData.GAME_NAME + '赛程' //页面切换，更换页面标题
+      　　})
     wx.cloud.callFunction({
       name: "search_future_schedule",
       data: {},

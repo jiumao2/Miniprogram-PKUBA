@@ -16,7 +16,7 @@ Page({
     name: null,
     email: null,
     team: null,
-    sex: true,
+    sex: app.globalData.GROUP_SEX[0],
     group: app.globalData.GROUP_NAMES[0],
     team: app.globalData.TEAMS[0][0],
     to_error_page: true,
@@ -42,7 +42,7 @@ Page({
       this.setData({
         value2:0,
         team:this.data.array2[0],
-        sex: e.detail.value == 0
+        sex: app.globalData.GROUP_SEX[e.detail.value]
       })
     }
     console.log(this.data.team)

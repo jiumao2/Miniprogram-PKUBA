@@ -15,18 +15,23 @@ App({
     }
 
     this.globalData = {
+      GAME_NAME: '北大杯',
       TEAMS: [
-        ['信科', '元培', '光经', '化学', '医学', '国关', '外院', '心哲', '政管', '数地', '新城', '法社', '物理', '环科', '生历','工学','中艺'],
-        ['中文', '信科', '信管', '元培', '化学', '医学', '国关', '地空', '城环', '外院', '心理', '政管', '新传', '法学', '物理', '生历', '社会', '艺哲']],
+        ['地空','化学','环科','生科','数学','外院','医学','元培'],
+        ['叉院','电子','法学','工学','光华','国发','国关','集电','计算机','教历','经济','马院','软微','社会','物理','心理','新城','信管','信科','艺哲','政管','智能','中文'],
+        ['化学','外院','新传','信管','信科','医学','元培','中文'],
+        ['城环','地空','法学','光经','国关','教育','马院','软微','社会','生历','数学','物理','心理','艺哲','政管']
+      ],
       PLACE_NAMES: ['五四东一','五四东二','五四东三'],
-      GROUP_NAMES: ['男篮','女篮'],
+      GROUP_NAMES: ['男甲','男乙','女甲','女乙'],
+      GROUP_SEX: [true,true,false,false],
       MAX_GAMES_NUM: [
         [{hour:12,minute:50,max_game:3},{hour:14,minute:20,max_game:3},{hour:15,minute:50,max_game:3},{hour:18,minute:20,max_game:2},{hour:19,minute:50,max_game:2}],
-        [{hour:12,minute:50,max_game:1},{hour:20,minute:20,max_game:1}],
-        [{hour:12,minute:50,max_game:1},{hour:20,minute:20,max_game:1}],
-        [{hour:12,minute:50,max_game:1},{hour:20,minute:20,max_game:1}],
-        [{hour:12,minute:50,max_game:1},{hour:20,minute:20,max_game:1}],
-        [{hour:12,minute:50,max_game:1},{hour:20,minute:20,max_game:1}],
+        [{hour:12,minute:50,max_game:1},{hour:20,minute:40,max_game:1}],
+        [{hour:12,minute:50,max_game:1},{hour:20,minute:40,max_game:1}],
+        [{hour:12,minute:50,max_game:1},{hour:20,minute:40,max_game:1}],
+        [{hour:12,minute:50,max_game:1},{hour:20,minute:40,max_game:1}],
+        [{hour:12,minute:50,max_game:1},{hour:20,minute:40,max_game:1}],
         [{hour:12,minute:50,max_game:3},{hour:14,minute:20,max_game:3},{hour:15,minute:50,max_game:3},{hour:18,minute:20,max_game:2},{hour:19,minute:50,max_game:2}],
       ],
       ROUND_START_DAY: 1,
