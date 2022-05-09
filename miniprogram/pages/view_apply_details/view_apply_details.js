@@ -178,7 +178,7 @@ Page({
     request_detail.minute_req = temp.toString()
 
     if (request_detail.state == 1){
-      request_detail.stateInfo = "等待确认"
+      request_detail.stateInfo = "等待领队确认"
     }
     else if (request_detail.state == 2){
       request_detail.stateInfo = "通过"
@@ -189,7 +189,7 @@ Page({
     else if (request_detail.state == 4){
       request_detail.stateInfo = "跨轮次调整申请中"
     }
-    else if (request_detail.state == 1){
+    else if (request_detail.state == 0){
       request_detail.stateInfo = "拒绝"
     }
     if (request_detail.type == 1){

@@ -4,7 +4,7 @@
 <view class="weui-cells weui-cells_after-title">
   <a data-message="{{item}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap="view_detail" wx:for="{{request_out}}">
         <view class="weui-cell__bd">{{item.month}}.{{item.date}} {{item.hour}}:{{item.minute}} {{item.home_team}}VS{{item.away_team}}</view>
-        <view wx:if="{{item.state==1}}" class="weui-cell__ft" style="color:#FFCC00">等待确认</view>
+        <view wx:if="{{item.state==1}}" class="weui-cell__ft" style="color:#FFCC00">等待领队确认</view>
         <view wx:elif="{{item.state==2}}" class="weui-cell__ft" style="color:green">通过</view>
         <view wx:elif="{{item.state==0}}" class="weui-cell__ft" style="color:red">拒绝</view>
         <view wx:elif="{{item.state==3}}" class="weui-cell__ft" style="color:#FFCC00">抽签申请中</view>
@@ -16,7 +16,7 @@
 <view class="weui-cells weui-cells_after-title">
   <a data-message="{{item}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap="view_detail" wx:for="{{request_in}}">
         <view class="weui-cell__bd">{{item.month}}.{{item.date}} {{item.hour}}:{{item.minute}} {{item.home_team}}VS{{item.away_team}}</view>
-        <view wx:if="{{item.state==1}}" class="weui-cell__ft" style="color:#FFCC00">等待确认</view>
+        <view wx:if="{{item.state==1}}" class="weui-cell__ft" style="color:#FFCC00">等待领队确认</view>
         <view wx:elif="{{item.state==2}}" class="weui-cell__ft" style="color:green">通过</view>
         <view wx:elif="{{item.state==0}}" class="weui-cell__ft" style="color:red">拒绝</view>
         <view wx:elif="{{item.state==3}}" class="weui-cell__ft" style="color:#FFCC00">抽签申请中</view>
