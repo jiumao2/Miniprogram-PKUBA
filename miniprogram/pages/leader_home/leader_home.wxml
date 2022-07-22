@@ -29,7 +29,7 @@
       <a class="weui-btn weui-btn_primary" bindtap="view_apply">查看申请</a>
       <a class="weui-btn weui-btn_primary" bindtap="apply">申请调整</a>
       <a class="weui-btn weui-btn_primary" bindtap="drawing">申请抽签</a>
-      <a class="weui-btn weui-btn_primary" bindtap="apply_cross_round">申请跨轮次调整</a>
+      <a class="weui-btn weui-btn_primary" bindtap="apply_cross_round">申请跨周调整</a>
     </view>
 </view>
 

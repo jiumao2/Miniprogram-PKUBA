@@ -14,21 +14,6 @@ Page({
   },
 
   to_schedule(){
-    // // test mail
-    // wx.cloud.callFunction({
-    //   name: "send_email",
-    //   data:{
-    //     'text': '测试附件',
-    //     'attachment': 'logo_raw.jpg',
-    //     'fileID':	'cloud://pkuba-9gkc109xc039fc34.706b-pkuba-9gkc109xc039fc34-1306335529/logo_raw.jpg'
-    //   },
-    //   success: res =>{
-    //     console.log(res)
-    //   },
-    //   fail: err=>{
-    //     console.log(err)
-    //   }
-    // })
     if (this.data.loading) return
     this.setData({
       loading: true

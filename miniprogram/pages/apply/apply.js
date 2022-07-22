@@ -85,6 +85,42 @@ Page({
               wx.navigateBack({
                 delta: 0,
               })
+              var game = this.data.games[this.data.value1]
+              var new_time = this.data.time_place_rawdata[this.data.value2][this.data.value3].time
+              var now = new Date()
+
+              var text_email = "原比赛: " + game.month+'月'+game.date+'日 ' 
+              + game.hour+':'+game.minute + " "
+              + game.home_team + " VS "+ game.away_team
+              + ' ' + game.place + '\n' 
+              + "调整后比赛: "+ (new_time.getMonth()+1).toString()+'月'+new_time.getDate().toString()+'日 ' 
+              + new_time.getHours().toString()+':'+new_time.getMinutes().toString() + " "
+              + game.home_team + " VS "+ game.away_team
+              + ' ' + place_new + '\n'
+              + "申请日期: "+(now.getMonth()+1).toString()+'月'+now.getDate().toString()+'日 ' 
+              + now.getHours().toString()+':'+now.getMinutes().toString() + '\n'
+              + "申请方: "+app.globalData.leader_info.team +'\n'
+              + "申请类型: "+app.globalData.TYPES[0] + '\n'
+              + "组别: " + game.group + '\n'
+              console.log(text_email)
+              wx.cloud.callFunction({
+                name: 'send_email',
+                data:{
+                  text: text_email,
+                  attachment: 0,
+                  subject: app.globalData.TYPES[0]+'申请（协商中）'+ game.home_team + " VS "+ game.away_team
+                },
+                success: res =>{
+                  console.log(res)
+                  wx.navigateBack({
+                    delta: 0,
+                  })
+                },
+                fail: err =>{
+                  console.log(err)
+                }
+              })
+
             },
             fail: err => {
               console.log(err)

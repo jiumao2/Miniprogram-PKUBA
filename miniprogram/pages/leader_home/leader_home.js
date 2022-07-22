@@ -92,7 +92,7 @@ Page({
       loading: true
     })
     wx.navigateTo({
-      url: '../drawing/drawing',
+      url: '../drawing_description/drawing_description',
     })
   },
   apply_cross_round(){

@@ -1,7 +1,7 @@
 <!--miniprogram/pages/apply/apply.wxml-->
 <view class="weui-form">
 		<view class="weui-form__text-area">
-			<h2 class="weui-form__title">申请跨轮次调整</h2>
+			<h2 class="weui-form__title">申请跨周调整</h2>
 		</view>
 		<view class="weui-form__control-area">
 			<view class="weui-cells__group weui-cells__group_form">

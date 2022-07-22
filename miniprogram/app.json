@@ -9,7 +9,8 @@
     "pages/view_apply_details/view_apply_details",
     "pages/leader_register/leader_register",
     "pages/error_page/error_page",
-    "pages/apply_cross_round/apply_cross_round"
+    "pages/apply_cross_round/apply_cross_round",
+    "pages/drawing_description/drawing_description"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
