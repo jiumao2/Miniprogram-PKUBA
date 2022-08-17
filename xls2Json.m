@@ -68,23 +68,20 @@ meta = ['{' ...
         '"games": ["男甲","男乙","女甲","女乙"],' ... % 应与app.js中GROUP_NAMES相同
         '"place_all": ["五四东一","五四东二","五四东三","邱德拔"]' ... 
         '}' ];
-% fid = fopen('meta.json');
-% meta = fread(fid)';
-% meta = native2unicode(meta);
 meta = jsondecode(meta);
-% fclose(fid);
 
-% 规定表中每一列所使用的场地
+
 place_all = meta.place_all;
 place_num = length(place_all);
 place = cell(place_num,1);
-place{1} = [2,5,8,12,14,17];
+% 规定表中每一列所使用的场地
+place{1} = [2,5,8,12,14,17]; % xls表格中的第2,5,8,12,14,17列使用第一个场地
 place{2} = [3,6,9,13,15];
 place{3}= [4,7,10];
 place{4} = [11,16];
 
 
-
+% 读取表格，生成可被导入至小程序的json文件
 [~,txt,data] = xlsread('schedule.xlsx');
 
 [row,col] = size(data);
@@ -156,6 +153,5 @@ for k = 1:row
 end
 disp(data_new)
 fid = fopen('schedule.json','w','n','UTF-8');
-%fwrite(fid,data_new);
 fprintf(fid, '%s', data_new);
 fclose(fid);

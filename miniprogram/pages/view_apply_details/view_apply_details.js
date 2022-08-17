@@ -187,7 +187,7 @@ Page({
       request_detail.stateInfo = "抽签申请中"
     }
     else if (request_detail.state == 4){
-      request_detail.stateInfo = "跨轮次调整申请中"
+      request_detail.stateInfo = "跨周调整申请中"
     }
     else if (request_detail.state == 0){
       request_detail.stateInfo = "拒绝"
