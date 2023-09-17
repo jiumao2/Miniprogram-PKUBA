@@ -2,7 +2,7 @@
 const cloud = require('wx-server-sdk')
 
 cloud.init({
-  env: "pkuba-9gkc109xc039fc34"
+  env: "pkuba-1ghnzk0hcbc1edeb"
 })
 
 
@@ -10,7 +10,7 @@ cloud.init({
 exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext()
   db = cloud.database({
-    env: "pkuba-9gkc109xc039fc34"
+    env: "pkuba-1ghnzk0hcbc1edeb"
   })
   const _ = db.command
   var date0 = new Date(event.now)
