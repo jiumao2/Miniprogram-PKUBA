@@ -1,10 +1,12 @@
-// miniprogram/pages/index/index.js
+// miniprogram/pages/manager_login/manager_login.js
+
+var app = getApp()
 Page({
   /**
    * 页面的初始数据
    */
   data: {
-    loading:false,
+    loading:false, 
     password: null 
   },
 

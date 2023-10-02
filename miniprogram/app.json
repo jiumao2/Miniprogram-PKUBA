@@ -10,7 +10,9 @@
     "pages/leader_register/leader_register",
     "pages/error_page/error_page",
     "pages/apply_cross_round/apply_cross_round",
-    "pages/drawing_description/drawing_description"
+    "pages/drawing_description/drawing_description",
+    "pages/manager_login/manager_login",
+    "pages/manager_edit/manager_edit"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

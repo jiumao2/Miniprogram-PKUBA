@@ -1,5 +1,5 @@
 // 云函数入口文件
-const cloud = require('../check_edit/node_modules/wx-server-sdk')
+const cloud = require('wx-server-sdk')
 
 cloud.init({
   env: "pkuba-1ghnzk0hcbc1edeb"
@@ -9,7 +9,7 @@ cloud.init({
 exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext()
 
-  if (!event.name || !event.team || !event.group || !event.email){
+  if (event.team1==event.team2){
     return {
       total: 2,
       info: "wrong info",
