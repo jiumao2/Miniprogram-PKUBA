@@ -23,6 +23,16 @@ Page({
     })
   },
 
+  login_manager(){
+    if (this.data.loading) return
+    this.setData({
+      loading: true
+    })
+    wx.navigateTo({
+      url: '../manager_login/manager_login',
+    })
+  },
+
   login_leader(){
     if (this.data.loading) return
     this.setData({
@@ -63,7 +73,6 @@ Page({
       }
     })
   },
-
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
