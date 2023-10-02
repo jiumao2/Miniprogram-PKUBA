@@ -6,9 +6,9 @@ Page({
    * 页面的初始数据
    */
     data: {
-        array1: [],
-        array2: [],
-        array3: [],
+        array1: [], // 场次
+        array2: [], // 新的日期
+        array3: [], // 新的时间
         value1: 0,
         value2: 0,
         value3: 0,
@@ -151,31 +151,28 @@ Page({
   refresh_available_date(){
     const apply_date = new Date()
     const game_date = this.data.games[this.data.value1].time
+    // date0 为三天之后的日期，需要提前三天申请调整赛程
     var date0 = new Date(
       apply_date.getFullYear(),
       apply_date.getMonth(),
       apply_date.getDate()+3)
     {
-    let game_day=game_date.getDay()
-    if (game_date.getDay()==0) game_day=7
+    let game_day = game_date.getDay()
+    if (game_date.getDay()==0) game_day = 7 // 周天默认为0，改为7
 
-    if (game_day>=6){    
-      var date1 = new Date(
-      game_date.getFullYear(),
-      game_date.getMonth(),
-      game_date.getDate()+7-game_day+app.globalData.ROUND_END_DAY)}
-    else if (game_day >=1 && game_day <= 5){
-      var date1 = new Date(
+    // 仅允许在当周内调整赛程
+    // date1 为本周日，date2为本周一
+    var date1 = new Date(
         game_date.getFullYear(),
         game_date.getMonth(),
         game_date.getDate()-game_day+app.globalData.ROUND_END_DAY)      
-    }
       
     var date2 = new Date(
       game_date.getFullYear(),
       game_date.getMonth(),
       game_date.getDate()+(-game_day+app.globalData.ROUND_START_DAY)) 
     
+    // 找出date0与date1靠后者，date0-date2为可调整的日期段
     if (date2.getTime()>date0.getTime()) date0 = date2
     }
     console.log(date0)
@@ -356,8 +353,7 @@ Page({
         })
         console.log(games)
         for (var i=0;i<games.length;i++){
-          array1.push(games[i].month+"."+games[i].date+" "+games[i].home_team+"VS"+games[i].away_team+" "
-          +games[i].hour+":"+games[i].minute)
+          array1.push(games[i].month+"."+games[i].date+" "+games[i].hour+":"+games[i].minute+" "+games[i].home_team+"VS"+games[i].away_team)
         }
 
         this.setData({

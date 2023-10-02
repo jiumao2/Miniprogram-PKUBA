@@ -14,7 +14,6 @@ Page({
     array1: app.globalData.GROUP_NAMES,
     value1: 0,
     name: null,
-    email: null,
     team: null,
     sex: app.globalData.GROUP_SEX[0],
     group: app.globalData.GROUP_NAMES[0],
@@ -59,11 +58,6 @@ Page({
       name:e.detail.value
     })
   },
-  emailInput: function(e){
-    this.setData({
-      email:e.detail.value
-    })
-  },
 
   register: function(){
     // 判断是否已存在队伍领队
@@ -77,7 +71,6 @@ Page({
       name: "check_leader",
       data: {
         name: this.data.name,
-        email: this.data.email,
         team: this.data.team,
         group: this.data.group,
         sex: this.data.sex,
@@ -90,7 +83,6 @@ Page({
             name: "leader_register",
             data: {
               name: this.data.name,
-              email: this.data.email,
               team: this.data.team,
               group: this.data.group,
               sex: this.data.sex,
@@ -110,7 +102,9 @@ Page({
         }
       },
       fail: err => {
-        console.log('failed!!!',err)
+        console.log('failed!!!',err.info)
+        console.log(err)
+        app.globalData.errInfo = "检查错误"
         wx.navigateTo({
           url: '../error_page/error_page',
         })

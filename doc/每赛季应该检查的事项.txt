@@ -6,3 +6,4 @@ functions: check_request, search_available_date, search_future_games
 Key: TZ
 Value: Asia/Shanghai
 5. 需要将文件中所有的环境名更换为新的环境名（查找-替换功能）
+6. 检查运营者是否加入开发者名单（“小程序助手”微信小程序）

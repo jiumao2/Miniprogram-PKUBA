@@ -33,21 +33,11 @@
 
 				<view class="weui-cell weui-cell_active">
 					<view class="weui-cell__hd">
-						<label class="weui-label">姓名</label>
+						<label class="weui-label">昵称</label>
 					</view>
 					<view class="weui-cell__bd">
-						<input class="weui-input" placeholder="填写本人真实姓名" placeholder-class="weui-input__placeholder"
+						<input class="weui-input" placeholder="用于确认身份" placeholder-class="weui-input__placeholder"
 							bindinput="nameInput" />
-					</view>
-				</view>
-
-				<view class="weui-cell weui-cell_active">
-					<view class="weui-cell__hd">
-						<label class="weui-label">E-Mail</label>
-					</view>
-					<view class="weui-cell__bd">
-						<input class="weui-input" placeholder="填写接收信息的邮箱" type="text" placeholder-class="weui-input__placeholder"
-							bindinput="emailInput" />
 					</view>
 				</view>
 
