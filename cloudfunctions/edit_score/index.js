@@ -10,8 +10,17 @@ exports.main = async (event, context) => {
   db = cloud.database({
     env: "pkuba-1ghnzk0hcbc1edeb"
   })
+  
   return await db.collection('Schedule').where({
     home_team: event.team1,
     away_team: event.team2
-  }).get()
+  }
+  ).update(
+    {
+      data:{
+        home_team_score: event.score1,
+        away_team_score: event.score2
+      }
+    }
+  )
 }

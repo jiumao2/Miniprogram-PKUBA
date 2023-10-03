@@ -1,5 +1,5 @@
 // 云函数入口文件
-const cloud = require('../check_edit/node_modules/wx-server-sdk')
+const cloud = require('wx-server-sdk')
 
 cloud.init({
   env: "pkuba-1ghnzk0hcbc1edeb"

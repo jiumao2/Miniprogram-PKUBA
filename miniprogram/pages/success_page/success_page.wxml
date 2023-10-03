@@ -1,0 +1,12 @@
+<!--miniprogram/pages/success_page/success_page.wxml-->
+<view class="weui-msg">
+  <view class="weui-msg__icon-area"><i class="weui-icon-success weui-icon_msg"></i></view>
+  <view class="weui-msg__text-area">
+    <h2 class="weui-msg__title">操作成功</h2>
+  </view>
+  <view class="weui-msg__opr-area">
+    <view class="weui-btn-area">
+      <a href="javascript:history.back();" class="weui-btn weui-btn_default" bindtap="ok_back">确定</a>
+    </view>
+  </view>
+</view>

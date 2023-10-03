@@ -88,26 +88,26 @@ Page({
       },
       success: res => {
         console.log(res)
-        if (res.result.total<=0){
+        if (res.result.data.length>0){
           that.setData({to_error_page: true})
           wx.cloud.callFunction({
-            name: "leader_register",
+            name: "edit_score",
             data: {
-              name: this.data.name,
-              email: this.data.email,
-              team: this.data.team,
-              group: this.data.group,
-              sex: this.data.sex,
+              team1: this.data.team1,
+              team2: this.data.team2,
+              score1: this.data.score1,
+              score2: this.data.score2
             },
             success: res =>{
-              wx.navigateBack({
-                delta: 0,
+              console.log(res)
+              wx.navigateTo({
+                url: '../success_page/success_page',
               })
             }
           })
         }
         else{
-          app.globalData.errInfo = "表单不完整或已被注册"
+          app.globalData.errInfo = "对阵信息有误"
           wx.navigateTo({
             url: '../error_page/error_page',
           })

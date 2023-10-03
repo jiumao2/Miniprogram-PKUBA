@@ -1,7 +1,7 @@
 ![avatar](/miniprogram_code.jpg)
 # 北大篮协小程序
 
-用于新生杯、北大杯的赛程管理。
+用于新生杯、北大杯的赛程管理
 
 ### 使用方式：
 1. 在schedule.xlsx中按照模板设计比赛

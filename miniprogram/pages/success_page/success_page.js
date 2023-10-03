@@ -1,46 +1,30 @@
-// miniprogram/pages/manager_login/manager_login.js
-
+// miniprogram/pages/error_page/error_page.js
 var app = getApp()
 Page({
+
   /**
    * 页面的初始数据
    */
   data: {
-    loading:false, 
-    password: null 
-  },
-
-  passwordInput: function(e){
-    this.setData({
-      password:e.detail.value
-    })
-  },
-
-  confirmation: function(){
-    // 判断密码是否正确
-    if (this.data.loading) return
-    this.setData({
-      loading:true
-    })
-    if (this.data.password == 'PKUBA1997'){
-      wx.navigateTo({
-        url: '../manager_edit/manager_edit',
-      })
-    }
-    else{
-      app.globalData.errInfo = "密码错误"
-      wx.navigateTo({
-        url: '../error_page/error_page',
-      })
-    }
+    errInfo: app.globalData.errInfo,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.setData({
+      errInfo: app.globalData.errInfo
+    })
+
   },
 
+  ok_back: function(){
+    wx.navigateBack({
+      delta: 0,
+    })
+  },
+  
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -52,9 +36,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.setData({
-      loading: false
-    })
+
   },
 
   /**
