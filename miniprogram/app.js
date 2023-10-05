@@ -22,6 +22,7 @@ App({
       ],
       PLACE_NAMES: ['五四东一','五四东二','五四东三'],
       GROUP_NAMES: ['男篮','女篮'],
+      LITTLEGROUPS: ['A','B','C','D'],
       GROUP_SEX: [true,false],
       MAX_GAMES_NUM: [
         [{hour:12,minute:50,max_game:3},{hour:14,minute:20,max_game:3},{hour:15,minute:50,max_game:3},{hour:18,minute:20,max_game:2},{hour:19,minute:50,max_game:2}],

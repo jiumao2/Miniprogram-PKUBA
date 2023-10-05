@@ -15,8 +15,13 @@ Page({
     value2: 0,
     array3: app.globalData.TEAMS[0],
     value3: 1,
+<<<<<<< Updated upstream
     score1:null,
     score2:null,
+=======
+    score1: -1,
+    score2: -1,
+>>>>>>> Stashed changes
     sex: app.globalData.GROUP_SEX[0],
     group: app.globalData.GROUP_NAMES[0],
     team1: app.globalData.TEAMS[0][0],
@@ -63,12 +68,20 @@ Page({
   
   score1Input: function(e){
     this.setData({
+<<<<<<< Updated upstream
       score1:e.detail.value
+=======
+      score1: parseInt(e.detail.value)
+>>>>>>> Stashed changes
     })
   },
   score2Input: function(e){
     this.setData({
+<<<<<<< Updated upstream
       score2:e.detail.value
+=======
+      score2: parseInt(e.detail.value)
+>>>>>>> Stashed changes
     })
   },
 

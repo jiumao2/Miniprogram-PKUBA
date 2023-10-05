@@ -1,0 +1,39 @@
+<!--pages/scoretable/scoretable.wxml-->
+<view class="weui-form">
+	<view class="weui-form__text-area">
+		<h2 class="weui-form__title">{{group}}{{littlegroup}}组积分表</h2>
+		<view class="weui-form__desc">表内第一个数字为行队得分</view>
+	</view>
+	<view class="container">
+    <view class="table">
+      <!-- 表头 -->
+      <view class="row">
+        <text class="cell"></text>
+        <text class="cell" wx:for="{{names}}">{{item}}</text>
+      </view>
+
+      <!-- 表格内容 -->
+      <block wx:for="{{score}}" wx:for-index="i1" wx:for-item="s1">
+        <view class="row">
+          <text class="cell">{{names[i1]}}</text>
+          <block wx:for="{{s1}}" wx:for-index="i2" wx:for-item="s2"> 
+            <text class ="cell" wx:if="{{i1!=i2&&s2[0]>=0}}" style="color:{{s2[0]<s2[1]?'rgb(0, 0, 0)':'rgb(255, 72, 0)'}}">{{s2[0]}}:{{s2[1]}}
+            </text>
+            <text class="cell" wx:if="{{i1==i2}}">\</text>
+            <text class="cell" wx:if="{{s2[0]<0}}"></text>
+          </block>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>
+
+<view class="fadeIn {{hideLoading ? 'fadeOut' : ''}}" wx:if="{{loading}}">
+	<view class="weui-mask_transparent"></view>
+	<view class="weui-toast">
+		<view class="weui-primary-loading weui-primary-loading_transparent">
+			<view class="weui-primary-loading__dot"></view>
+		</view>
+		<view class="weui-toast__content">加载中</view>
+	</view>
+</view>

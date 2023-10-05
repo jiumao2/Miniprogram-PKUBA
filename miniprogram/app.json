@@ -13,7 +13,13 @@
     "pages/drawing_description/drawing_description",
     "pages/manager_login/manager_login",
     "pages/manager_edit/manager_edit",
+<<<<<<< Updated upstream
     "pages/success_page/success_page"
+=======
+    "pages/success_page/success_page",
+    "pages/scoretable_choose/scoretable_choose",
+    "pages/scoretable/scoretable"
+>>>>>>> Stashed changes
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

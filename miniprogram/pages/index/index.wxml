@@ -8,6 +8,7 @@
 <text>\n</text>
 <view>
   <a class="weui-btn weui-btn_primary" bindtap="to_schedule">赛程</a>
+  <a class="weui-btn weui-btn_primary" bindtap="to_scoretable">积分表查询</a>
   <a class="weui-btn weui-btn_primary" bindtap="login_leader">领队登录</a>
   <a class="weui-btn weui-btn_primary" bindtap="login_manager">管理员登录</a>
 </view>
