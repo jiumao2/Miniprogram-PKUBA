@@ -62,6 +62,17 @@
 					</view>
 				</view>
 
+        <view class="weui-cell weui-cell_active weui-cell_select weui-cell_select-after">
+					<view class="weui-cell__hd">
+						<label class="weui-label">是否弃赛</label>
+					</view>
+					<view class="weui-cell__bd">
+						<picker bindchange="bindPickerChange4" range="{{array4}}">
+							<view class="weui-select">{{array4[value4]}}</view>
+						</picker>
+					</view>
+				</view>
+
 			</view>
 		</view>
 	</view>

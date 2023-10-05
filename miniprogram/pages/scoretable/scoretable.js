@@ -1,5 +1,47 @@
 // pages/scoretable/scoretable.js
 var app = getApp()
+function rerank(t,arr,teams) {
+  var templen = t.length
+  if (templen==1){
+    return t
+  }
+  var tempteam = new Array(templen)
+  for (var _=0;_<templen;_++){
+    tempteam[_]={
+      id: t[_].id,
+      point: 0,
+      netscore: 0,
+      totalscore: 0,
+    }
+  }
+  for (var _=0;_<templen;_++){
+    var ii = tempteam[_].id
+    for (var __=0;__<templen;__++){
+      var jj = tempteam[__].id
+      tempteam[_].point+= (arr[ii][jj][2]>=0?arr[ii][jj][2]:0)
+      tempteam[_].netscore+= (arr[ii][jj][0]>=0?(arr[ii][jj][0]-arr[ii][jj][1]):0)
+      tempteam[_].totalscore+= (arr[ii][jj][0]>=0?arr[ii][jj][0]:0)
+    }
+  }
+  tempteam.sort((a,b)=>{
+    if (a.point!=b.point){
+      return b.point-a.point
+    }
+    if (a.netscore!=b.netscore){
+      return b.netscore-a.netscore
+    }
+    if (a.totalscore!=b.totalscore){
+      return b.totalscore-a.totalscore
+    }
+    if (teams[a.id].netscore!=teams[b.id].netscore){
+      return teams[b.id].netscore - teams[a.id].netscore
+    }
+    if (teams[a.id].totalscore!=teams[b.id].totalscore){
+      return teams[b.id].totalscore - teams[a.id].totalscore
+    }
+  })
+  return tempteam
+}
 Page({
 
   /**
@@ -9,16 +51,20 @@ Page({
     group: 0,
     littlegroup: 0,
     names: [],
+    loading: true
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
+
+   
+
   onLoad(options) {
   this.setData({
     group: app.globalData.GROUP_NAMES[parseInt(options.group)],
     littlegroup: app.globalData.LITTLEGROUPS[parseInt(options.littlegroup)],
-    names: [],
+    teams: null,
     score: null
   })
   wx.cloud.callFunction({
@@ -30,8 +76,37 @@ Page({
     success: res =>{
       console.log(res.result)
       this.setData({
-        names:res.result.names,
-        score:res.result.arr
+        score:res.result.arr,
+        names:res.result.names
+      })
+      var teams = Object.assign([],res.result.teams)
+      var temp = Object.assign([],res.result.teams)
+      temp.sort((a,b)=>{
+        return b.point-a.point
+      })
+      var len = temp.length
+      console.log(temp)
+      for(var i=0;i<len-1;i++){
+        if (temp[i].point==temp[i+1].point){
+          var j = i+2;
+          for(;j<len&&temp[j].point==temp[i].point;j++){}
+          var temptemp = rerank(temp.slice(i,j),this.data.score,teams);
+          for (var _=0;_<j-i;_++){
+            temp[_+i] = temptemp[_]
+          }
+          i = j-1;
+        }
+      }
+      console.log(temp)
+      var tt = Object.assign([],teams);
+      for(var i=0;i<len;i++){
+        teams[i] = tt[temp[i].id]
+      }
+      console.log(this.data.teams)
+      console.log(teams)
+      this.setData({
+        teams: teams,
+        loading:false
       })
     },
     fail: err =>{

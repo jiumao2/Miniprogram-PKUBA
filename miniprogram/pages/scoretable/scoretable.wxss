@@ -3,7 +3,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 40vh;
+  margin-top: 50px;
 }
 
 .table {
@@ -22,4 +22,8 @@
   width: 40px;
   text-align: center;
   padding: 5px 5px;
+}
+
+.scorecell {
+  text-decoration:underline;
 }

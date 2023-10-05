@@ -17,11 +17,31 @@
         <view class="row">
           <text class="cell">{{names[i1]}}</text>
           <block wx:for="{{s1}}" wx:for-index="i2" wx:for-item="s2"> 
-            <text class ="cell" wx:if="{{i1!=i2&&s2[0]>=0}}" style="color:{{s2[0]<s2[1]?'rgb(0, 0, 0)':'rgb(255, 72, 0)'}}">{{s2[0]}}:{{s2[1]}}
-            </text>
+            <view class="cell" wx:if="{{i1!=i2&&s2[0]>=0}}" style="color:{{s2[0]<s2[1]?'rgb(0, 0, 0)':'rgb(255, 72, 0)'}}">
+              <text class ="scorecell" >{{s2[0]}}:{{s2[1]}}\n</text>
+              <text>{{s2[2]}}</text>
+            </view>
             <text class="cell" wx:if="{{i1==i2}}">\</text>
             <text class="cell" wx:if="{{s2[0]<0}}"></text>
           </block>
+        </view>
+      </block>
+    </view>
+  </view>
+  <view class="container">
+    <view class="table">
+      <!-- 表头 -->
+      <view class="row">
+        <text class="cell">队伍</text>
+        <text class="cell">积分</text>
+        <text class="cell">排名</text>
+      </view>
+      <!-- 表格内容 -->
+      <block wx:for="{{teams}}" wx:for-index="i1" wx:for-item="s1">
+        <view class="row">
+          <text class="cell">{{s1.name}}</text>
+          <text class="cell">{{s1.point}}</text>
+          <text class="cell">{{i1+1}}</text>
         </view>
       </block>
     </view>

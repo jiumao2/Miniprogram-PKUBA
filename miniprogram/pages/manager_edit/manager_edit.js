@@ -15,6 +15,9 @@ Page({
     value2: 0,
     array3: app.globalData.TEAMS[0],
     value3: 1,
+    array4: ['否', '是'],
+    value4: 0,
+    giveup: false,
     score1: -1,
     score2: -1,
     sex: app.globalData.GROUP_SEX[0],
@@ -59,7 +62,13 @@ Page({
     })
     console.log(this.data.team)
   },
-
+  bindPickerChange4: function(e) {
+    this.setData({
+        giveup: e.detail.value==0?false:true,
+        value4: e.detail.value
+    })
+    console.log(this.data.giveup)
+  },
   
   score1Input: function(e){
     this.setData({
@@ -84,11 +93,14 @@ Page({
       name: "check_edit",
       data: {
         team1: this.data.team1,
-        team2: this.data.team2
+        team2: this.data.team2,
+        giveup: this.data.giveup,
+        score1: this.data.score1,
+        score2: this.data.score2
       },
       success: res => {
         console.log(res)
-        if (res.result.data.length>0){
+        if (res.result){
           that.setData({to_error_page: true})
           wx.cloud.callFunction({
             name: "edit_score",
@@ -96,7 +108,8 @@ Page({
               team1: this.data.team1,
               team2: this.data.team2,
               score1: this.data.score1,
-              score2: this.data.score2
+              score2: this.data.score2,
+              giveup: this.data.giveup
             },
             success: res =>{
               console.log(res)
