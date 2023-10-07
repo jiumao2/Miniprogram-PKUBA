@@ -51,7 +51,10 @@ Page({
     group: 0,
     littlegroup: 0,
     names: [],
-    loading: true
+    loading: true,
+    teams: null,
+    score: null,
+    nonzero: 0
   },
 
   /**
@@ -63,9 +66,7 @@ Page({
   onLoad(options) {
   this.setData({
     group: app.globalData.GROUP_NAMES[parseInt(options.group)],
-    littlegroup: app.globalData.LITTLEGROUPS[parseInt(options.littlegroup)],
-    teams: null,
-    score: null
+    littlegroup: app.globalData.LITTLEGROUPS[parseInt(options.littlegroup)]
   })
   wx.cloud.callFunction({
     name:"make_table",
@@ -99,13 +100,19 @@ Page({
       }
       console.log(temp)
       var tt = Object.assign([],teams);
+      var cnt = 0
       for(var i=0;i<len;i++){
         teams[i] = tt[temp[i].id]
+        if (teams[i].totalscore>0){
+          cnt++
+        }
       }
       console.log(this.data.teams)
       console.log(teams)
+      console.log(cnt)
       this.setData({
         teams: teams,
+        nonzero: cnt,
         loading:false
       })
     },

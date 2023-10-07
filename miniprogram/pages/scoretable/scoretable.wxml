@@ -41,7 +41,7 @@
         <view class="row">
           <text class="cell">{{s1.name}}</text>
           <text class="cell">{{s1.point}}</text>
-          <text class="cell">{{i1+1}}</text>
+          <text class="cell">{{s1.point==0?(nonzero+1):(i1+1)}}</text>
         </view>
       </block>
     </view>
