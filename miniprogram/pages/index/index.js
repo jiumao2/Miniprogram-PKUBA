@@ -22,6 +22,34 @@ Page({
       url: '../schedule/schedule',
     })
   },
+  to_scoretable(){
+    if (this.data.loading) return
+    this.setData({
+      loading: true
+    })
+    wx.navigateTo({
+      url: '../scoretable_choose/scoretable_choose',
+    })
+  },
+  login_manager(){
+    if (this.data.loading) return
+    this.setData({
+      loading: true
+    })
+    wx.navigateTo({
+      url: '../manager_login/manager_login',
+    })
+  },
+
+  login_manager(){
+    if (this.data.loading) return
+    this.setData({
+      loading: true
+    })
+    wx.navigateTo({
+      url: '../manager_login/manager_login',
+    })
+  },
 
   login_leader(){
     if (this.data.loading) return
@@ -63,7 +91,6 @@ Page({
       }
     })
   },
-
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

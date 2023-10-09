@@ -1,0 +1,29 @@
+/* pages/scoretable/scoretable.wxss */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.table {
+  border-collapse: collapse;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0px;
+}
+
+.cell {
+  font-size: 12pt;
+  border: 1px solid black;
+  width: 40px;
+  text-align: center;
+  padding: 5px 5px;
+}
+
+.scorecell {
+  text-decoration:underline;
+}

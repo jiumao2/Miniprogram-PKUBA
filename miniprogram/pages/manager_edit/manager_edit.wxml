@@ -1,0 +1,92 @@
+<!--miniprogram/pages/manager_edit/manager_edit.wxml-->
+<view class="weui-form">
+	<view class="weui-form__text-area">
+		<h2 class="weui-form__title">得分登记</h2>
+		<view class="weui-form__desc">请填入对阵双方的球队与比分</view>
+	</view>
+	<view class="weui-form__control-area">
+		<view class="weui-cells__group weui-cells__group_form">
+			<view class="weui-cells__title">对阵信息</view>
+			<view class="weui-cells weui-cells_form">
+
+				<view class="weui-cell weui-cell_active weui-cell_select weui-cell_select-after">
+					<view class="weui-cell__hd">
+						<label class="weui-label">比赛组别</label>
+					</view>
+					<view class="weui-cell__bd">
+						<picker bindchange="bindPickerChange1" range="{{array1}}">
+							<view class="weui-select">{{array1[value1]}}</view>
+						</picker>
+					</view>
+				</view>
+
+				<view class="weui-cell weui-cell_active weui-cell_select weui-cell_select-after">
+					<view class="weui-cell__hd">
+						<label class="weui-label">主队</label>
+					</view>
+					<view class="weui-cell__bd">
+						<picker bindchange="bindPickerChange2" range="{{array2}}">
+							<view class="weui-select">{{array2[value2]}}</view>
+						</picker>
+					</view>
+				</view>
+
+				<view class="weui-cell weui-cell_active">
+					<view class="weui-cell__hd">
+						<label class="weui-label">主队得分</label>
+					</view>
+					<view class="weui-cell__bd">
+						<input class="weui-input" placeholder="" placeholder-class="weui-input__placeholder"
+							bindinput="score1Input" />
+					</view>
+				</view>
+
+				<view class="weui-cell weui-cell_active weui-cell_select weui-cell_select-after">
+					<view class="weui-cell__hd">
+						<label class="weui-label">客队</label>
+					</view>
+					<view class="weui-cell__bd">
+						<picker bindchange="bindPickerChange3" range="{{array3}}">
+							<view class="weui-select">{{array3[value3]}}</view>
+						</picker>
+					</view>
+				</view>
+
+				<view class="weui-cell weui-cell_active">
+					<view class="weui-cell__hd">
+						<label class="weui-label">客队得分</label>
+					</view>
+					<view class="weui-cell__bd">
+						<input class="weui-input" placeholder="" placeholder-class="weui-input__placeholder"
+							bindinput="score2Input" />
+					</view>
+				</view>
+
+        <view class="weui-cell weui-cell_active weui-cell_select weui-cell_select-after">
+					<view class="weui-cell__hd">
+						<label class="weui-label">是否弃赛</label>
+					</view>
+					<view class="weui-cell__bd">
+						<picker bindchange="bindPickerChange4" range="{{array4}}">
+							<view class="weui-select">{{array4[value4]}}</view>
+						</picker>
+					</view>
+				</view>
+
+			</view>
+		</view>
+	</view>
+	<view class="weui-form__opr-area">
+		<a class="weui-btn weui-btn_primary" bindtap="toedit">确定</a>
+	</view>
+</view>
+
+<view class="fadeIn {{hideLoading ? 'fadeOut' : ''}}" wx:if="{{loading}}">
+	<view class="weui-mask_transparent"></view>
+	<view class="weui-toast">
+		<view class="weui-primary-loading weui-primary-loading_transparent">
+			<view class="weui-primary-loading__dot"></view>
+		</view>
+		<view class="weui-toast__content">加载中</view>
+	</view>
+</view>
