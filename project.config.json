@@ -21,8 +21,6 @@
     "compileHotReLoad": false,
     "lazyloadPlaceholderEnable": false,
     "useMultiFrameRuntime": false,
-    "useApiHook": false,
-    "useApiHostProcess": false,
     "babelSetting": {
       "ignore": [],
       "disablePlugins": [],
@@ -34,11 +32,11 @@
     "packNpmManually": false,
     "packNpmRelationList": [],
     "minifyWXSS": true,
-    "showES6CompileOption": false
+    "showES6CompileOption": false,
+    "ignoreUploadUnusedFiles": true,
+    "useApiHook": false,
+    "useApiHostProcess": false
   },
-  "appid": "wxc9104b1a61511ee3",
-  "projectname": "%E5%8C%97%E5%A4%A7%E7%AF%AE%E5%8D%8F%E5%B0%8F%E7%A8%8B%E5%BA%8F",
-  "libVersion": "2.14.1",
   "cloudfunctionTemplateRoot": "cloudfunctionTemplate/",
   "condition": {
     "miniprogram": {
@@ -53,12 +51,14 @@
   },
   "compileType": "miniprogram",
   "srcMiniprogramRoot": "miniprogram/",
+  "editorSetting": {
+    "tabIndent": "insertSpaces",
+    "tabSize": 2
+  },
+  "libVersion": "2.14.1",
   "packOptions": {
     "ignore": [],
     "include": []
   },
-  "editorSetting": {
-    "tabIndent": "insertSpaces",
-    "tabSize": 2
-  }
+  "appid": "wxc9104b1a61511ee3"
 }

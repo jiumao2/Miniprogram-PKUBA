@@ -13,7 +13,6 @@ Page({
   view_detail: function (e){
     app.globalData.request_detail = e.currentTarget.dataset.message
     console.log(app.globalData.request_detail)
-    console.log(e.currentTarget.dataset.message)
     wx.navigateTo({
       url: '../view_apply_details/view_apply_details',
     })
@@ -46,7 +45,8 @@ Page({
         }
         for (var i=0;i<request_out.length;i++){
           var time = new Date(request_out[i].time)
-          request_out[i].time = time
+          request_out[i].time = time.toISOString()
+          request_out[i].year = time.getFullYear().toString()
           request_out[i].month = (time.getMonth()+1).toString()
           request_out[i].date = time.getDate().toString()
           request_out[i].hour = time.getHours().toString()
@@ -58,7 +58,8 @@ Page({
         }
         for (var i=0;i<request_in.length;i++){
           var time = new Date(request_in[i].time)
-          request_in[i].time = time
+          request_in[i].time = time.toISOString()
+          request_in[i].year = time.getFullYear().toString()
           request_in[i].month = (time.getMonth()+1).toString()
           request_in[i].date = time.getDate().toString()
           request_in[i].hour = time.getHours().toString()
@@ -72,7 +73,7 @@ Page({
         console.log(request_in)
         this.setData({
           request_out: request_out,
-          request_in:request_in
+          request_in: request_in
         })
       },
       fail: err=>{

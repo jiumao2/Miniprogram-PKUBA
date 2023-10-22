@@ -19,61 +19,63 @@ Page({
     var time_ddl = new Date(
       now.getFullYear(),
       now.getMonth(),
-      now.getDate()+3
+      now.getDate()+2 // 提前两天达成一致
     )
-    if (time_ddl.getTime()<this.data.request_detail.time_new.getTime()){
-    if(this.data.request_detail.type==3){
-      var new_state = 4
-    }
-    else if(this.data.request_detail.type==1){
-      var new_state = 2
-    }
-    wx.cloud.callFunction({
-      name: "update_request",
-      data:{
-        request:this.data.request_detail,
-        new_state: new_state,
-        to_delete: false
-      },
-      success: res => {
-        app.globalData.request_detail.state = 2
 
-        var text_email = "原比赛: " + app.globalData.request_detail.month+'月'+app.globalData.request_detail.date+'日 ' 
-        + app.globalData.request_detail.hour+':'+app.globalData.request_detail.minute + " "
-        + app.globalData.request_detail.home_team + " VS "+ app.globalData.request_detail.away_team
-        + ' ' + app.globalData.request_detail.place + '\n' 
-        + "调整后比赛: "+ app.globalData.request_detail.month_new+'月'+app.globalData.request_detail.date_new+'日 ' 
-        + app.globalData.request_detail.hour_new+':'+app.globalData.request_detail.minute_new + " "
-        + app.globalData.request_detail.home_team + " VS "+ app.globalData.request_detail.away_team
-        + ' ' + app.globalData.request_detail.place_new + '\n'
-        + "申请日期: "+app.globalData.request_detail.month_req+'月'+app.globalData.request_detail.date_req+'日 ' 
-        + app.globalData.request_detail.hour_req+':'+app.globalData.request_detail.minute_req + '\n'
-        + "申请方: "+app.globalData.request_detail.requester +'\n'
-        + "申请类型: "+app.globalData.TYPES[app.globalData.request_detail.type-1] + '\n'
-        + "组别: " + app.globalData.request_detail.group + '\n'
-        console.log(text_email)
-        wx.cloud.callFunction({
-          name: 'send_email',
-          data:{
-            text: text_email,
-            attachment: 0,
-            subject: app.globalData.TYPES[app.globalData.request_detail.type-1]+'申请 '+ app.globalData.request_detail.home_team + " VS "+ app.globalData.request_detail.away_team
-          },
-          success: res =>{
-            console.log(res)
-            wx.navigateBack({
-              delta: 0,
-            })
-          },
-          fail: err =>{
-            console.log(err)
-          }
-        })
-      },
-      fail: err =>{
-        console.log(err)
+    if (time_ddl.getTime()<this.data.request_detail.time_new.getTime() 
+    && time_ddl.getTime()<this.data.request_detail.time.getTime()){
+      if(this.data.request_detail.type==3){
+        var new_state = 4
       }
-    })
+      else if(this.data.request_detail.type==1){
+        var new_state = 2
+      }
+      wx.cloud.callFunction({
+        name: "update_request",
+        data:{
+          request:this.data.request_detail,
+          new_state: new_state,
+          to_delete: false
+        },
+        success: res => {
+          app.globalData.request_detail.state = 2
+
+          var text_email = "原比赛: " + app.globalData.request_detail.month+'月'+app.globalData.request_detail.date+'日 ' 
+          + app.globalData.request_detail.hour+':'+app.globalData.request_detail.minute + " "
+          + app.globalData.request_detail.home_team + " VS "+ app.globalData.request_detail.away_team
+          + ' ' + app.globalData.request_detail.place + '\n' 
+          + "调整后比赛: "+ app.globalData.request_detail.month_new+'月'+app.globalData.request_detail.date_new+'日 ' 
+          + app.globalData.request_detail.hour_new+':'+app.globalData.request_detail.minute_new + " "
+          + app.globalData.request_detail.home_team + " VS "+ app.globalData.request_detail.away_team
+          + ' ' + app.globalData.request_detail.place_new + '\n'
+          + "申请日期: "+app.globalData.request_detail.month_req+'月'+app.globalData.request_detail.date_req+'日 ' 
+          + app.globalData.request_detail.hour_req+':'+app.globalData.request_detail.minute_req + '\n'
+          + "申请方: "+app.globalData.request_detail.requester +'\n'
+          + "申请类型: "+app.globalData.TYPES[app.globalData.request_detail.type-1] + '\n'
+          + "组别: " + app.globalData.request_detail.group + '\n'
+          console.log(text_email)
+          wx.cloud.callFunction({
+            name: 'send_email',
+            data:{
+              text: text_email,
+              attachment: 0,
+              subject: app.globalData.TYPES[app.globalData.request_detail.type-1]+'申请 '+ app.globalData.request_detail.home_team + " VS "+ app.globalData.request_detail.away_team
+            },
+            success: res =>{
+              console.log(res)
+              wx.navigateBack({
+                delta: 0,
+              })
+            },
+            fail: err =>{
+              console.log(err)
+            }
+          })
+        },
+        fail: err =>{
+          console.log(err)
+        }
+      })
     }
     else{
       wx.cloud.callFunction({
@@ -155,6 +157,8 @@ Page({
   onLoad: function (options) {
     console.log(app.globalData.request_detail)
     var request_detail = app.globalData.request_detail
+
+    request_detail.time = new Date(request_detail.time)
     var time = new Date(request_detail.time_new)
     request_detail.time_new = time
     request_detail.month_new = (time.getMonth()+1).toString()
