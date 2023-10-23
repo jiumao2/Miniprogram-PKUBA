@@ -103,7 +103,7 @@ Page({
       var cnt = 0
       for(var i=0;i<len;i++){
         teams[i] = tt[temp[i].id]
-        if (teams[i].totalscore>0){
+        if (teams[i].totalpoint>0){
           cnt++
         }
       }
