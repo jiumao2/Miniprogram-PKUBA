@@ -34,7 +34,8 @@
     "packNpmManually": false,
     "packNpmRelationList": [],
     "minifyWXSS": true,
-    "showES6CompileOption": false
+    "showES6CompileOption": false,
+    "ignoreUploadUnusedFiles": true
   },
   "appid": "wxc9104b1a61511ee3",
   "projectname": "%E5%8C%97%E5%A4%A7%E7%AF%AE%E5%8D%8F%E5%B0%8F%E7%A8%8B%E5%BA%8F",
