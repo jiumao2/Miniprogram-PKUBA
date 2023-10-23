@@ -22,17 +22,33 @@ Page({
     this.setData({
       loading:true
     })
-    if (this.data.password == 'PKUBA1997'){
-      wx.navigateTo({
-        url: '../manager_edit/manager_edit',
-      })
-    }
-    else{
-      app.globalData.errInfo = "密码错误"
-      wx.navigateTo({
-        url: '../error_page/error_page',
-      })
-    }
+    wx.cloud.callFunction({
+      name:'get_private',
+      data:{
+        needed:'PASSWORD'
+      },
+      success: res => {
+        console.log(res)
+        if (this.data.password == res.result.data[0].LoginPassword){
+          wx.navigateTo({
+            url: '../manager_edit/manager_edit',
+          })
+        }
+        else{
+          app.globalData.errInfo = "密码错误"
+          wx.navigateTo({
+            url: '../error_page/error_page',
+          })
+        }
+      },
+      fail: err => {
+        console.log('failed!!!',err)
+        wx.navigateTo({
+          url: '../error_page/error_page',
+        })
+      }
+    })
+    
   },
 
   /**
