@@ -7,7 +7,14 @@ Page({
    */
   data: {
     loading:false, 
-    password: null 
+    password: null,
+    name: null 
+  },
+
+  nameInput: function(e){
+    this.setData({
+      name:e.detail.value
+    })
   },
 
   passwordInput: function(e){
@@ -30,9 +37,52 @@ Page({
       success: res => {
         console.log(res)
         if (this.data.password == res.result.data[0].LoginPassword){
-          wx.navigateTo({
-            url: '../manager_edit/manager_edit',
-          })
+          // 检查是否已经注册
+          wx.cloud.callFunction({
+            name: "check_manager",
+            data: {
+              name: this.data.name,
+            },
+            success: res => {
+              if (res.result.total<=0){
+                // 注册
+                wx.cloud.callFunction({
+                  name:'manager_register',
+                  data:{
+                    name:this.data.name
+                  },
+                  success: res => {
+                    console.log(res)
+                    console.log('Manager register succeed!')
+                  },
+                  fail: err => {
+                    console.log('Fail to register a manager!', err)
+                    app.globalData.errInfo = "管理员注册失败"
+                    wx.navigateTo({
+                      url: '../error_page/error_page',
+                    })
+                  }
+                })
+
+                wx.navigateTo({
+                  url: '../manager_edit/manager_edit',
+                })
+              }
+              else{
+                app.globalData.errInfo = "表单不完整或已被注册"
+                wx.navigateTo({
+                  url: '../error_page/error_page',
+                })
+              }
+              },
+            fail: err =>{
+              console.log('failed!!!',err.info)
+              console.log(err)
+              app.globalData.errInfo = "检查错误"
+              wx.navigateTo({
+                url: '../error_page/error_page',
+              })
+            }})        
         }
         else{
           app.globalData.errInfo = "密码错误"

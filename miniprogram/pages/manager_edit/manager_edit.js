@@ -24,7 +24,6 @@ Page({
     group: app.globalData.GROUP_NAMES[0],
     team1: app.globalData.TEAMS[0][0],
     team2: app.globalData.TEAMS[0][1],
-    to_error_page: true,
   },
   bindPickerChange1: function(e) {
     var value_old = this.data.value1
@@ -87,7 +86,6 @@ Page({
     this.setData({
       loading:true
     })
-    var that = this
     console.log(this.data)
     wx.cloud.callFunction({
       name: "check_edit",
@@ -101,7 +99,6 @@ Page({
       success: res => {
         console.log(res)
         if (res.result){
-          that.setData({to_error_page: true})
           wx.cloud.callFunction({
             name: "edit_score",
             data: {
