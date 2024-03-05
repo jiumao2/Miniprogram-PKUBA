@@ -2,14 +2,14 @@
 const cloud = require('wx-server-sdk')
 
 cloud.init({
-  env: "pkuba-1ghnzk0hcbc1edeb"
+  env: cloud.DYNAMIC_CURRENT_ENV
 })
 
 
 // 云函数入口函数
 exports.main = async (event, context) => {
   db = cloud.database({
-    env: "pkuba-1ghnzk0hcbc1edeb"
+    env: cloud.DYNAMIC_CURRENT_ENV
   })
   const _ = db.command
   if (event.type == 1 || event.type == 3){

@@ -1,4 +1,4 @@
-// miniprogram/pages/schedule.js
+// pages/schedule_edit/schedule_edit.js
 var app = getApp()
 Page({
 
@@ -17,7 +17,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad(options) {
     wx.setNavigationBarTitle({
       　　　　title: app.globalData.GAME_NAME + '赛程' //页面切换，更换页面标题
       　　})
@@ -102,54 +102,60 @@ Page({
     
   },
 
+  edit_this_game(e){
+    console.log(e.currentTarget.dataset.game)
+    app.globalData.game_on_editting = e.currentTarget.dataset.game
+    wx.navigateTo({
+      url: '../manager_edit/manager_edit',
+    })
+  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady() {
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-    return {
-      title: '北大篮协小程序',
-      desc:"2024年北大杯赛事信息查询！"
-    }
+  onShareAppMessage() {
+
   }
 })

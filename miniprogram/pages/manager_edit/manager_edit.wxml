@@ -1,7 +1,7 @@
 <!--miniprogram/pages/manager_edit/manager_edit.wxml-->
 <view class="weui-form">
 	<view class="weui-form__text-area">
-		<h2 class="weui-form__title">得分登记</h2>
+		<h2 class="weui-form__title">更新比赛信息</h2>
 		<view class="weui-form__desc">请填入对阵双方的球队与比分</view>
 	</view>
 	<view class="weui-form__control-area">
@@ -9,25 +9,51 @@
 			<view class="weui-cells__title">对阵信息</view>
 			<view class="weui-cells weui-cells_form">
 
-				<view class="weui-cell weui-cell_active weui-cell_select weui-cell_select-after">
+        <view class="weui-cell weui-cell_active">
 					<view class="weui-cell__hd">
-						<label class="weui-label">比赛组别</label>
+						<label class="weui-label">日期</label>
 					</view>
 					<view class="weui-cell__bd">
-						<picker bindchange="bindPickerChange1" range="{{array1}}">
-							<view class="weui-select">{{array1[value1]}}</view>
-						</picker>
+            <picker mode="date" value="{{date}}" bindchange="bind_date_change">
+              <view>{{date}}</view>
+            </picker>
+					</view>
+				</view>
+        <view class="weui-cell weui-cell_active">
+					<view class="weui-cell__hd">
+						<label class="weui-label">时间</label>
+					</view>
+					<view class="weui-cell__bd">
+            <picker mode="time" value="{{time}}" bindchange="bind_time_change">
+              <view>{{time}}</view>
+            </picker>
 					</view>
 				</view>
 
-				<view class="weui-cell weui-cell_active weui-cell_select weui-cell_select-after">
+        <view class="weui-cell weui-cell_active">
+					<view class="weui-cell__hd">
+						<label class="weui-label">地点</label>
+					</view>
+					<view class="weui-cell__bd">
+						<input class="weui-input" value="{{place}}" data-field="place" bindchange="bind_input_change"/>
+					</view>
+				</view>
+
+				<view class="weui-cell weui-cell_active">
+					<view class="weui-cell__hd">
+						<label class="weui-label">组别</label>
+					</view>
+					<view class="weui-cell__bd">
+						<input class="weui-input" value="{{group}}" data-field="group" bindchange="bind_input_change"/>
+					</view>
+				</view>
+
+				<view class="weui-cell weui-cell_active">
 					<view class="weui-cell__hd">
 						<label class="weui-label">主队</label>
 					</view>
 					<view class="weui-cell__bd">
-						<picker bindchange="bindPickerChange2" range="{{array2}}">
-							<view class="weui-select">{{array2[value2]}}</view>
-						</picker>
+						<input class="weui-input" value="{{home_team}}" data-field="home_team" bindchange="bind_input_change"/>
 					</view>
 				</view>
 
@@ -36,19 +62,16 @@
 						<label class="weui-label">主队得分</label>
 					</view>
 					<view class="weui-cell__bd">
-						<input class="weui-input" placeholder="" placeholder-class="weui-input__placeholder"
-							bindinput="score1Input" />
+						<input type="number" class="weui-input" value="{{home_team_score}}" data-field="home_team_score" bindchange="bind_input_change"/>
 					</view>
 				</view>
 
-				<view class="weui-cell weui-cell_active weui-cell_select weui-cell_select-after">
+				<view class="weui-cell weui-cell_active">
 					<view class="weui-cell__hd">
 						<label class="weui-label">客队</label>
 					</view>
 					<view class="weui-cell__bd">
-						<picker bindchange="bindPickerChange3" range="{{array3}}">
-							<view class="weui-select">{{array3[value3]}}</view>
-						</picker>
+						<input class="weui-input" value="{{away_team}}"  data-field="away_team" bindchange="bind_input_change"/>
 					</view>
 				</view>
 
@@ -57,8 +80,7 @@
 						<label class="weui-label">客队得分</label>
 					</view>
 					<view class="weui-cell__bd">
-						<input class="weui-input" placeholder="" placeholder-class="weui-input__placeholder"
-							bindinput="score2Input" />
+						<input type="number" class="weui-input" value="{{away_team_score}}" data-field="away_team_score" bindchange="bind_input_change"/>
 					</view>
 				</view>
 
@@ -67,8 +89,8 @@
 						<label class="weui-label">是否弃赛</label>
 					</view>
 					<view class="weui-cell__bd">
-						<picker bindchange="bindPickerChange4" range="{{array4}}">
-							<view class="weui-select">{{array4[value4]}}</view>
+						<picker bindchange="bind_picker_change" range="{{picker_range}}">
+							<view class="weui-select">{{picker_range[picker_value]}}</view>
 						</picker>
 					</view>
 				</view>

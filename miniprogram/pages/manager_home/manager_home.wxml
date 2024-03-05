@@ -1,0 +1,22 @@
+<!--pages/manager_home/manager_home.wxml-->
+
+<view class='imagesize'>
+  <image src="../index/logo.jpg" mode="aspectFit">
+  </image>
+</view>
+
+<text>\n</text>
+<view>
+  <a class="weui-btn weui-btn_primary" bindtap="to_schedule_edit">更新比赛信息</a>
+  <a class="weui-btn weui-btn_primary" bindtap="to_upload_scoresheet">查看/上传记录表</a>
+</view>
+
+<view class="fadeIn {{hideLoading ? 'fadeOut' : ''}}" wx:if="{{loading}}">
+	<view class="weui-mask_transparent"></view>
+	<view class="weui-toast">
+		<view class="weui-primary-loading weui-primary-loading_transparent">
+			<view class="weui-primary-loading__dot"></view>
+		</view>
+		<view class="weui-toast__content">加载中</view>
+	</view>
+</view>

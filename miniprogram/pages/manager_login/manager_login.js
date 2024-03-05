@@ -65,7 +65,7 @@ Page({
                 })
 
                 wx.navigateTo({
-                  url: '../manager_edit/manager_edit',
+                  url: '../manager_home/manager_home',
                 })
               }
               else{

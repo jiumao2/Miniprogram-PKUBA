@@ -1,3 +1,4 @@
+/* pages/schedule_edit/schedule_edit.wxss */
 /* miniprogram/pages/schedule.wxss */
 .man_view {
   color: rgb(27, 111, 236);

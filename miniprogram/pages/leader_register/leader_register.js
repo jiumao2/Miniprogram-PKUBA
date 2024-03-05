@@ -85,6 +85,7 @@ Page({
               sex: this.data.sex,
             },
             success: res =>{
+              console.log('Successfully registered!')
               wx.navigateBack({
                 delta: 0,
               })

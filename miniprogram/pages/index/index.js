@@ -31,15 +31,6 @@ Page({
       url: '../scoretable_choose/scoretable_choose',
     })
   },
-  login_manager(){
-    if (this.data.loading) return
-    this.setData({
-      loading: true
-    })
-    wx.navigateTo({
-      url: '../manager_login/manager_login',
-    })
-  },
 
   login_manager(){
     if (this.data.loading) return
@@ -55,7 +46,7 @@ Page({
         console.log(res)
         if (res.result.total>0){
           wx.navigateTo({
-            url: '../manager_edit/manager_edit',
+            url: '../manager_home/manager_home',
           })
         }
         else{
@@ -162,6 +153,9 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    return {
+      title: '北大篮协小程序',
+      desc:"2024年北大杯赛事信息查询！"
+    }
   }
 })
