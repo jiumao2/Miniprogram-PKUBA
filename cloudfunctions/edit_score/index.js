@@ -29,7 +29,10 @@ exports.main = async (event, context) => {
         away_team: event.away_team,
         group:event.group,
         is_given_up: event.is_given_up,
-        update_time: new Date()
+        adjustable: event.adjustable,
+        description: event.description,
+        update_time: new Date(),
+        updated_by: event.updated_by
       }
     }
   )

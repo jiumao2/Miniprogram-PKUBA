@@ -9,10 +9,11 @@ Page({
     loading:false,
     hideLoading:false,
     is_given_up: false,
-    score1: -1,
-    score2: -1,
-    picker_range: ["否", "是"],
-    picker_value: 0
+    adjustable:false,
+    picker_range_give_up: ["否", "是"],
+    picker_value_give_up: 0,
+    picker_range_adjust: ["否", "是"],
+    picker_value_adjust: 0
   },
 
   bind_input_change(e){
@@ -22,10 +23,10 @@ Page({
     console.log(this.data[field])
   },
 
-  bind_picker_change(e){
+  bind_picker_change_give_up(e){
     console.log(e)
     this.setData({
-      picker_value: e.detail.value
+      picker_value_give_up: e.detail.value
     })
 
     if (e.detail.value==0){
@@ -36,6 +37,24 @@ Page({
     else{
       this.setData({
         is_given_up:true
+      })
+    }
+  },
+
+  bind_picker_change_adjust(e){
+    console.log(e)
+    this.setData({
+      picker_value_adjust: e.detail.value
+    })
+
+    if (e.detail.value==0){
+      this.setData({
+        adjustable:false
+      })
+    }
+    else{
+      this.setData({
+        adjustable:true
       })
     }
   },
@@ -87,7 +106,10 @@ Page({
         away_team_score: this.data.away_team_score,
         place:this.data.place,
         time:time_new,
-        is_given_up:this.data.is_given_up
+        is_given_up:this.data.is_given_up,
+        adjustable:this.data.adjustable,
+        description:this.data.description,
+        updated_by:app.globalData.manager_info.name
       },
       success: res => {
         console.log(res)
@@ -106,7 +128,10 @@ Page({
               away_team_score: this.data.away_team_score,
               place:this.data.place,
               time:time_new,
-              is_given_up:this.data.is_given_up
+              is_given_up:this.data.is_given_up,
+              adjustable:this.data.adjustable,
+              description:this.data.description,
+              updated_by:app.globalData.manager_info.name
             },
             success: res =>{
               console.log(res)
@@ -146,8 +171,35 @@ Page({
       home_team:game_raw.home_team,
       away_team:game_raw.away_team,
       home_team_score:game_raw.home_team_score,
-      away_team_score:game_raw.away_team_score
+      away_team_score:game_raw.away_team_score,
+      description:game_raw.description
     })
+
+    if (this.data.game_raw.adjustable){
+      this.setData({
+        adjustable:true,
+        picker_value_adjust:1
+      })
+    }
+    else{
+      this.setData({
+        adjustable:false,
+        picker_value_adjust:0
+      })
+    }
+
+    if (this.data.game_raw.is_given_up){
+      this.setData({
+        is_given_up:true,
+        picker_value_give_up:1
+      })
+    }
+    else{
+      this.setData({
+        is_given_up:false,
+        picker_value_give_up:0
+      })
+    }
   },
 
   /**

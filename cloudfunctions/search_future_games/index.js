@@ -22,7 +22,7 @@ exports.main = async (event, context) => {
     )
   }
   if (event.for_request){
-    return db.collection('Schedule').where(_.and([{
+    return await db.collection('Schedule').where(_.and([{
       group: event.group,
       time: _.gt(date0),
       adjustable: true
@@ -34,7 +34,7 @@ exports.main = async (event, context) => {
     }])])).get()  
   }
   else{
-    return db.collection('Schedule').where(_.and([{
+    return await db.collection('Schedule').where(_.and([{
       group: event.group,
       time: _.gt(date0)
     },

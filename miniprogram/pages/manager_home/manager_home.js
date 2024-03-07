@@ -25,6 +25,16 @@ Page({
     })
   },
 
+  to_scoresheet_edit(){
+    if (this.data.loading) return
+    this.setData({
+      loading: true
+    })
+    wx.navigateTo({
+      url: '../schedule_scoresheet/schedule_scoresheet',
+    })
+  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

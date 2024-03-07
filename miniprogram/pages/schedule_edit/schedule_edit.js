@@ -25,7 +25,9 @@ Page({
       name: "search_future_schedule",
       data: {},
       success: res =>{
-        var now = new Date()
+        var now_precise = new Date()
+        var now = new Date(now_precise.getFullYear(), now_precise.getMonth(), now_precise.getDate())
+        
         var schedule = res.result
         let future_schedule = []
         let old_schedule = []

@@ -9,24 +9,15 @@ cloud.init({
 exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext()
 
-  if (!event.name || !event.team || !event.group){
-    return {
-      total: 2,
-      info: "wrong info",
-    }
-  }
   db = cloud.database({
     env: cloud.DYNAMIC_CURRENT_ENV
   })
   
   const _ = db.command
 
-  return await db.collection('Leader').where(_.or([{
-    team: event.team,
-    sex: event.sex
-  },
+  return await db.collection('Manager').where(
   {
     openID: wxContext.OPENID
   }
-  ])).count()
+  ).get()
 }

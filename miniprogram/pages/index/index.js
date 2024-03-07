@@ -38,31 +38,38 @@ Page({
       loading: true
     })
     wx.cloud.callFunction({
-      name:"check_manager",
-      data:{
-        name: "login"
-      },
-      success: res =>{
-        console.log(res)
-        if (res.result.total>0){
-          wx.navigateTo({
-            url: '../manager_home/manager_home',
-          })
-        }
-        else{
-          wx.navigateTo({
-            url: '../manager_login/manager_login',
-          })
-        }
+      name: 'login',
+      data: {},
+      success: res => {
+        // app.globalData.openid = res.result.openid
+        console.log(res.result.openid)
+        wx.cloud.callFunction({
+          name: 'search_manager',
+          success: res => {
+            console.log(res)
+            if (res.result.data.length>0){
+              console.log(res.result.data[0])
+              getApp().globalData.manager_info = res.result.data[0]
+              console.log(getApp().globalData.manager_info)
+              wx.navigateTo({
+                url: '../manager_home/manager_home',
+              })
+            }
+            else{
+              wx.navigateTo({
+                url: '../manager_login/manager_login',
+              })
+            }
+          }
+        })
       },
       fail: err => {
-        console.error('[云函数] [check_leader] 调用失败', err)
+        console.error('[云函数] [login] 调用失败', err)
         wx.navigateBack({
           delta: 0,
         })
       }
     })
-
   },
 
   login_leader(){

@@ -22,7 +22,7 @@ exports.main = async (event, context) => {
   
   const _ = db.command
 
-  return db.collection('Manager').where(
+  return await db.collection('Manager').where(
   {
     openID: wxContext.OPENID
   }).count()

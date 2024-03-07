@@ -15,7 +15,7 @@ exports.main = async (event, context) => {
   
   const _ = db.command
 
-  return db.collection('Leader').where(
+  return await db.collection('Leader').where(
   {
     openID: wxContext.OPENID
   }

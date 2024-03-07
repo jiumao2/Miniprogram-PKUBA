@@ -54,6 +54,17 @@ Page({
                   success: res => {
                     console.log(res)
                     console.log('Manager register succeed!')
+                    wx.cloud.callFunction({
+                      name: 'search_manager',
+                      success: res =>{
+                        console.log(res)
+                        if (res.result.data.length>0){
+                          console.log(res.result.data[0])
+                          getApp().globalData.manager_info = res.result.data[0]
+                          console.log(getApp().globalData.manager_info)
+                        }
+                      }
+                    })
                   },
                   fail: err => {
                     console.log('Fail to register a manager!', err)

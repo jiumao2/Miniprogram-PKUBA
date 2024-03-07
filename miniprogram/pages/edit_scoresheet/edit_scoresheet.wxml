@@ -1,0 +1,20 @@
+<!--pages/edit_scoresheet/edit_scoresheet.wxml-->
+<!--miniprogram/pages/drawing/drawing.wxml-->
+<p wx:for="{{img_src}}">
+  <image src="{{item}}" mode="aspectFit" show-menu-by-longpress="true" data-src="{{item}}" bindtap="open_image"></image>
+</p>
+
+<text>\n</text>
+<view class="weui-form__opr-area">
+    <a class="weui-btn weui-btn_primary" bindtap="choose_images">上传图片</a>
+</view>
+
+<view class="fadeIn {{hideLoading ? 'fadeOut' : ''}}" wx:if="{{loading}}">
+    <view class="weui-mask_transparent"></view>
+    <view class="weui-toast">
+        <view class="weui-primary-loading weui-primary-loading_transparent">
+            <view class="weui-primary-loading__dot"></view>
+        </view>
+        <view class="weui-toast__content">加载中</view>
+    </view>
+</view>

@@ -17,7 +17,9 @@
     "pages/scoretable_choose/scoretable_choose",
     "pages/scoretable/scoretable",
     "pages/schedule_edit/schedule_edit",
-    "pages/manager_home/manager_home"
+    "pages/manager_home/manager_home",
+    "pages/schedule_scoresheet/schedule_scoresheet",
+    "pages/edit_scoresheet/edit_scoresheet"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

@@ -8,7 +8,7 @@
 <text>\n</text>
 <view>
   <a class="weui-btn weui-btn_primary" bindtap="to_schedule_edit">更新比赛信息</a>
-  <a class="weui-btn weui-btn_primary" bindtap="to_upload_scoresheet">查看/上传记录表</a>
+  <a class="weui-btn weui-btn_primary" bindtap="to_scoresheet_edit">查看/上传图片</a>
 </view>
 
 <view class="fadeIn {{hideLoading ? 'fadeOut' : ''}}" wx:if="{{loading}}">

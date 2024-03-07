@@ -141,6 +141,17 @@ for k = 1:row
                     break
                 end
             end
+
+            % description
+            tempdata.description = '';
+            
+            % is_given_up
+            tempdata.is_given_up = false;
+
+            % updated_by
+            tempdata.updated_by = '九毛';
+
+            % adjustable
             if contains([tempdata.home_team,tempdata.away_team],'决赛') && ~contains([tempdata.home_team,tempdata.away_team],'半决赛')
                 tempdata.adjustable = false;
                 tempdata.place = '邱德拔';

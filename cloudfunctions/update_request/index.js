@@ -15,10 +15,10 @@ exports.main = async (event, context) => {
   const _ = db.command
 
   if (event.to_delete){
-    db.collection('Request').doc(event.request._id).remove()
+    await db.collection('Request').doc(event.request._id).remove()
   }
   else{
-    db.collection('Request').doc(event.request._id).update({
+    await db.collection('Request').doc(event.request._id).update({
       data:{
         state: event.new_state
       }
@@ -26,7 +26,7 @@ exports.main = async (event, context) => {
   }
 
   if (event.new_state==2){
-    db.collection('Schedule').doc(event.request.game_id).update({
+    await db.collection('Schedule').doc(event.request.game_id).update({
       data:{
         time: new Date(event.request.time_new),
         place: event.request.place_new,
@@ -35,7 +35,7 @@ exports.main = async (event, context) => {
     })
   }
   else{
-    db.collection('Schedule').doc(event.request.game_id).update({
+    await db.collection('Schedule').doc(event.request.game_id).update({
       data:{
         adjustable: true      
       }
