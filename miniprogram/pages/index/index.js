@@ -31,23 +31,44 @@ Page({
       url: '../scoretable_choose/scoretable_choose',
     })
   },
-  login_manager(){
-    if (this.data.loading) return
-    this.setData({
-      loading: true
-    })
-    wx.navigateTo({
-      url: '../manager_login/manager_login',
-    })
-  },
 
   login_manager(){
     if (this.data.loading) return
     this.setData({
       loading: true
     })
-    wx.navigateTo({
-      url: '../manager_login/manager_login',
+    wx.cloud.callFunction({
+      name: 'login',
+      data: {},
+      success: res => {
+        // app.globalData.openid = res.result.openid
+        console.log(res.result.openid)
+        wx.cloud.callFunction({
+          name: 'search_manager',
+          success: res => {
+            console.log(res)
+            if (res.result.data.length>0){
+              console.log(res.result.data[0])
+              getApp().globalData.manager_info = res.result.data[0]
+              console.log(getApp().globalData.manager_info)
+              wx.navigateTo({
+                url: '../manager_home/manager_home',
+              })
+            }
+            else{
+              wx.navigateTo({
+                url: '../manager_login/manager_login',
+              })
+            }
+          }
+        })
+      },
+      fail: err => {
+        console.error('[云函数] [login] 调用失败', err)
+        wx.navigateBack({
+          delta: 0,
+        })
+      }
     })
   },
 
@@ -139,6 +160,9 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    return {
+      title: '北大篮协小程序',
+      desc:"2024年北大杯赛事信息查询！"
+    }
   }
 })

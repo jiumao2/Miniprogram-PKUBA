@@ -2,18 +2,18 @@
 const cloud = require('wx-server-sdk')
 
 cloud.init({
-  env: "pkuba-1ghnzk0hcbc1edeb"
+  env: cloud.DYNAMIC_CURRENT_ENV
 })
 
 
 // 云函数入口函数
 exports.main = async (event, context) => {
   db = cloud.database({
-    env: "pkuba-1ghnzk0hcbc1edeb"
+    env: cloud.DYNAMIC_CURRENT_ENV
   })
   const _ = db.command
   if (event.type == 1 || event.type == 3){
-    db.collection('Request').add({
+    await db.collection('Request').add({
       data: {
         "place_new": event.place_new,
         "request_time": new Date(),
@@ -32,7 +32,7 @@ exports.main = async (event, context) => {
       })
   }
   else if (event.type == 2){
-    db.collection('Request').add({
+    await db.collection('Request').add({
       data: {
         "place_new": '无',
         "request_time": new Date(),
@@ -51,7 +51,7 @@ exports.main = async (event, context) => {
       })
   }
 
-  db.collection('Schedule').doc(event.game._id).update({
+  await db.collection('Schedule').doc(event.game._id).update({
     data:{
       adjustable: false
     }

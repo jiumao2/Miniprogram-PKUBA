@@ -1,0 +1,42 @@
+<!--pages/schedule_scoresheet/schedule_scoresheet.wxml-->
+<view class="page__bd">
+    <view wx:for="{{future_date}}" wx:for-index="i1" wx:for-item="array_date">
+        <view class="weui-cells__title">
+            {{array_date.month}}.{{array_date.date}} {{array_date.day}}
+        </view>
+        <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" wx:for="{{future_game[i1]}}" wx:for-index="i2" wx:for-item="game" bindtap="edit_this_game" data-game="{{game}}">
+            <view class="weui-cell__bd">
+              <text decode="true">{{game.hour}}:{{game.minute}}&nbsp;&nbsp;&nbsp;</text>
+              <text wx:if="{{game.home_team_score>=0}}" style="color:{{game.sex ? 'rgb(27, 111, 236)':'rgb(255, 72, 0)' }}">{{game.home_team}} {{game.home_team_score}}:{{game.away_team_score}} {{game.away_team}}</text>
+              <text wx:else style="color:{{game.sex ? 'rgb(27, 111, 236)':'rgb(255, 72, 0)' }}">{{game.home_team}} VS {{game.away_team}}</text>
+              <view class="weui-cell__desc">{{game.group}} {{game.description}} {{game.place}}</view>
+            </view>
+            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+            </view>
+        </view>
+    </view>
+
+    <text>\n</text>
+    <view wx:if="{{old_date.length>0}}" class="weui-form__text-area">
+			<text class="over_view">以下为已结束赛程</text>
+	</view>
+
+    <view wx:for="{{old_date}}" wx:for-index="i1" wx:for-item="array_date">
+        <view class="weui-cells__title">
+            {{array_date.month}}.{{array_date.date}} {{array_date.day}}
+        </view>
+        <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" wx:for="{{old_game[i1]}}" wx:for-index="i2" wx:for-item="game">
+                <view class="weui-cell__bd" bindtap="edit_this_game" data-game="{{game}}">
+                    <text decode="true">{{game.hour}}:{{game.minute}}&nbsp;&nbsp;&nbsp;</text>
+                    <text wx:if="{{game.home_team_score>=0}}" style="color:{{game.sex ? 'rgb(27, 111, 236)':'rgb(255, 72, 0)' }}">{{game.home_team}} {{game.home_team_score}}:{{game.away_team_score}} {{game.away_team}}</text>
+                    <text wx:else style="color:{{game.sex ? 'rgb(27, 111, 236)':'rgb(255, 72, 0)' }}">{{game.home_team}} VS {{game.away_team}}</text>
+                    <view class="weui-cell__desc">{{game.group}} {{game.description}} {{game.place}}</view>
+                </view>
+                <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+            </view>
+        </view>
+    </view>
+
+</view>

@@ -10,7 +10,6 @@
 }
 
 .head_view{
-  background-image: url('https://img0.baidu.com/it/u=2844196330,1463351835&fm=26&fmt=auto&gp=0.jpg');
   background-size: 100% 100%;
 }
 

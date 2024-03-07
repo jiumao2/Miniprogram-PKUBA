@@ -1,0 +1,6 @@
+/* pages/manager_home/manager_home.wxss */
+
+.imagesize{
+  display:flex;                  
+  justify-content: center;         
+ }

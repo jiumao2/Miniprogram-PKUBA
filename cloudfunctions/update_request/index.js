@@ -2,7 +2,7 @@
 const cloud = require('wx-server-sdk')
 
 cloud.init({
-  env: "pkuba-1ghnzk0hcbc1edeb"
+  env: cloud.DYNAMIC_CURRENT_ENV
 })
 
 
@@ -10,15 +10,15 @@ cloud.init({
 exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext()
   db = cloud.database({
-    env: "pkuba-1ghnzk0hcbc1edeb"
+    env: cloud.DYNAMIC_CURRENT_ENV
   })
   const _ = db.command
 
   if (event.to_delete){
-    db.collection('Request').doc(event.request._id).remove()
+    await db.collection('Request').doc(event.request._id).remove()
   }
   else{
-    db.collection('Request').doc(event.request._id).update({
+    await db.collection('Request').doc(event.request._id).update({
       data:{
         state: event.new_state
       }
@@ -26,7 +26,7 @@ exports.main = async (event, context) => {
   }
 
   if (event.new_state==2){
-    db.collection('Schedule').doc(event.request.game_id).update({
+    await db.collection('Schedule').doc(event.request.game_id).update({
       data:{
         time: new Date(event.request.time_new),
         place: event.request.place_new,
@@ -35,7 +35,7 @@ exports.main = async (event, context) => {
     })
   }
   else{
-    db.collection('Schedule').doc(event.request.game_id).update({
+    await db.collection('Schedule').doc(event.request.game_id).update({
       data:{
         adjustable: true      
       }

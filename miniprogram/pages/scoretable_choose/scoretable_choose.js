@@ -14,7 +14,6 @@ Page({
     value2: 0,
     group: app.globalData.GROUP_NAMES[0],
     littlegroup: app.globalData.LITTLEGROUPS[0],
-    to_error_page: true,
   },
   bindPickerChange1: function(e) {
     var value_old = this.data.value1

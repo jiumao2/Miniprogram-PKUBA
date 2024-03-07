@@ -2,19 +2,19 @@
 const cloud = require('wx-server-sdk')
 
 cloud.init({
-  env: "pkuba-1ghnzk0hcbc1edeb"
+  env: cloud.DYNAMIC_CURRENT_ENV
 })
 
 // 云函数入口函数
 exports.main = async (event, context) => {
   db = cloud.database({
-    env: "pkuba-1ghnzk0hcbc1edeb"
+    env: cloud.DYNAMIC_CURRENT_ENV
   })
-  if (event.score1==event.score2){
-    return false
-  }
-  if (event.giveup){
-    if ((event.score1==0&&event.score2==20)|(event.score1==20&&event.score2==0)){
+  // if (event.score1==event.score2){
+  //   return false
+  // }
+  if (event.is_given_up){
+    if ((event.home_team_score==0&&event.away_team_score==20)|(event.home_team_score==20&&event.away_team_score==0)){
       return true
     }
     else {
@@ -22,8 +22,9 @@ exports.main = async (event, context) => {
     }
   }
   let game = await db.collection('Schedule').where({
-    home_team: event.team1,
-    away_team: event.team2
+    home_team: event.home_team_raw,
+    away_team: event.away_team_raw,
+    group: event.group_raw
   }).get()
   if (game.data.length==0){
     return false

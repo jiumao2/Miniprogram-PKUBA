@@ -18,7 +18,6 @@ Page({
     sex: app.globalData.GROUP_SEX[0],
     group: app.globalData.GROUP_NAMES[0],
     team: app.globalData.TEAMS[0][0],
-    to_error_page: true,
   },
 
   bindPickerChange2: function(e) {
@@ -65,7 +64,6 @@ Page({
     this.setData({
       loading:true
     })
-    var that = this
     console.log(this.data)
     wx.cloud.callFunction({
       name: "check_leader",
@@ -78,7 +76,6 @@ Page({
       success: res => {
         console.log(res)
         if (res.result.total<=0){
-          that.setData({to_error_page: true})
           wx.cloud.callFunction({
             name: "leader_register",
             data: {
@@ -88,6 +85,7 @@ Page({
               sex: this.data.sex,
             },
             success: res =>{
+              console.log('Successfully registered!')
               wx.navigateBack({
                 delta: 0,
               })

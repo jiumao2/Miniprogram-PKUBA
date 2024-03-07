@@ -7,7 +7,7 @@ cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV }) // 使用当前云环境
 exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext()
   db = cloud.database({
-    env: "pkuba-1ghnzk0hcbc1edeb"
+    env: cloud.DYNAMIC_CURRENT_ENV
   })
   let list = await db.collection('Team').where({
     group:event.group,

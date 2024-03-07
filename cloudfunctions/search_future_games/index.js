@@ -2,7 +2,7 @@
 const cloud = require('wx-server-sdk')
 
 cloud.init({
-  env: "pkuba-1ghnzk0hcbc1edeb"
+  env: cloud.DYNAMIC_CURRENT_ENV
 })
 
 
@@ -10,7 +10,7 @@ cloud.init({
 exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext()
   db = cloud.database({
-    env: "pkuba-1ghnzk0hcbc1edeb"
+    env: cloud.DYNAMIC_CURRENT_ENV
   })
   const _ = db.command
   var date0 = new Date(event.now)
@@ -22,7 +22,7 @@ exports.main = async (event, context) => {
     )
   }
   if (event.for_request){
-    return db.collection('Schedule').where(_.and([{
+    return await db.collection('Schedule').where(_.and([{
       group: event.group,
       time: _.gt(date0),
       adjustable: true
@@ -34,7 +34,7 @@ exports.main = async (event, context) => {
     }])])).get()  
   }
   else{
-    return db.collection('Schedule').where(_.and([{
+    return await db.collection('Schedule').where(_.and([{
       group: event.group,
       time: _.gt(date0)
     },

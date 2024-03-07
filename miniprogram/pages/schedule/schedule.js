@@ -25,7 +25,9 @@ Page({
       name: "search_future_schedule",
       data: {},
       success: res =>{
-        var now = new Date()
+        var now_precise = new Date()
+        var now = new Date(now_precise.getFullYear(), now_precise.getMonth(), now_precise.getDate())
+
         var schedule = res.result
         let future_schedule = []
         let old_schedule = []
@@ -33,6 +35,7 @@ Page({
         for (var i=0;i<schedule.length;i++){
           var time = new Date(schedule[i].time)
           schedule[i].time = time
+          schedule[i].year = time.getFullYear().toString()
           schedule[i].month = (time.getMonth()+1).toString()
           schedule[i].date = time.getDate().toString()
           schedule[i].hour = time.getHours().toString()
@@ -146,6 +149,9 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    return {
+      title: '北大篮协小程序',
+      desc:"2024年北大杯赛事信息查询！"
+    }
   }
 })
