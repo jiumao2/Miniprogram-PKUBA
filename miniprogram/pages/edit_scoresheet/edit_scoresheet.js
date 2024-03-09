@@ -6,10 +6,11 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    img_src: []
   },
 
   choose_images(){
+    var img_count = this.data.img_src.length
     wx.chooseMedia({
       count: 1,
       mediaType: 'image',
@@ -22,7 +23,7 @@ Page({
         let filename = game_date + "_" + app.globalData.game_on_scoresheet.group + "_" +
         app.globalData.game_on_scoresheet.home_team+
         "_VS_"+
-        app.globalData.game_on_scoresheet.away_team+suffix
+        app.globalData.game_on_scoresheet.away_team+"_"+(img_count+1).toString()+suffix
         wx.cloud.uploadFile({
           cloudPath: filename, // 上传至云端的路径
           filePath: res.tempFiles[0].tempFilePath, // 小程序临时文件路径

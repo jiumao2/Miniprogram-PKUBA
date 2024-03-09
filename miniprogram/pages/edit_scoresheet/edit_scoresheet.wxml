@@ -1,8 +1,9 @@
 <!--pages/edit_scoresheet/edit_scoresheet.wxml-->
 <!--miniprogram/pages/drawing/drawing.wxml-->
-<p wx:for="{{img_src}}">
+<view class="imagebox" wx:for="{{img_src}}">
   <image src="{{item}}" mode="aspectFit" show-menu-by-longpress="true" data-src="{{item}}" bindtap="open_image"></image>
-</p>
+  <text>\n</text>
+</view>
 
 <text>\n</text>
 <view class="weui-form__opr-area">

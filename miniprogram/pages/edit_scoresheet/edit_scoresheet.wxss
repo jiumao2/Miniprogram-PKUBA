@@ -1,1 +1,6 @@
 /* pages/edit_scoresheet/edit_scoresheet.wxss */
+
+.imagebox{
+  display:flex;    /*设置为flex布局*/
+  justify-content: center; /*水平居中*/
+ }
