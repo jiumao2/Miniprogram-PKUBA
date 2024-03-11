@@ -6,14 +6,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    loading:false,
-    hideLoading:false,
-    array1: app.globalData.GROUP_NAMES,
-    value1: 0,
-    array2: app.globalData.LITTLEGROUPS,
-    value2: 0,
-    group: app.globalData.GROUP_NAMES[0],
-    littlegroup: app.globalData.LITTLEGROUPS[0],
   },
   bindPickerChange1: function(e) {
     var value_old = this.data.value1
@@ -47,7 +39,16 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.setData({
+      loading:false,
+      hideLoading:false,
+      array1: app.globalData.GROUP_NAMES,
+      value1: 0,
+      array2: app.globalData.LITTLEGROUPS,
+      value2: 0,
+      group: app.globalData.GROUP_NAMES[0],
+      littlegroup: app.globalData.LITTLEGROUPS[0]
+    })
   },
 
   /**

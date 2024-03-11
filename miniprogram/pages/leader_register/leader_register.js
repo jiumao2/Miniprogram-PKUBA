@@ -5,20 +5,7 @@ Page({
   /**
    * 页面的初始数据
    */
-  data: {
-    loading:false,
-    hideLoading:false,
-    array_total: app.globalData.TEAMS,
-    array2: app.globalData.TEAMS[0],
-    value2: 0,
-    array1: app.globalData.GROUP_NAMES,
-    value1: 0,
-    name: null,
-    team: null,
-    sex: app.globalData.GROUP_SEX[0],
-    group: app.globalData.GROUP_NAMES[0],
-    team: app.globalData.TEAMS[0][0],
-  },
+  data: {},
 
   bindPickerChange2: function(e) {
 
@@ -114,7 +101,20 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.setData({
+      loading:false,
+      hideLoading:false,
+      array_total: app.globalData.TEAMS,
+      array2: app.globalData.TEAMS[0],
+      value2: 0,
+      array1: app.globalData.GROUP_NAMES,
+      value1: 0,
+      name: null,
+      team: null,
+      sex: app.globalData.GROUP_SEX[0],
+      group: app.globalData.GROUP_NAMES[0],
+      team: app.globalData.TEAMS[0][0],
+    })
   },
 
   /**
