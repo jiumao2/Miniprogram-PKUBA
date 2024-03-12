@@ -9,7 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "nodemailer": "^6.6.3",
-    "wx-server-sdk": "^2.5.3"
+    "nodemailer": "latest"
   }
 }

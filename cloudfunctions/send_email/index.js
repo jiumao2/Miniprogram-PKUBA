@@ -9,7 +9,7 @@ var nodemailer = require('nodemailer')
 // 创建一个SMTP客户端配置
 var config = {
   host: 'smtp.163.com', //网易163邮箱 smtp.163.com
-  port: 25, //网易邮箱端口 25
+  port: 465, //网易邮箱端口 465
   auth: {
     user: 'pkubaoutward@163.com', //邮箱账号
     pass: 'PKUBAoutward2015' //邮箱的授权码

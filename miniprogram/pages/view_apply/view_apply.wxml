@@ -20,6 +20,7 @@
         <view wx:elif="{{item.state==2}}" class="weui-cell__ft" style="color:green">通过</view>
         <view wx:elif="{{item.state==0}}" class="weui-cell__ft" style="color:red">拒绝</view>
         <view wx:elif="{{item.state==3}}" class="weui-cell__ft" style="color:#FFCC00">抽签申请中</view>
+        <view wx:elif="{{item.state==4}}" class="weui-cell__ft" style="color:#FFCC00">审核中</view>
   </a>
 </view>
 
