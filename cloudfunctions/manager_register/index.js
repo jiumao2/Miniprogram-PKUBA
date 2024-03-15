@@ -11,7 +11,8 @@ exports.main = async (event, context) => {
     data: {
       name: event.name,
       register_date: new Date(),
-      openID: wxContext.OPENID
+      openID: wxContext.OPENID,
+      type: 1
     }
   })
 

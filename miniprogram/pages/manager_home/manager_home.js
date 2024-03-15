@@ -1,4 +1,5 @@
 // pages/manager_home/manager_home.js
+var app = getApp()
 Page({
 
   /**
@@ -20,9 +21,18 @@ Page({
     this.setData({
       loading: true
     })
-    wx.navigateTo({
-      url: '../schedule_edit/schedule_edit',
-    })
+
+    if (app.globalData.manager_info.type == 0){
+      wx.navigateTo({
+        url: '../schedule_edit/schedule_edit',
+      })
+    }
+    else{
+      app.globalData.errInfo = "当前无权限，请联系管理员"
+      wx.navigateTo({
+        url: '../error_page/error_page',
+      })
+    }
   },
 
   to_scoresheet_edit(){
