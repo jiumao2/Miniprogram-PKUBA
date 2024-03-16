@@ -28,3 +28,27 @@
   font-stretch:extra-expanded;
   color:rgb(54, 54, 0);
 }
+
+  .view_div_line {
+    width: 96%;
+    height: 50rpx;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 0rpx 2% 0rpx 2%;
+  }
+  
+  /* 两个view的样式 */
+  .view_div_line view {
+    width: 33%;
+    height: 4rpx;
+    background: linear-gradient(to right, #ead6ee, #a0f1ea);
+  }
+  
+  /* 字体的样式 */
+  .text_div_line {
+    font-size: 36rpx;
+    color: rgb(192, 19, 235);
+    margin: 0rpx 2% 0rpx 2%;
+  }

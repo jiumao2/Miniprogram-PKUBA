@@ -116,7 +116,21 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady() {
-
+    // 由于渲染在另一个线程进行，等待1秒让渲染完成
+    setTimeout(() => {
+      wx.pageScrollTo({
+        duration: 300,
+        selector:"#text",
+        "success": res=>{
+          console.log(res)
+          console.log('Moved!')
+        },
+        "failure": err=>{
+          console.log(err)
+          console.log('Unmoved!')
+        }
+      })
+    }, 800);
   },
 
   /**
