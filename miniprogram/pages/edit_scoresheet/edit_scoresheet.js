@@ -6,64 +6,67 @@ Page({
    * 页面的初始数据
    */
   data: {
+    loading: true, 
     img_src: []
   },
 
   choose_images(){
     var img_count = this.data.img_src.length
     wx.chooseMedia({
-      count: 1,
+      count: 9,
       mediaType: 'image',
       sourceType: ['album', 'camera'],
       success(res){
-        console.log(res.tempFiles[0].tempFilePath)
-        // save to cloud storage
-        let suffix = res.tempFiles[0].tempFilePath.substring(res.tempFiles[0].tempFilePath.lastIndexOf("."));
-        let game_date = app.globalData.game_on_scoresheet.year.padStart(4,"0")+app.globalData.game_on_scoresheet.month.padStart(2,"0")+app.globalData.game_on_scoresheet.date.padStart(2,"0")
-        let filename = game_date + "_" + app.globalData.game_on_scoresheet.group + "_" +
-        app.globalData.game_on_scoresheet.home_team+
-        "_VS_"+
-        app.globalData.game_on_scoresheet.away_team+"_"+(img_count+1).toString()+suffix
-        wx.cloud.uploadFile({
-          cloudPath: filename, // 上传至云端的路径
-          filePath: res.tempFiles[0].tempFilePath, // 小程序临时文件路径
-          success: res => {
-            // 返回文件 ID
-            console.log(res)
-            console.log(app.globalData.game_on_scoresheet.time)
-            var year = app.globalData.game_on_scoresheet.year.padStart(4,"0")
-            var month = app.globalData.game_on_scoresheet.month.padStart(2,"0")
-            var date = app.globalData.game_on_scoresheet.date.padStart(2,"0")
-            var hour = app.globalData.game_on_scoresheet.hour.padStart(2,"0")
-            var minute = app.globalData.game_on_scoresheet.minute.padStart(2,"0")
-            var second = '00'
-            var timestr = year+'/'+month+'/'+date+' '+hour+':'+minute+':'+second
-            var time = new Date(timestr)
-            console.log(time)
-            // 将照片信息存储到数据库中
-            wx.cloud.callFunction({
-              name: "add_photo_manager",
-              data: {
-                creator: app.globalData.manager_info.name,
-                fileID: res.fileID,
-                home_team: app.globalData.game_on_scoresheet.home_team,
-                away_team: app.globalData.game_on_scoresheet.away_team,
-                group: app.globalData.game_on_scoresheet.group,
-                time: time
-              },
-              success: res =>{
-                console.log('Successfully uploaded!')
-                wx.navigateTo({
-                  url: '../edit_scoresheet/edit_scoresheet',
-                })
-              },
-              fail: err => {
-                console.log(err)
-              }
-            })
-          },
-          fail: console.error
-        })
+        for (var i = 0; i < res.tempFiles.length; i++){
+          console.log(res.tempFiles[i].tempFilePath)
+          // save to cloud storage
+          let suffix = res.tempFiles[i].tempFilePath.substring(res.tempFiles[i].tempFilePath.lastIndexOf("."));
+          let game_date = app.globalData.game_on_scoresheet.year.padStart(4,"0")+app.globalData.game_on_scoresheet.month.padStart(2,"0")+app.globalData.game_on_scoresheet.date.padStart(2,"0")
+          let filename = game_date + "_" + app.globalData.game_on_scoresheet.group + "_" +
+          app.globalData.game_on_scoresheet.home_team+
+          "_VS_"+
+          app.globalData.game_on_scoresheet.away_team+"_"+(img_count+i+1).toString()+suffix
+          wx.cloud.uploadFile({
+            cloudPath: filename, // 上传至云端的路径
+            filePath: res.tempFiles[i].tempFilePath, // 小程序临时文件路径
+            success: res => {
+              // 返回文件 ID
+              console.log(res)
+              console.log(app.globalData.game_on_scoresheet.time)
+              var year = app.globalData.game_on_scoresheet.year.padStart(4,"0")
+              var month = app.globalData.game_on_scoresheet.month.padStart(2,"0")
+              var date = app.globalData.game_on_scoresheet.date.padStart(2,"0")
+              var hour = app.globalData.game_on_scoresheet.hour.padStart(2,"0")
+              var minute = app.globalData.game_on_scoresheet.minute.padStart(2,"0")
+              var second = '00'
+              var timestr = year+'/'+month+'/'+date+' '+hour+':'+minute+':'+second
+              var time = new Date(timestr)
+              console.log(time)
+              // 将照片信息存储到数据库中
+              wx.cloud.callFunction({
+                name: "add_photo_manager",
+                data: {
+                  creator: app.globalData.manager_info.name,
+                  fileID: res.fileID,
+                  home_team: app.globalData.game_on_scoresheet.home_team,
+                  away_team: app.globalData.game_on_scoresheet.away_team,
+                  group: app.globalData.game_on_scoresheet.group,
+                  time: time
+                },
+                success: res =>{
+                  console.log('Successfully uploaded!')
+                  wx.navigateTo({
+                    url: '../edit_scoresheet/edit_scoresheet',
+                  })
+                },
+                fail: err => {
+                  console.log(err)
+                }
+              })
+            },
+            fail: console.error
+          })
+        }
       }
     })
   },
@@ -123,6 +126,9 @@ Page({
             }
           })
         }
+        this.setData({
+          'loading': false
+        })
       }
     })
   },

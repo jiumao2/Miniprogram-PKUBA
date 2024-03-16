@@ -1,14 +1,18 @@
 <!--pages/edit_scoresheet/edit_scoresheet.wxml-->
 <!--miniprogram/pages/drawing/drawing.wxml-->
-<view class="imagebox" wx:for="{{img_src}}">
-  <image src="{{item}}" mode="aspectFit" show-menu-by-longpress="true" data-src="{{item}}" bindtap="open_image"></image>
-  <text>\n</text>
+<view class="page__bd">
+  <view class="weui-cells__title">比赛图片（共{{img_src.length}}张）</view>
+  <view class="imagebox" wx:for="{{img_src}}">
+    <image src="{{item}}" mode="aspectFit" show-menu-by-longpress="true" data-src="{{item}}" bindtap="open_image"></image>
+    <text>\n</text>
+  </view>
 </view>
 
 <text>\n</text>
 <view class="weui-form__opr-area">
     <a class="weui-btn weui-btn_primary" bindtap="choose_images">上传图片</a>
 </view>
+
 
 <view class="fadeIn {{hideLoading ? 'fadeOut' : ''}}" wx:if="{{loading}}">
     <view class="weui-mask_transparent"></view>
