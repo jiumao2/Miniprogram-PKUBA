@@ -39,7 +39,7 @@ Page({
           schedule[i].month = (time.getMonth()+1).toString()
           schedule[i].date = time.getDate().toString()
           schedule[i].hour = time.getHours().toString()
-          temp = time.getMinutes()
+          var temp = time.getMinutes()
           if (temp<10){
             temp = "0" + temp
           }
@@ -57,14 +57,15 @@ Page({
           if(now.getTime() < schedule[i].time.getTime()){
             future_schedule = schedule.slice(i)              
             if (i>0){
-              var temp = schedule.slice(0,i)
-              old_schedule = temp.reverse()            
+              old_schedule = schedule.slice(0,i) 
+              // var temp = schedule.slice(0,i)
+              // old_schedule = temp.reverse()            
             }
             break
           }
-          if (i == schedule.length-1){
-            old_schedule = schedule.reverse()
-          }
+          // if (i == schedule.length-1){
+          //   old_schedule = schedule.reverse()
+          // }
         }
         console.log(future_schedule)
         console.log(old_schedule)
