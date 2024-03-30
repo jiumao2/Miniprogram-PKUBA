@@ -16,7 +16,14 @@ Page({
       count: 9,
       mediaType: 'image',
       sourceType: ['album', 'camera'],
-      success(res){
+      success: res => {
+        var file_length = res.tempFiles.length
+        if (file_length>0){
+          this.setData({
+            loading: true
+          })
+        }
+        
         for (var i = 0; i < res.tempFiles.length; i++){
           console.log(res.tempFiles[i].tempFilePath)
           // save to cloud storage
@@ -55,8 +62,15 @@ Page({
                 },
                 success: res =>{
                   console.log('Successfully uploaded!')
+                  if (i==file_length-1){
+                    this.setData({
+                      loading: false
+                    })
+                  }
+                  wx.navigateBack()
+                  app.globalData.errInfo = '上传成功！'
                   wx.navigateTo({
-                    url: '../edit_scoresheet/edit_scoresheet',
+                    url: '../success_page/success_page',
                   })
                 },
                 fail: err => {
@@ -101,7 +115,8 @@ Page({
         if (data.length == 0){
           console.log('No photos found!')
           this.setData({
-            img_src: []
+            img_src: [],
+            loading: false
           })
         }
         else{
@@ -120,15 +135,13 @@ Page({
                 img_src.push(res.fileList[i].tempFileURL)
               }
               this.setData({
-                img_src: img_src
+                img_src: img_src,
+                loading: false
               })
               console.log(this.data.img_src)
             }
           })
         }
-        this.setData({
-          'loading': false
-        })
       }
     })
   },

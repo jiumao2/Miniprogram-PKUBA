@@ -2,7 +2,7 @@
 <view class="weui-msg">
   <view class="weui-msg__icon-area"><i class="weui-icon-success weui-icon_msg"></i></view>
   <view class="weui-msg__text-area">
-    <h2 class="weui-msg__title">操作成功</h2>
+    <h2 class="weui-msg__title">{{errInfo}}</h2>
   </view>
   <view class="weui-msg__opr-area">
     <view class="weui-btn-area">
