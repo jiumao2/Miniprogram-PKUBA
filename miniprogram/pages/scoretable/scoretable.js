@@ -66,7 +66,7 @@ Page({
   onLoad(options) {
   this.setData({
     group: app.globalData.GROUP_NAMES[parseInt(options.group)],
-    littlegroup: app.globalData.LITTLEGROUPS[parseInt(options.littlegroup)]
+    littlegroup: app.globalData.LITTLEGROUPS[parseInt(options.group)][parseInt(options.littlegroup)]
   })
   wx.cloud.callFunction({
     name:"make_table",
@@ -80,6 +80,8 @@ Page({
         score:res.result.arr,
         names:res.result.names
       })
+      console.log(this.data.score)
+      console.log(this.data.names)
       var teams = Object.assign([],res.result.teams)
       var temp = Object.assign([],res.result.teams)
       temp.sort((a,b)=>{

@@ -8,10 +8,11 @@ Page({
   data: {
   },
   bindPickerChange1: function(e) {
-    var value_old = this.data.value1
     this.setData({
         group: this.data.array1[e.detail.value],
-        value1: e.detail.value
+        value1: e.detail.value,
+        array2: app.globalData.LITTLEGROUPS[e.detail.value],
+        value2: 0
     })
   },
   bindPickerChange2: function(e) {
@@ -44,10 +45,10 @@ Page({
       hideLoading:false,
       array1: app.globalData.GROUP_NAMES,
       value1: 0,
-      array2: app.globalData.LITTLEGROUPS,
+      array2: app.globalData.LITTLEGROUPS[0],
       value2: 0,
       group: app.globalData.GROUP_NAMES[0],
-      littlegroup: app.globalData.LITTLEGROUPS[0]
+      littlegroup: app.globalData.LITTLEGROUPS[0][0]
     })
   },
 

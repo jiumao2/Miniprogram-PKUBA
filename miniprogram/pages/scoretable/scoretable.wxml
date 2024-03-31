@@ -4,25 +4,73 @@
 		<h2 class="weui-form__title">{{group}}{{littlegroup}}组积分表</h2>
 		<view class="weui-form__desc">表内第一个数字为行队得分</view>
 	</view>
-	<view class="container">
+	<view wx:if="{{group == '男乙'||group == '女乙'}}" class="container">
     <view class="table">
       <!-- 表头 -->
       <view class="row">
-        <text class="cell"></text>
-        <text class="cell" wx:for="{{names}}">{{item}}</text>
+        <text class="cell1"></text>
+        <text class="cell1" wx:for="{{names}}">{{item}}</text>
       </view>
 
       <!-- 表格内容 -->
       <block wx:for="{{score}}" wx:for-index="i1" wx:for-item="s1">
         <view class="row">
-          <text class="cell">{{names[i1]}}</text>
+          <text class="cell1">{{names[i1]}}</text>
           <block wx:for="{{s1}}" wx:for-index="i2" wx:for-item="s2"> 
-            <view class="cell" wx:if="{{i1!=i2&&s2[0]>=0}}" style="color:{{s2[0]<s2[1]?'rgb(0, 0, 0)':'rgb(255, 72, 0)'}}">
+            <view class="cell1" wx:if="{{i1!=i2&&s2[0]>=0}}" style="color:{{s2[0]<s2[1]?'rgb(0, 0, 0)':'rgb(255, 72, 0)'}}">
               <text class ="scorecell" >{{s2[0]}}:{{s2[1]}}\n</text>
               <text>{{s2[2]}}</text>
             </view>
-            <text class="cell" wx:if="{{i1==i2}}">\</text>
-            <text class="cell" wx:if="{{s2[0]<0}}"></text>
+            <text class="cell1" wx:if="{{i1==i2}}">\</text>
+            <text class="cell1" wx:if="{{s2[0]<0}}"></text>
+          </block>
+        </view>
+      </block>
+    </view>
+  </view>
+  <view wx:if="{{group == '男甲'}}" class="container">
+    <view class="table">
+      <!-- 表头 -->
+      <view class="row">
+        <text class="cell2"></text>
+        <text class="cell2" wx:for="{{names}}">{{item}}</text>
+      </view>
+
+      <!-- 表格内容 -->
+      <block wx:for="{{score}}" wx:for-index="i1" wx:for-item="s1">
+        <view class="row">
+          <text class="cell2">{{names[i1]}}</text>
+          <block wx:for="{{s1}}" wx:for-index="i2" wx:for-item="s2"> 
+            <view class="cell2" wx:if="{{i1!=i2&&s2[0]>=0}}" style="color:{{s2[0]<s2[1]?'rgb(0, 0, 0)':'rgb(255, 72, 0)'}}">
+              <text class ="scorecell" >{{s2[0]}}:{{s2[1]}}\n</text>
+              <text>{{s2[2]}}</text>
+            </view>
+            <text class="cell2" wx:if="{{i1==i2}}">\</text>
+            <text class="cell2" wx:if="{{s2[0]<0}}"></text>
+          </block>
+        </view>
+      </block>
+    </view>
+  </view>
+  <view wx:if="{{group=='女甲'}}" class="container">
+    <view class="table">
+      <!-- 表头 -->
+      <view class="row">
+        <text class="cell3"></text>
+        <text class="cell3" wx:for="{{names}}">{{item}}</text>
+      </view>
+
+      <!-- 表格内容 -->
+      <block wx:for="{{score}}" wx:for-index="i1" wx:for-item="s1">
+        <view class="row">
+          <text class="cell3">{{names[i1]}}</text>
+          <block wx:for="{{s1}}" wx:for-index="i2" wx:for-item="s2"> 
+            <view class="cell3" wx:if="{{i1!=i2&&s2[0]>=0}}" style="color:{{s2[0]<s2[1]?'rgb(0, 0, 0)':'rgb(255, 72, 0)'}}">
+              <text class ="scorecell" >{{s2[0]}}:{{s2[1]}}\n</text>
+              <text>{{s2[2]}}</text>
+            </view>
+            <text class="cell3" wx:if="{{i1==i2}}">\</text>
+            <text class="cell3" wx:if="{{s2[0]<0}}"></text>
           </block>
         </view>
       </block>
@@ -32,16 +80,18 @@
     <view class="table">
       <!-- 表头 -->
       <view class="row">
-        <text class="cell">队伍</text>
-        <text class="cell">积分</text>
-        <text class="cell">排名</text>
+        <text class="cell1" >队伍</text>
+        <text class="cell1">积分</text>
+        <text class="cell1" style = "width:70px">总净胜分</text>
+        <text class="cell1">排名</text>
       </view>
       <!-- 表格内容 -->
       <block wx:for="{{teams}}" wx:for-index="i1" wx:for-item="s1">
         <view class="row">
-          <text class="cell">{{s1.name}}</text>
-          <text class="cell">{{s1.point}}</text>
-          <text class="cell">{{s1.point==0?(nonzero+1):(i1+1)}}</text>
+          <text class="cell1">{{s1.name}}</text>
+          <text class="cell1">{{s1.point}}</text>
+          <text class="cell1" style = "width:70px">{{s1.netscore}}</text>
+          <text class="cell1">{{s1.point==0?(nonzero+1):(i1+1)}}</text>
         </view>
       </block>
     </view>

@@ -91,7 +91,7 @@ Page({
     this.setData({
       loading:true
     })
-
+    console.log(this.data)
     wx.cloud.callFunction({
       name: "check_edit",
       data: {
@@ -102,14 +102,14 @@ Page({
         away_team: this.data.away_team,
         group: this.data.group,
         is_given_up: this.data.is_given_up,
-        home_team_score: this.data.home_team_score,
-        away_team_score: this.data.away_team_score,
+        home_team_score: parseInt(this.data.home_team_score),
+        away_team_score: parseInt(this.data.away_team_score),
         place:this.data.place,
         time:time_new,
         is_given_up:this.data.is_given_up,
         adjustable:this.data.adjustable,
         description:this.data.description,
-        updated_by:app.globalData.manager_info.name
+        updated_by: app.globalData.manager_info.name
       },
       success: res => {
         console.log(res)
@@ -119,13 +119,13 @@ Page({
             data: {
               home_team_raw:this.data.game_raw.home_team,
               away_team_raw:this.data.game_raw.away_team,
-              group_raw:this.data.game_raw.group,
+              group_raw: this.data.game_raw.group,
               home_team: this.data.home_team,
               away_team: this.data.away_team,
               group: this.data.group,
               is_given_up: this.data.is_given_up,
-              home_team_score: this.data.home_team_score,
-              away_team_score: this.data.away_team_score,
+              home_team_score: parseInt(this.data.home_team_score),
+              away_team_score: parseInt(this.data.away_team_score),
               place:this.data.place,
               time:time_new,
               is_given_up:this.data.is_given_up,
@@ -135,8 +135,7 @@ Page({
             },
             success: res =>{
               console.log(res)
-              wx.navigateTo({
-                url: '../schedule_edit/schedule_edit',
+              wx.navigateBack({
               })
             }
           })

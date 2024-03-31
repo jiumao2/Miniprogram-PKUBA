@@ -16,10 +16,26 @@
   padding: 0px;
 }
 
-.cell {
+.cell1 {
+  font-size: 12pt;
+  border: 1px solid black;
+  width: 50px;
+  text-align: center;
+  padding: 5px 5px;
+}
+
+.cell2 {
   font-size: 12pt;
   border: 1px solid black;
   width: 40px;
+  text-align: center;
+  padding: 5px 5px;
+}
+
+.cell3 {
+  font-size: 9pt;
+  border: 1px solid black;
+  width: 30px;
   text-align: center;
   padding: 5px 5px;
 }

@@ -10,7 +10,6 @@ exports.main = async (event, context) => {
   db = cloud.database({
     env: cloud.DYNAMIC_CURRENT_ENV
   })
-  
   return await db.collection('Schedule').where({
     home_team: event.home_team_raw,
     away_team: event.away_team_raw,
@@ -21,8 +20,8 @@ exports.main = async (event, context) => {
       data:{
         home_team_score: event.home_team_score,
         away_team_score: event.away_team_score,
-        home_team_point: event.home_team_score<event.away_team_score?(event.is_given_up?0:1):2,
-        away_team_point: event.home_team_score>event.away_team_score?(event.is_given_up?0:1):2,
+        home_team_point: event.home_team_score<event.away_team_score?(event.is_given_up?0:1):((event.away_team_score<0)?0:2),
+        away_team_point: event.home_team_score>event.away_team_score?(event.is_given_up?0:1):((event.home_team_score<0)?0:2),
         place: event.place,
         time: new Date(event.time),
         home_team: event.home_team,
