@@ -19,7 +19,9 @@
     "pages/schedule_edit/schedule_edit",
     "pages/manager_home/manager_home",
     "pages/schedule_scoresheet/schedule_scoresheet",
-    "pages/edit_scoresheet/edit_scoresheet"
+    "pages/edit_scoresheet/edit_scoresheet",
+    "pages/knockout/knockout",
+    "pages/knockout_choose/knockout_choose"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

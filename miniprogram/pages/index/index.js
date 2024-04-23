@@ -31,7 +31,15 @@ Page({
       url: '../scoretable_choose/scoretable_choose',
     })
   },
-
+  to_knockout(){
+    if (this.data.loading) return
+    this.setData({
+      loading: true
+    })
+    wx.navigateTo({
+      url: '../knockout_choose/knockout_choose',
+    })
+  },
   login_manager(){
     if (this.data.loading) return
     this.setData({

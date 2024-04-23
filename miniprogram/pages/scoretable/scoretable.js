@@ -80,8 +80,6 @@ Page({
         score:res.result.arr,
         names:res.result.names
       })
-      console.log(this.data.score)
-      console.log(this.data.names)
       var teams = Object.assign([],res.result.teams)
       var temp = Object.assign([],res.result.teams)
       temp.sort((a,b)=>{
@@ -115,7 +113,7 @@ Page({
       this.setData({
         teams: teams,
         nonzero: cnt,
-        loading:false
+        loading: false
       })
     },
     fail: err =>{

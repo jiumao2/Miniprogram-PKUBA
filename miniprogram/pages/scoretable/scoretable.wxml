@@ -107,3 +107,5 @@
 		<view class="weui-toast__content">加载中</view>
 	</view>
 </view>
+
+<view style="height: 30px; background-color: #ffffff"></view>

@@ -1,0 +1,26 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 水平居中 */
+  justify-content: center;
+  height: 100vh;
+}
+
+.row {
+  position: relative;
+  display: flex;
+  height: 20px;
+  width: 100%; /* 设置行的宽度 */
+  text-align: center;
+  margin-top: 5px; /* 设置行与行之间的间距 */
+  margin-bottom: 5px; /* 设置行与行之间的间距 */
+}
+.item {
+  text-align: center;
+  position: absolute;
+  width: 20%;
+}
+.hline {
+  background-color: black; /* 设置横线的样式 */
+
+}

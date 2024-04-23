@@ -135,7 +135,10 @@ Page({
             },
             success: res =>{
               console.log(res)
-              wx.navigateBack({
+              app.globalData.errInfo = '更新成功！'
+              wx.navigateBack()
+              wx.redirectTo({
+                url: '../schedule_edit/schedule_edit',
               })
             }
           })

@@ -1,0 +1,174 @@
+<!--pages/knockout/knockout.wxml-->
+  <view style="height: 20px;"></view>
+  <view class="weui-form__text-area">
+		<h2 class="weui-form__title">{{group}}淘汰赛赛程</h2>
+	</view>
+  <view wx:if="{{group=='男乙'|group=='女乙'}}" class="container">
+    <view class="row">
+      <text style="left: 10%" class="item">{{ score[0][0] }}</text>
+      <text style="left: 30%" class="item">{{ score[0][1] }}</text>
+      <text style="left: 50%" class="item">{{ score[0][2] }}</text>
+      <text style="left: 70%" class="item">{{ score[0][3] }}</text>
+    </view>
+    <view class="row">
+      <text style="left: 10%" class="item">{{ name[0][0] }}</text>
+      <text style="left: 30%" class="item">{{ name[0][1] }}</text>
+      <text style="left: 50%" class="item">{{ name[0][2] }}</text>
+      <text style="left: 70%" class="item">{{ name[0][3] }}</text>
+    </view>
+    <view class="row" style="margin-bottom: 0;">
+      <view class="hline item" style=" height: 20px; width: 1px; left: 20%;"></view>
+      <view class="hline item" style=" height: 20px; width: 1px; left: 40%;"></view>
+      <view class="hline item" style=" height: 20px; width: 1px; left: 60%;"></view>
+      <view class="hline item" style=" height: 20px; width: 1px; left: 80%;"></view>
+      <view class="hline item" style=" height: 1px; width: 20%; left: 20%; bottom: 0%;"></view>
+      <view class="hline item" style=" height: 1px; width: 20%; left: 60%; bottom: 0%;"></view>
+    </view>
+    <view class="row" style="margin-top:0; height: 30px;">
+      <view class="hline item" style=" height: 30px; width: 1px; left: 30%;"></view>
+      <view class="hline item" style=" height: 30px; width: 1px; left: 70%;"></view>
+    </view>
+  <!-- 第二行 -->
+    <view class="row">
+      <text style="left: 20%" class="item">{{ score[1][0] }}</text>
+      <text style="left: 60%" class="item">{{ score[1][1] }}</text>
+    </view>
+    <view class="row">
+      <text style="left: 20%" class="item">{{ name[1][0] }}</text>
+      <text style="left: 60%" class="item">{{ name[1][1] }}</text>
+    </view>
+    <view class="row" style="margin-bottom: 0;">
+      <view class="hline item" style=" height: 20px; width: 1px; left: 30%;"></view>
+      <view class="hline item" style=" height: 20px; width: 1px; left: 70%;"></view>
+      <view class="hline item" style=" height: 1px; width: 40%; left: 30%; bottom: 0%;"></view>
+    </view>
+    <view class="row" style="margin-top:0; height: 30px;">
+      <view class="hline item" style=" height: 30px; width: 1px; left: 50%;"></view>
+    </view>
+    <!-- 第三行 -->
+    <view class="row">
+      <text style="left: 40%" class="item">{{ score[2][0] }}</text>
+    </view>
+    <view class="row">
+      <text style="left: 40%" class="item">{{ name[2][0] }}</text>
+    </view>
+    <view class="row" style="height: 30px;">
+      <view class="hline item" style=" height: 30px; width: 1px; left: 50%;"></view>
+    </view>
+    <view class="row" style="height: 10px;">
+      <text style="left: 40%" class="item">{{ name[3][0] }}</text>
+    </view>
+
+    <view class="row" style="height: 30px;">
+      <view class="hline item" style=" height: 30px; width: 1px; left: 50%;"></view>
+    </view>
+
+    <view class="row">
+      <text style="left: 40%" class="item">{{ name[2][1] }}</text>
+    </view>
+    <view class="row">
+      <text style="left: 40%" class="item">{{ score[2][1] }}</text>
+    </view>
+
+    <view class="row" style="margin-bottom:0; height: 30px;">
+      <view class="hline item" style=" height: 30px; width: 1px; left: 50%;"></view>
+    </view>
+    <view class="row" style="margin-top: 0;">
+      <view class="hline item" style=" height: 20px; width: 1px; left: 30%;"></view>
+      <view class="hline item" style=" height: 20px; width: 1px; left: 70%;"></view>
+      <view class="hline item" style=" height: 1px; width: 40%; left: 30%; top: 0%;"></view>
+    </view>
+    <view class="row">
+      <text style="left: 20%" class="item">{{ name[1][2] }}</text>
+      <text style="left: 60%" class="item">{{ name[1][3] }}</text>
+    </view>
+    <view class="row">
+      <text style="left: 20%" class="item">{{ score[1][2] }}</text>
+      <text style="left: 60%" class="item">{{ score[1][3] }}</text>
+    </view>
+    
+    <view class="row" style="margin-bottom:0; height: 30px;">
+      <view class="hline item" style=" height: 30px; width: 1px; left: 30%;"></view>
+      <view class="hline item" style=" height: 30px; width: 1px; left: 70%;"></view>
+    </view>
+    <view class="row" style="margin-top: 0;">
+      <view class="hline item" style=" height: 1px; width: 20%; left: 20%; top: 0%;"></view>
+      <view class="hline item" style=" height: 1px; width: 20%; left: 60%; top: 0%;"></view>
+      <view class="hline item" style=" height: 20px; width: 1px; left: 20%;"></view>
+      <view class="hline item" style=" height: 20px; width: 1px; left: 40%;"></view>
+      <view class="hline item" style=" height: 20px; width: 1px; left: 60%;"></view>
+      <view class="hline item" style=" height: 20px; width: 1px; left: 80%;"></view>
+    </view>
+    <view class="row">
+      <text style="left: 10%" class="item">{{ name[0][4] }}</text>
+      <text style="left: 30%" class="item">{{ name[0][5] }}</text>
+      <text style="left: 50%" class="item">{{ name[0][6] }}</text>
+      <text style="left: 70%" class="item">{{ name[0][7] }}</text>
+    </view>
+    <view class="row">
+      <text style="left: 10%" class="item">{{ score[0][4] }}</text>
+      <text style="left: 30%" class="item">{{ score[0][5] }}</text>
+      <text style="left: 50%" class="item">{{ score[0][6] }}</text>
+      <text style="left: 70%" class="item">{{ score[0][7] }}</text>
+    </view>
+  </view>
+  <view wx:if="{{group=='男甲'}}" class="container">
+    <view class="row">
+      <text style="left: 20%" class="item">{{ score[0][0] }}</text>
+      <text style="left: 60%" class="item">{{ score[0][1] }}</text>
+    </view>
+    <view class="row">
+      <text style="left: 20%" class="item">{{ name[0][0] }}</text>
+      <text style="left: 60%" class="item">{{ name[0][1] }}</text>
+    </view>
+    <view class="row" style="margin-bottom: 0;">
+      <view class="hline item" style=" height: 20px; width: 1px; left: 30%;"></view>
+      <view class="hline item" style=" height: 20px; width: 1px; left: 70%;"></view>
+      <view class="hline item" style=" height: 1px; width: 40%; left: 30%; bottom: 0%;"></view>
+    </view>
+    <view class="row" style="margin-top:0; height: 30px;">
+      <view class="hline item" style=" height: 30px; width: 1px; left: 50%;"></view>
+    </view>
+    <!-- 第三行 -->
+    <view class="row">
+      <text style="left: 40%" class="item">{{ score[1][0] }}</text>
+    </view>
+    <view class="row">
+      <text style="left: 40%" class="item">{{ name[1][0] }}</text>
+    </view>
+    <view class="row" style="height: 30px;">
+      <view class="hline item" style=" height: 30px; width: 1px; left: 50%;"></view>
+    </view>
+    <view class="row" style="height: 10px;">
+      <text style="left: 40%" class="item">{{ name[2][0] }}</text>
+    </view>
+
+    <view class="row" style="height: 30px;">
+      <view class="hline item" style=" height: 30px; width: 1px; left: 50%;"></view>
+    </view>
+
+    <view class="row">
+      <text style="left: 40%" class="item">{{ name[1][1] }}</text>
+    </view>
+    <view class="row">
+      <text style="left: 40%" class="item">{{ score[1][1] }}</text>
+    </view>
+
+    <view class="row" style="margin-bottom:0; height: 30px;">
+      <view class="hline item" style=" height: 30px; width: 1px; left: 50%;"></view>
+    </view>
+    <view class="row" style="margin-top: 0;">
+      <view class="hline item" style=" height: 20px; width: 1px; left: 30%;"></view>
+      <view class="hline item" style=" height: 20px; width: 1px; left: 70%;"></view>
+      <view class="hline item" style=" height: 1px; width: 40%; left: 30%; top: 0%;"></view>
+    </view>
+    <view class="row">
+      <text style="left: 20%" class="item">{{ name[0][2] }}</text>
+      <text style="left: 60%" class="item">{{ name[0][3] }}</text>
+    </view>
+    <view class="row">
+      <text style="left: 20%" class="item">{{ score[0][2] }}</text>
+      <text style="left: 60%" class="item">{{ score[0][3] }}</text>
+    </view>
+  </view>
+  <view style="height: 20px;"></view>
