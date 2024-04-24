@@ -1,23 +1,59 @@
 // pages/knockout/knockout.js
 var app = getApp()
 Page({
-
   /**
    * 页面的初始数据
    */
   data: {
     group: null,
     name: null,
-    loading: true,
+    loading: false,
     score: null,
     final : 0,
+    showselector: false,
+    allgroups: app.globalData.GROUP_NAMES,
+    value : 0
   },
-
+  showGroupSelector:  function(e){
+    this.setData({
+      showselector: true
+    })
+  },
+  selectGroup:  function(e){
+    this.setData({
+      group: this.data.allgroups[e.detail.value],
+      value: e.detail.value,
+      name:[],
+      score:[],
+    })
+    console.log(e.detail)
+    wx.cloud.callFunction({
+        name: "get_knockout",
+        data: {
+          group: this.data.group
+        },
+        success: res => {
+          console.log(res.result)
+          this.setData({
+            name: res.result.name,
+            score: res.result.score,
+            loading: false
+          })
+        },
+        fail: err => {
+          console.log(err)
+          wx.navigateTo({
+            url: '../error_page/error_page',
+          })
+        }
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
     this.setData({
+      value: parseInt(options.group),
       group: app.globalData.GROUP_NAMES[parseInt(options.group)]
     })
     wx.cloud.callFunction({

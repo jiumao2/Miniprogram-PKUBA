@@ -3,24 +3,49 @@
   flex-direction: column;
   align-items: center; /* 水平居中 */
   justify-content: center;
-  height: 100vh;
+  height: 80vh;
 }
 
 .row {
   position: relative;
   display: flex;
-  height: 20px;
   width: 100%; /* 设置行的宽度 */
+  height: 80px;
   text-align: center;
-  margin-top: 5px; /* 设置行与行之间的间距 */
-  margin-bottom: 5px; /* 设置行与行之间的间距 */
+  align-items: center;
 }
 .item {
   text-align: center;
+  align-items: center;
   position: absolute;
-  width: 20%;
+  width: 15%;
 }
-.hline {
+.line {
+  position: absolute;
   background-color: black; /* 设置横线的样式 */
+}
+.table {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30%;
+  height: 100%;
+  border: 1px solid black;
+}
 
+.tablerow {
+  position: relative;
+  display: flex;
+  flex :1;
+  width: 100%;
+  text-align: center;
+  align-items: center;
+}
+
+.cell {
+  position: absolute;
+  text-align: center;
+  align-items: center;
+  width: 30%;
 }

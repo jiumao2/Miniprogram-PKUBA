@@ -1,174 +1,196 @@
 <!--pages/knockout/knockout.wxml-->
-  <view style="height: 20px;"></view>
-  <view class="weui-form__text-area">
-		<h2 class="weui-form__title">{{group}}淘汰赛赛程</h2>
+  <view class="weui-cell weui-cell_active weui-cell_select weui-cell_select-after">
+		<view class="weui-cell__hd">
+			<label class="weui-label">比赛组别</label>
+		</view>
+		<view class="weui-cell__bd">
+			<picker bindchange="selectGroup" range="{{allgroups}}">
+				<view class="weui-select">{{allgroups[value]}}</view>
+			</picker>
+		</view>
 	</view>
+  <view class="weui-form__text-area" style="margin-bottom: 30px">
+		<h2 class="weui-form__title">淘汰赛对阵表</h2>
+	</view>
+        
   <view wx:if="{{group=='男乙'|group=='女乙'}}" class="container">
     <view class="row">
-      <text style="left: 10%" class="item">{{ score[0][0] }}</text>
-      <text style="left: 30%" class="item">{{ score[0][1] }}</text>
-      <text style="left: 50%" class="item">{{ score[0][2] }}</text>
-      <text style="left: 70%" class="item">{{ score[0][3] }}</text>
+      <view class="table" style="left: 15%">
+        <view class="tablerow">
+          <view class="cell" style="left: 10%">{{ name[0][0] }}</view>
+          <text class="cell" style="left: 35%">VS</text>
+          <view class="cell" style="right: 10%">{{ name[0][1] }}</view>
+        </view>
+        <view class="tablerow">
+          <view class="cell" style="left: 10%">{{ score[0][0] }}</view>
+          <text class="cell" style="left: 35%">:</text>
+          <view class="cell" style="right: 10%">{{ score[0][1] }}</view>
+        </view>
+      </view>
+      <view class="table" style="right: 15%">
+        <view class="tablerow">
+          <view class="cell" style="left: 10%">{{ name[0][2] }}</view>
+          <text class="cell" style="left: 35%">VS</text>
+          <view class="cell" style="right: 10%">{{ name[0][3] }}</view>
+        </view>
+        <view class="tablerow">
+          <view class="cell" style="left: 10%">{{ score[0][2] }}</view>
+          <text class="cell" style="left: 35%">:</text>
+          <view class="cell" style="right: 10%">{{ score[0][3] }}</view>
+        </view>
+      </view>
+    </view>
+    <view class="row" style="height: 40px;">
+      <view class = "line" style="left: 30%;  height: 100%; width: 1px;"></view>
+      <view class = "line" style="right: 30%;  height: 100%; width: 1px;"></view>
     </view>
     <view class="row">
-      <text style="left: 10%" class="item">{{ name[0][0] }}</text>
-      <text style="left: 30%" class="item">{{ name[0][1] }}</text>
-      <text style="left: 50%" class="item">{{ name[0][2] }}</text>
-      <text style="left: 70%" class="item">{{ name[0][3] }}</text>
-    </view>
-    <view class="row" style="margin-bottom: 0;">
-      <view class="hline item" style=" height: 20px; width: 1px; left: 20%;"></view>
-      <view class="hline item" style=" height: 20px; width: 1px; left: 40%;"></view>
-      <view class="hline item" style=" height: 20px; width: 1px; left: 60%;"></view>
-      <view class="hline item" style=" height: 20px; width: 1px; left: 80%;"></view>
-      <view class="hline item" style=" height: 1px; width: 20%; left: 20%; bottom: 0%;"></view>
-      <view class="hline item" style=" height: 1px; width: 20%; left: 60%; bottom: 0%;"></view>
-    </view>
-    <view class="row" style="margin-top:0; height: 30px;">
-      <view class="hline item" style=" height: 30px; width: 1px; left: 30%;"></view>
-      <view class="hline item" style=" height: 30px; width: 1px; left: 70%;"></view>
-    </view>
-  <!-- 第二行 -->
-    <view class="row">
-      <text style="left: 20%" class="item">{{ score[1][0] }}</text>
-      <text style="left: 60%" class="item">{{ score[1][1] }}</text>
+      <view class = "line" style="left: 30%;  bottom:50%; height: 50%; width: 1px;"></view>
+      <view class = "line" style="right: 30%;  bottom:50%; height: 50%; width: 1px;"></view>
+      <view class="line" style="left: 30%;  height:1px; width: 5%;"></view>
+      <view class="line" style="right: 30%;  height:1px; width: 5%;"></view>
+      <view class="table" style="left: 35%;">
+        <view class="tablerow">
+          <view class="cell" style="left: 10%">{{ name[1][0] }}</view>
+          <text class="cell" style="left: 35%">VS</text>
+          <view class="cell" style="right: 10%" >{{ name[1][1] }}</view>
+        </view>
+        <view class="tablerow">
+          <view class="cell" style="left: 10%" >{{ score[1][0] }}</view>
+          <text class="cell" style="left: 35%">:</text>
+          <view class="cell" style="right: 10%" >{{ score[1][1] }}</view>
+        </view>
+      </view>
     </view>
     <view class="row">
-      <text style="left: 20%" class="item">{{ name[1][0] }}</text>
-      <text style="left: 60%" class="item">{{ name[1][1] }}</text>
-    </view>
-    <view class="row" style="margin-bottom: 0;">
-      <view class="hline item" style=" height: 20px; width: 1px; left: 30%;"></view>
-      <view class="hline item" style=" height: 20px; width: 1px; left: 70%;"></view>
-      <view class="hline item" style=" height: 1px; width: 40%; left: 30%; bottom: 0%;"></view>
-    </view>
-    <view class="row" style="margin-top:0; height: 30px;">
-      <view class="hline item" style=" height: 30px; width: 1px; left: 50%;"></view>
-    </view>
-    <!-- 第三行 -->
-    <view class="row">
-      <text style="left: 40%" class="item">{{ score[2][0] }}</text>
+      <view class = "line" style="margin-left:1px; left: 50%; bottom: 50%;  height:50%; width: 1px;"></view>
+      <view class = "line" style="margin-left:1px; left: 35%;  height:1px; width: 15%;"></view>
+      <view class = "line" style="margin-left:1px; left: 35%; top: 50%;  height:50%; width: 1px;"></view>
     </view>
     <view class="row">
-      <text style="left: 40%" class="item">{{ name[2][0] }}</text>
-    </view>
-    <view class="row" style="height: 30px;">
-      <view class="hline item" style=" height: 30px; width: 1px; left: 50%;"></view>
-    </view>
-    <view class="row" style="height: 10px;">
-      <text style="left: 40%" class="item">{{ name[3][0] }}</text>
-    </view>
-
-    <view class="row" style="height: 30px;">
-      <view class="hline item" style=" height: 30px; width: 1px; left: 50%;"></view>
-    </view>
-
-    <view class="row">
-      <text style="left: 40%" class="item">{{ name[2][1] }}</text>
+      <view class="table" style="left: 20%; width: 60%;">
+        <view class="tablerow">
+          <view class="cell" style="left: 10%">{{ name[2][0] }}</view>
+          <text class="cell" style="left: 35%">VS</text>
+          <view class="cell" style="right: 10%" >{{ name[2][1] }}</view>
+        </view>
+        <view class="tablerow">
+          <view class="cell" style="left: 10%" >{{ score[2][0] }}</view>
+          <text class="cell" style="left: 35%">:</text>
+          <view class="cell" style="right: 10%" >{{ score[2][1] }}</view>
+        </view>
+      </view>
     </view>
     <view class="row">
-      <text style="left: 40%" class="item">{{ score[2][1] }}</text>
-    </view>
-
-    <view class="row" style="margin-bottom:0; height: 30px;">
-      <view class="hline item" style=" height: 30px; width: 1px; left: 50%;"></view>
-    </view>
-    <view class="row" style="margin-top: 0;">
-      <view class="hline item" style=" height: 20px; width: 1px; left: 30%;"></view>
-      <view class="hline item" style=" height: 20px; width: 1px; left: 70%;"></view>
-      <view class="hline item" style=" height: 1px; width: 40%; left: 30%; top: 0%;"></view>
+      <view class = "line" style="margin-left:1px; left: 50%; top: 50%;  height:50%; width: 1px;"></view>
+      <view class = "line" style="margin-left:1px; right: 35%;  height:1px; width: 15%;"></view>
+      <view class = "line" style="margin-left:1px; right: 35%; bottom: 50%;  height:50%; width: 1px;"></view>
     </view>
     <view class="row">
-      <text style="left: 20%" class="item">{{ name[1][2] }}</text>
-      <text style="left: 60%" class="item">{{ name[1][3] }}</text>
+      <view class = "line" style="left: 30%;  top:50%; height: 50%; width: 1px;"></view>
+      <view class = "line" style="right: 30%;  top:50%; height: 50%; width: 1px;"></view>
+      <view class="line" style="left: 30%;  height:1px; width: 5%;"></view>
+      <view class="line" style="right: 30%;  height:1px; width: 5%;"></view>
+      <view class="table" style="left: 35%;">
+        <view class="tablerow">
+          <view class="cell" style="left: 10%">{{ name[1][2] }}</view>
+          <text class="cell" style="left: 35%">VS</text>
+          <view class="cell" style="right: 10%" >{{ name[1][3] }}</view>
+        </view>
+        <view class="tablerow">
+          <view class="cell" style="left: 10%" >{{ score[1][2] }}</view>
+          <text class="cell" style="left: 35%">:</text>
+          <view class="cell" style="right: 10%" >{{ score[1][3] }}</view>
+        </view>
+      </view>
+    </view>
+    <view class="row" style="height: 40px;">
+      <view class = "line" style="left: 30%;  height: 100%; width: 1px;"></view>
+      <view class = "line" style="right: 30%;  height: 100%; width: 1px;"></view>
     </view>
     <view class="row">
-      <text style="left: 20%" class="item">{{ score[1][2] }}</text>
-      <text style="left: 60%" class="item">{{ score[1][3] }}</text>
-    </view>
-    
-    <view class="row" style="margin-bottom:0; height: 30px;">
-      <view class="hline item" style=" height: 30px; width: 1px; left: 30%;"></view>
-      <view class="hline item" style=" height: 30px; width: 1px; left: 70%;"></view>
-    </view>
-    <view class="row" style="margin-top: 0;">
-      <view class="hline item" style=" height: 1px; width: 20%; left: 20%; top: 0%;"></view>
-      <view class="hline item" style=" height: 1px; width: 20%; left: 60%; top: 0%;"></view>
-      <view class="hline item" style=" height: 20px; width: 1px; left: 20%;"></view>
-      <view class="hline item" style=" height: 20px; width: 1px; left: 40%;"></view>
-      <view class="hline item" style=" height: 20px; width: 1px; left: 60%;"></view>
-      <view class="hline item" style=" height: 20px; width: 1px; left: 80%;"></view>
-    </view>
-    <view class="row">
-      <text style="left: 10%" class="item">{{ name[0][4] }}</text>
-      <text style="left: 30%" class="item">{{ name[0][5] }}</text>
-      <text style="left: 50%" class="item">{{ name[0][6] }}</text>
-      <text style="left: 70%" class="item">{{ name[0][7] }}</text>
-    </view>
-    <view class="row">
-      <text style="left: 10%" class="item">{{ score[0][4] }}</text>
-      <text style="left: 30%" class="item">{{ score[0][5] }}</text>
-      <text style="left: 50%" class="item">{{ score[0][6] }}</text>
-      <text style="left: 70%" class="item">{{ score[0][7] }}</text>
+      <view class="table" style="left: 15%">
+        <view class="tablerow">
+          <view class="cell" style="left: 10%">{{ name[0][4] }}</view>
+          <text class="cell" style="left: 35%">VS</text>
+          <view class="cell" style="right: 10%">{{ name[0][5] }}</view>
+        </view>
+        <view class="tablerow">
+          <view class="cell" style="left: 10%">{{ score[0][4] }}</view>
+          <text class="cell" style="left: 35%">:</text>
+          <view class="cell" style="right: 10%">{{ score[0][5] }}</view>
+        </view>
+      </view>
+      <view class="table" style="right: 15%">
+        <view class="tablerow">
+          <view class="cell" style="left: 10%">{{ name[0][6] }}</view>
+          <text class="cell" style="left: 35%">VS</text>
+          <view class="cell" style="right: 10%">{{ name[0][7] }}</view>
+        </view>
+        <view class="tablerow">
+          <view class="cell" style="left: 10%">{{ score[0][6] }}</view>
+          <text class="cell" style="left: 35%">:</text>
+          <view class="cell" style="right: 10%">{{ score[0][7] }}</view>
+        </view>
+      </view>
     </view>
   </view>
+
+
+
+
   <view wx:if="{{group=='男甲'}}" class="container">
     <view class="row">
-      <text style="left: 20%" class="item">{{ score[0][0] }}</text>
-      <text style="left: 60%" class="item">{{ score[0][1] }}</text>
+      <view class="table" style="left: 25%; width: 50%;">
+        <view class="tablerow">
+          <view class="cell" style="left: 10%">{{ name[0][0] }}</view>
+          <text class="cell" style="left: 35%">VS</text>
+          <view class="cell" style="right: 10%" >{{ name[0][1] }}</view>
+        </view>
+        <view class="tablerow">
+          <view class="cell" style="left: 10%" >{{ score[0][0] }}</view>
+          <text class="cell" style="left: 35%">:</text>
+          <view class="cell" style="right: 10%" >{{ score[0][1] }}</view>
+        </view>
+      </view>
     </view>
     <view class="row">
-      <text style="left: 20%" class="item">{{ name[0][0] }}</text>
-      <text style="left: 60%" class="item">{{ name[0][1] }}</text>
-    </view>
-    <view class="row" style="margin-bottom: 0;">
-      <view class="hline item" style=" height: 20px; width: 1px; left: 30%;"></view>
-      <view class="hline item" style=" height: 20px; width: 1px; left: 70%;"></view>
-      <view class="hline item" style=" height: 1px; width: 40%; left: 30%; bottom: 0%;"></view>
-    </view>
-    <view class="row" style="margin-top:0; height: 30px;">
-      <view class="hline item" style=" height: 30px; width: 1px; left: 50%;"></view>
-    </view>
-    <!-- 第三行 -->
-    <view class="row">
-      <text style="left: 40%" class="item">{{ score[1][0] }}</text>
+      <view class = "line" style="margin-left:1px; left: 50%; bottom: 50%;  height:50%; width: 1px;"></view>
+      <view class = "line" style="margin-left:1px; left: 35%;  height:1px; width: 15%;"></view>
+      <view class = "line" style="margin-left:1px; left: 35%; top: 50%;  height:50%; width: 1px;"></view>
     </view>
     <view class="row">
-      <text style="left: 40%" class="item">{{ name[1][0] }}</text>
-    </view>
-    <view class="row" style="height: 30px;">
-      <view class="hline item" style=" height: 30px; width: 1px; left: 50%;"></view>
-    </view>
-    <view class="row" style="height: 10px;">
-      <text style="left: 40%" class="item">{{ name[2][0] }}</text>
-    </view>
-
-    <view class="row" style="height: 30px;">
-      <view class="hline item" style=" height: 30px; width: 1px; left: 50%;"></view>
-    </view>
-
-    <view class="row">
-      <text style="left: 40%" class="item">{{ name[1][1] }}</text>
+      <view class="table" style="left: 20%; width: 60%;">
+        <view class="tablerow">
+          <view class="cell" style="left: 10%">{{ name[1][0] }}</view>
+          <text class="cell" style="left: 35%">VS</text>
+          <view class="cell" style="right: 10%" >{{ name[1][1] }}</view>
+        </view>
+        <view class="tablerow">
+          <view class="cell" style="left: 10%" >{{ score[1][0] }}</view>
+          <text class="cell" style="left: 35%">:</text>
+          <view class="cell" style="right: 10%" >{{ score[1][1] }}</view>
+        </view>
+      </view>
     </view>
     <view class="row">
-      <text style="left: 40%" class="item">{{ score[1][1] }}</text>
-    </view>
-
-    <view class="row" style="margin-bottom:0; height: 30px;">
-      <view class="hline item" style=" height: 30px; width: 1px; left: 50%;"></view>
-    </view>
-    <view class="row" style="margin-top: 0;">
-      <view class="hline item" style=" height: 20px; width: 1px; left: 30%;"></view>
-      <view class="hline item" style=" height: 20px; width: 1px; left: 70%;"></view>
-      <view class="hline item" style=" height: 1px; width: 40%; left: 30%; top: 0%;"></view>
+      <view class = "line" style="margin-left:1px; left: 50%; top: 50%;  height:50%; width: 1px;"></view>
+      <view class = "line" style="margin-left:1px; right: 35%;  height:1px; width: 15%;"></view>
+      <view class = "line" style="margin-left:1px; right: 35%; bottom: 50%;  height:50%; width: 1px;"></view>
     </view>
     <view class="row">
-      <text style="left: 20%" class="item">{{ name[0][2] }}</text>
-      <text style="left: 60%" class="item">{{ name[0][3] }}</text>
-    </view>
-    <view class="row">
-      <text style="left: 20%" class="item">{{ score[0][2] }}</text>
-      <text style="left: 60%" class="item">{{ score[0][3] }}</text>
+      <view class="table" style="left: 25%; width: 50%;">
+        <view class="tablerow">
+          <view class="cell" style="left: 10%">{{ name[0][2] }}</view>
+          <text class="cell" style="left: 35%">VS</text>
+          <view class="cell" style="right: 10%" >{{ name[0][3] }}</view>
+        </view>
+        <view class="tablerow">
+          <view class="cell" style="left: 10%" >{{ score[0][2] }}</view>
+          <text class="cell" style="left: 35%">:</text>
+          <view class="cell" style="right: 10%" >{{ score[0][3] }}</view>
+        </view>
+      </view>
     </view>
   </view>
   <view style="height: 20px;"></view>

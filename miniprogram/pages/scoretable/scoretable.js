@@ -54,9 +54,144 @@ Page({
     loading: true,
     teams: null,
     score: null,
-    nonzero: 0
+    nonzero: 0,
+    array1: app.globalData.GROUP_NAMES,
+    value1: 0,
+    array2: app.globalData.LITTLEGROUPS[0],
+    value2: 0,
   },
-
+  bindPickerChange1: function(e) {
+    this.setData({
+        group: this.data.array1[e.detail.value],
+        value1: e.detail.value,
+        array2: app.globalData.LITTLEGROUPS[e.detail.value],
+        value2: 0,
+        littlegroup: this.data.array2[0],
+        loading: true
+    })
+    wx.cloud.callFunction({
+      name:"make_table",
+      data:{
+        group: this.data.group,
+        littlegroup: this.data.littlegroup
+      },
+      success: res =>{
+        console.log(res.result)
+        this.setData({
+          score:res.result.arr,
+          names:res.result.names
+        })
+        var teams = Object.assign([],res.result.teams)
+        var temp = Object.assign([],res.result.teams)
+        
+        temp.sort((a,b)=>{
+          return b.point-a.point
+        })
+        var len = temp.length
+        console.log(temp)
+        for(var i=0;i<len-1;i++){
+          if (temp[i].point==temp[i+1].point){
+            var j = i+2;
+            for(;j<len&&temp[j].point==temp[i].point;j++){}
+            var temptemp = rerank(temp.slice(i,j),this.data.score,teams);
+            for (var _=0;_<j-i;_++){
+              temp[_+i] = temptemp[_]
+            }
+            i = j-1;
+          }
+        }
+        console.log(temp)
+        var tt = Object.assign([],teams);
+        var cnt = 0
+        for(var i=0;i<len;i++){
+          teams[i] = tt[temp[i].id]
+          if (teams[i].totalpoint>0){
+            cnt++
+          }
+        }
+        console.log(this.data.teams)
+        console.log(teams)
+        console.log(cnt)
+        this.setData({
+          teams: teams,
+          nonzero: cnt,
+          loading: false
+        })
+      },
+      fail: err =>{
+        console.log(err)
+        app.globalData.errInfo = "检查错误"
+        wx.navigateTo({
+          url: '../error_page/error_page',
+        })
+      }
+    })
+  },
+  bindPickerChange2: function(e) {
+    this.setData({
+        littlegroup: this.data.array2[e.detail.value],
+        value2: e.detail.value,
+        loading:true
+    })
+    console.log(this.data.littlegroup)
+    wx.cloud.callFunction({
+      name:"make_table",
+      data:{
+        group: this.data.group,
+        littlegroup: this.data.littlegroup
+      },
+      success: res =>{
+        console.log(res.result)
+        this.setData({
+          score:res.result.arr,
+          names:res.result.names
+        })
+        var teams = Object.assign([],res.result.teams)
+        var temp = Object.assign([],res.result.teams)
+        
+        temp.sort((a,b)=>{
+          return b.point-a.point
+        })
+        var len = temp.length
+        console.log(temp)
+        for(var i=0;i<len-1;i++){
+          if (temp[i].point==temp[i+1].point){
+            var j = i+2;
+            for(;j<len&&temp[j].point==temp[i].point;j++){}
+            var temptemp = rerank(temp.slice(i,j),this.data.score,teams);
+            for (var _=0;_<j-i;_++){
+              temp[_+i] = temptemp[_]
+            }
+            i = j-1;
+          }
+        }
+        console.log(temp)
+        var tt = Object.assign([],teams);
+        var cnt = 0
+        for(var i=0;i<len;i++){
+          teams[i] = tt[temp[i].id]
+          if (teams[i].totalpoint>0){
+            cnt++
+          }
+        }
+        console.log(this.data.teams)
+        console.log(teams)
+        console.log(cnt)
+        this.setData({
+          teams: teams,
+          nonzero: cnt,
+          loading: false
+        })
+      },
+      fail: err =>{
+        console.log(err)
+        app.globalData.errInfo = "检查错误"
+        wx.navigateTo({
+          url: '../error_page/error_page',
+        })
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -82,6 +217,7 @@ Page({
       })
       var teams = Object.assign([],res.result.teams)
       var temp = Object.assign([],res.result.teams)
+      
       temp.sort((a,b)=>{
         return b.point-a.point
       })

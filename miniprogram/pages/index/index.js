@@ -28,7 +28,7 @@ Page({
       loading: true
     })
     wx.navigateTo({
-      url: '../scoretable_choose/scoretable_choose',
+      url: '../scoretable/scoretable?group=0&littlegroup=0',
     })
   },
   to_knockout(){
@@ -37,7 +37,7 @@ Page({
       loading: true
     })
     wx.navigateTo({
-      url: '../knockout_choose/knockout_choose',
+      url: '../knockout/knockout?group=0',
     })
   },
   login_manager(){
