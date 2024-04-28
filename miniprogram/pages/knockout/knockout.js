@@ -14,17 +14,14 @@ Page({
     allgroups: app.globalData.GROUP_NAMES,
     value : 0
   },
-  showGroupSelector:  function(e){
-    this.setData({
-      showselector: true
-    })
-  },
   selectGroup:  function(e){
+    if (this.data.loading) return
     this.setData({
       group: this.data.allgroups[e.detail.value],
       value: e.detail.value,
       name:[],
       score:[],
+      loading: true
     })
     console.log(e.detail)
     wx.cloud.callFunction({
@@ -54,7 +51,8 @@ Page({
   onLoad(options) {
     this.setData({
       value: parseInt(options.group),
-      group: app.globalData.GROUP_NAMES[parseInt(options.group)]
+      group: app.globalData.GROUP_NAMES[parseInt(options.group)],
+      loading: true
     })
     wx.cloud.callFunction({
       name: "get_knockout",

@@ -23,7 +23,7 @@ exports.main = async (event, context) => {
     final = 3
   }
   if (event.group == "女甲"){
-    tempname = [Array(2),Array(1)]
+    tempname = [["",""],Array(1)]
     tempscore = [Array(2),Array(1)]
     final = 1
   }

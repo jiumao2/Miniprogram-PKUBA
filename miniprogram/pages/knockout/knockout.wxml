@@ -10,7 +10,7 @@
 		</view>
 	</view>
   <view class="weui-form__text-area" style="margin-bottom: 30px">
-		<h2 class="weui-form__title">淘汰赛对阵表</h2>
+		<h2 class="weui-form__title">淘汰赛对阵图</h2>
 	</view>
         
   <view wx:if="{{group=='男乙'|group=='女乙'}}" class="container">
@@ -193,4 +193,29 @@
       </view>
     </view>
   </view>
+  <view wx:if="{{group=='女甲'}}" class="container">
+    <view class="row">
+      <view class="table" style="left: 20%; width: 60%;">
+        <view class="tablerow">
+          <view class="cell" style="left: 10%">{{ name[0][0] }}</view>
+          <text class="cell" style="left: 35%">VS</text>
+          <view class="cell" style="right: 10%" >{{ name[0][1] }}</view>
+        </view>
+        <view class="tablerow">
+          <view class="cell" style="left: 10%" >{{ score[0][0] }}</view>
+          <text class="cell" style="left: 35%">:</text>
+          <view class="cell" style="right: 10%" >{{ score[0][1] }}</view>
+        </view>
+      </view>
+    </view>
+  </view>
   <view style="height: 20px;"></view>
+ <view class="fadeIn {{hideLoading ? 'fadeOut' : ''}}" wx:if="{{loading}}">
+	<view class="weui-mask_transparent"></view>
+	<view class="weui-toast">
+		<view class="weui-primary-loading weui-primary-loading_transparent">
+			<view class="weui-primary-loading__dot"></view>
+		</view>
+		<view class="weui-toast__content">加载中</view>
+	</view>
+</view>
