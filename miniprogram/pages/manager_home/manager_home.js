@@ -45,6 +45,16 @@ Page({
     })
   },
 
+  to_manager_view_apply(){
+    if (this.data.loading) return
+    this.setData({
+      loading: true
+    })
+    wx.navigateTo({
+      url: '../manager_view_apply/manager_view_apply',
+    })
+  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

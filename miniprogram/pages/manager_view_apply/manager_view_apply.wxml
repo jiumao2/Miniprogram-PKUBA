@@ -1,0 +1,29 @@
+<!--pages/manager_view_apply/manager_view_apply.wxml-->
+<view>
+<view class="weui-cells__title">未处理的申请</view>
+<view class="weui-cells weui-cells_after-title">
+  <a data-message="{{item}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap="view_detail" wx:for="{{request_to_review}}">
+        <view class="weui-cell__bd">{{item.month}}.{{item.date}} {{item.hour}}:{{item.minute}} {{item.home_team}}VS{{item.away_team}}</view>
+        <view wx:if="{{item.state==1}}" class="weui-cell__ft" style="color:#FFCC00">等待对手确认</view>
+        <view wx:elif="{{item.state==2}}" class="weui-cell__ft" style="color:green">通过</view>
+        <view wx:elif="{{item.state==0}}" class="weui-cell__ft" style="color:red">拒绝</view>
+        <view wx:elif="{{item.state==3}}" class="weui-cell__ft" style="color:#FFCC00">抽签申请中</view>
+        <view wx:elif="{{item.state==4}}" class="weui-cell__ft" style="color:#FFCC00">审核中</view>
+        <view wx:elif="{{item.state==5}}" class="weui-cell__ft" style="color:#FFCC00">等待同组其他领队确认</view>
+  </a>
+</view>
+<text>\n</text>
+<view class="weui-cells__title">已处理的申请</view>
+<view class="weui-cells weui-cells_after-title">
+  <a data-message="{{item}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap="view_detail" wx:for="{{request_reviewed}}">
+        <view class="weui-cell__bd">{{item.month}}.{{item.date}} {{item.hour}}:{{item.minute}} {{item.home_team}}VS{{item.away_team}}</view>
+        <view wx:if="{{item.state==1}}" class="weui-cell__ft" style="color:#FFCC00">等待对手确认</view>
+        <view wx:elif="{{item.state==2}}" class="weui-cell__ft" style="color:green">通过</view>
+        <view wx:elif="{{item.state==0}}" class="weui-cell__ft" style="color:red">拒绝</view>
+        <view wx:elif="{{item.state==3}}" class="weui-cell__ft" style="color:#FFCC00">抽签申请中</view>
+        <view wx:elif="{{item.state==4}}" class="weui-cell__ft" style="color:#FFCC00">审核中</view>
+        <view wx:elif="{{item.state==5}}" class="weui-cell__ft" style="color:#FFCC00">等待同组其他领队确认</view>
+  </a>
+</view>
+
+</view>

@@ -9,6 +9,7 @@
 <view>
   <a class="weui-btn weui-btn_primary" bindtap="to_schedule_edit">更新比赛信息</a>
   <a class="weui-btn weui-btn_primary" bindtap="to_scoresheet_edit">查看/上传图片</a>
+  <a class="weui-btn weui-btn_primary" bindtap="to_manager_view_apply">查看赛程调整申请</a>
 </view>
 
 <view class="fadeIn {{hideLoading ? 'fadeOut' : ''}}" wx:if="{{loading}}">

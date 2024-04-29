@@ -1,0 +1,116 @@
+<!--pages/manager_view_apply_details/manager_view_apply_details.wxml-->
+<view class="weui-cells__title">详细信息</view>
+<view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell">
+        <view class="weui-cell__bd">申请方</view>
+        <view class="weui-cell__ft">{{request_detail.requester}}</view>
+    </view>
+    <view class="weui-cell">
+        <view class="weui-cell__bd">主队</view>
+        <view class="weui-cell__ft">{{request_detail.home_team}}</view>
+    </view>
+    <view class="weui-cell">
+        <view class="weui-cell__bd">客队</view>
+        <view class="weui-cell__ft">{{request_detail.away_team}}</view>
+    </view>
+    <view class="weui-cell">
+        <view class="weui-cell__bd">原时间</view>
+        <view class="weui-cell__ft">
+        {{request_detail.month}}.{{request_detail.date}} {{request_detail.hour}}:{{request_detail.minute}}</view>
+    </view>
+    <view class="weui-cell">
+        <view class="weui-cell__bd">原场地</view>
+        <view class="weui-cell__ft">{{request_detail.place}}</view>
+    </view>
+    <view class="weui-cell">
+        <view class="weui-cell__bd">新时间</view>
+        <view class="weui-cell__ft">{{new_time}}</view>
+    </view>
+    <view class="weui-cell">
+        <view class="weui-cell__bd">类型</view>
+        <view class="weui-cell__ft">{{type}}</view>
+    </view>
+    <view class="weui-cell">
+        <view class="weui-cell__bd">状态</view>
+        <view class="weui-cell__ft">{{request_detail.stateInfo}}</view>
+    </view>
+    <view class="weui-cell">
+        <view class="weui-cell__bd">申请时间</view>
+        <view class="weui-cell__ft">{{request_detail.month_req}}.{{request_detail.date_req}} {{request_detail.hour_req}}:{{request_detail.minute_req}}</view>
+    </view>
+    <view class="weui-cell">
+        <view class="weui-cell__bd">是否需要同组同意</view>
+        <view wx:if="{{request_detail.to_vote_in_same_group}}" class="weui-cell__ft">是</view>
+        <view wx:if="{{!request_detail.to_vote_in_same_group}}" class="weui-cell__ft">否</view>
+    </view>
+    <view class="weui-cell">
+        <view class="weui-cell__bd">需要同意的同组队伍</view>
+        <view class="weui-cell__ft">{{request_detail.teams_to_vote}}</view>
+    </view>
+    <view class="weui-cell">
+        <view class="weui-cell__bd">已同意的同组队伍</view>
+        <view class="weui-cell__ft">{{request_detail.voted_accept}}</view>
+    </view>
+    <view class="weui-cell">
+        <view class="weui-cell__bd">已拒绝的同组队伍</view>
+        <view class="weui-cell__ft">{{request_detail.voted_reject}}</view>
+    </view>
+
+    <view class="weui-cell">
+        <view class="weui-cell__bd">备注</view>
+        <view class="weui-cell__ft">{{request_detail.notes}}</view>
+    </view>
+</view>
+
+<view class="weui-cells__title">新的备注</view>
+<view class="weui-cells weui-cells_form">
+    <view class="weui-cell" hover-class="weui-cell_active">
+        <view class="weui-cell__bd">
+            <textarea class="weui-textarea" placeholder-class="weui-input__placeholder" rows="2" bindinput="getNotes">{{request_detail.notes}}</textarea>
+            <!-- <view aria-role="option" class="weui-textarea-counter"><span>0</span>/200</view> -->
+        </view>
+    </view>
+</view>
+<view wx:if="{{show_choosing_little_group}}" class="weui-cell weui-cell_active weui-cell_select weui-cell_select-after">
+  <view class="weui-cell__hd">
+    <label class="weui-label">所属小组</label>
+  </view>
+  <view class="weui-cell__bd">
+    <picker bindchange="bindPickerChange" range="{{little_group_labels}}">
+      <view class="weui-select">{{little_group_labels[idx_little_group]}}</view>
+    </picker>
+  </view>
+</view>
+<text>\n</text>
+
+<view wx:if="{{!request_detail.is_reviewed}}">
+<view wx:if="{{request_detail.state==0 || request_detail.state==2 || request_detail.state==3}}">
+      <a class="weui-btn weui-btn_primary" bindtap="confirm">确认</a>
+</view>
+
+<view wx:if="{{request_detail.state==1 || request_detail.state==5}}">
+      <a class="weui-btn weui-btn_primary" bindtap="reject">拒绝</a>
+</view>
+
+<view wx:if="{{request_detail.state==4}}">
+      <a class="weui-btn weui-btn_primary" bindtap="accept">同意</a>
+      <a class="weui-btn weui-btn_primary" bindtap="reject">拒绝</a>
+      <a class="weui-btn weui-btn_primary" bindtap="vote_in_same_group">需要同组同意</a>
+</view>
+</view>
+
+<view wx:if="{{request_detail.is_reviewed}}">
+  <a class="weui-btn weui-btn_primary" bindtap="recall">撤销审核</a>
+</view>
+
+<text>\n</text>
+
+<view class="fadeIn {{hideLoading ? 'fadeOut' : ''}}" wx:if="{{loading}}">
+	<view class="weui-mask_transparent"></view>
+	<view class="weui-toast">
+		<view class="weui-primary-loading weui-primary-loading_transparent">
+			<view class="weui-primary-loading__dot"></view>
+		</view>
+		<view class="weui-toast__content">加载中</view>
+	</view>
+</view>
