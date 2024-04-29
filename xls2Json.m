@@ -89,6 +89,7 @@ data_new = [];
 count = 0;
 for k = 1:row
     for j = 1:col
+        tempdata = struct();
         if strfind(upper(data{k,j}),'VS')
             temp = data{k,j};
             temp(temp==' ')=''; % delete all space
@@ -234,3 +235,43 @@ disp(data_new)
 fid = fopen('schedule.json','w','n','UTF-8');
 fprintf(fid, '%s', data_new);
 fclose(fid);
+
+%% team.json
+data_all = [];
+count_team = 0;
+for k = 1:3:length(team_new)
+    group_this = team_new{k};
+    gender_this = team_new{k+1}=='m';
+    name_this = team_new{k+2};
+
+    if gender_this && (group_this(1) == 'a' || group_this(1) == 'b')
+        group_name = '男甲';
+        littlegroup = upper(group_this(1));
+    elseif gender_this
+        group_name = '男乙';
+        littlegroup = group_this(1);
+    elseif ~gender_this && length(group_this)==1
+        group_name = '女甲';
+        littlegroup = 'A';
+    else
+        group_name = '女乙';
+        littlegroup = group_this(1);
+    end
+    
+    tempdata = struct();
+    tempdata.group = group_name;
+    tempdata.littlegroup = littlegroup;
+    tempdata.name = name_this;
+
+    tempdata_json = jsonencode(tempdata);
+    data_all = [data_all, tempdata_json];
+    count_team = count_team+1;
+end
+
+disp(['共有', num2str(count_team), '支队伍!']);
+disp(data_all)
+fid = fopen('team.json','w','n','UTF-8');
+fprintf(fid, '%s', data_all);
+fclose(fid);
+
+
