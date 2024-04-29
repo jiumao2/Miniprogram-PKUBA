@@ -27,7 +27,15 @@ exports.main = async (event, context) => {
         "time_new": new Date(event.new_time.time),
         "away_team": event.game.away_team,
         "place": event.game.place,
-        "game_id": event.game._id
+        "game_id": event.game._id,
+        "notes": '',
+        "is_reviewed": false,
+        "reviewed_by": '',
+        "reviewed_time": new Date(),
+        "to_vote_in_same_group": false,
+        "teams_to_vote": [],
+        "voted_accept": [],
+        "voted_reject": []
       }      
       })
   }
@@ -46,7 +54,15 @@ exports.main = async (event, context) => {
         "time_new": '无',
         "away_team": event.game.away_team,
         "place": event.game.place,
-        "game_id": event.game._id
+        "game_id": event.game._id,
+        "notes": '',
+        "is_reviewed": false,
+        "reviewed_by": '',
+        "reviewed_time": new Date(),
+        "to_vote_in_same_group": false,
+        "teams_to_vote": [],
+        "voted_accept": [],
+        "voted_reject": []
       }      
       })
   }
