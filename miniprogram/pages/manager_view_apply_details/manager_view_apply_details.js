@@ -57,7 +57,11 @@ Page({
             },
             success: res => {
               app.globalData.request_detail.state = 2
-              app.navigateBack()
+              wx.navigateBack()
+              wx.navigateBack()
+              wx.navigateTo({
+                url: '../manager_view_apply/manager_view_apply',
+              })
             },
             fail: err =>{
               console.log(err)
@@ -96,6 +100,10 @@ Page({
             },
             success: res => {
               wx.navigateBack()
+              wx.navigateBack()
+              wx.navigateTo({
+                url: '../manager_view_apply/manager_view_apply',
+              })
             },
             fail: err =>{
               console.log(err)
@@ -134,6 +142,52 @@ Page({
             },
             success: res => {
               wx.navigateBack()
+              wx.navigateBack()
+              wx.navigateTo({
+                url: '../manager_view_apply/manager_view_apply',
+              })
+            },
+            fail: err =>{
+              console.log(err)
+            }
+          })
+        }
+      }
+    })
+  },
+
+  recall(){
+    if(this.data.loading) return
+
+    wx.showModal({
+      title: '是否确定取消已审核状态？',
+      content: '',
+      complete: (res) => {
+        if (res.confirm) {
+          this.setData({
+            loading: true
+          })
+
+          wx.cloud.callFunction({
+            name: "review_request",
+            data:{
+              request:this.data.request_detail,
+              new_state: this.data.request_detail.state,
+              to_delete: false,
+              is_reviewed: false,
+              reviewed_by: app.globalData.manager_info.name,
+              notes: this.data.notes,
+              to_vote_in_same_group: this.data.request_detail.to_vote_in_same_group,
+              teams_to_vote: this.data.request_detail.teams_to_vote,
+              voted_accept: this.data.request_detail.voted_accept,
+              voted_reject: this.data.request_detail.voted_reject
+            },
+            success: res => {
+              wx.navigateBack()
+              wx.navigateBack()
+              wx.navigateTo({
+                url: '../manager_view_apply/manager_view_apply',
+              })
             },
             fail: err =>{
               console.log(err)
