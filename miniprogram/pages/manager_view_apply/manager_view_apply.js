@@ -30,12 +30,12 @@ Page({
         var request_to_review = []
         var request_reviewed = []
         for (var i=0;i<request.length;i++){
-          // if (request[i].is_reviewed){
-          //   request_reviewed.push(request[i])
-          // }
-          // else{
+          if (request[i].is_reviewed){
+            request_reviewed.push(request[i])
+          }
+          else{
             request_to_review.push(request[i])
-          // }
+          }
         }
 
         for (var i=0;i<request_to_review.length;i++){

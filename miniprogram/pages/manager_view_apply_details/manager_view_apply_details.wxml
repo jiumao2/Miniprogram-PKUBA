@@ -66,7 +66,7 @@
 <view class="weui-cells weui-cells_form">
     <view class="weui-cell" hover-class="weui-cell_active">
         <view class="weui-cell__bd">
-            <textarea class="weui-textarea" placeholder-class="weui-input__placeholder" rows="2" bindinput="getNotes">{{request_detail.notes}}</textarea>
+            <textarea class="weui-textarea" placeholder-class="weui-input__placeholder" rows="2" bindinput="getNotes" value="{{request_detail.notes}}"></textarea>
             <!-- <view aria-role="option" class="weui-textarea-counter"><span>0</span>/200</view> -->
         </view>
     </view>
