@@ -36,6 +36,12 @@ Page({
       },
       success: res => {
         console.log(res)
+        if (this.data.name == res.result.data[0].LoginPassword || this.data.name.includes("九毛")){
+          app.globalData.errInfo = "昵称错误"
+          wx.navigateTo({
+            url: '../error_page/error_page',
+          })          
+        }
         if (this.data.password == res.result.data[0].LoginPassword){
           // 检查是否已经注册
           wx.cloud.callFunction({
