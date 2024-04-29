@@ -15,6 +15,27 @@ Page({
     this.setData({
       loading: true
     })
+
+    if (this.data.request_detail.is_vote){
+      var team_this = app.globalData.leader_info.team
+      var voted_accept = this.data.request_detail.voted_accept
+      voted_accept.push(team_this)
+      var voted_reject = this.data.request_detail.voted_reject
+
+      wx.cloud.callFunction({
+        name: "vote_request",
+        data:{
+          request: this.data.request_detail,
+          voted_accept: voted_accept,
+          voted_reject: voted_reject
+        },
+        success: res=>{
+          console.log(res)
+          wx.navigateBack()
+        }
+      })
+    }
+
     var now = new Date()
     var time_ddl = new Date(
       now.getFullYear(),
@@ -59,13 +80,11 @@ Page({
             data:{
               text: text_email,
               attachment: 0,
-              subject: app.globalData.TYPES[app.globalData.request_detail.type-1]+'申请 '+ app.globalData.request_detail.home_team + " VS "+ app.globalData.request_detail.away_team
+              subject: app.globalData.TYPES[app.globalData.request_detail.type-1]+'申请 '+ app.globalData.request_detail.home_team + " VS "+ app.globalData.request_detail.away_team + " (协商成功)"
             },
             success: res =>{
               console.log(res)
-              wx.navigateBack({
-                delta: 0,
-              })
+              wx.navigateBack()
             },
             fail: err =>{
               console.log(err)
@@ -133,6 +152,27 @@ Page({
     this.setData({
       loading: true
     })
+
+    if (this.data.request_detail.is_vote){
+      var team_this = app.globalData.leader_info.team
+      var voted_accept = this.data.request_detail.voted_accept
+      var voted_reject = this.data.request_detail.voted_reject
+      voted_reject.push(team_this)
+
+      wx.cloud.callFunction({
+        name: "vote_request",
+        data:{
+          request: this.data.request_detail,
+          voted_accept: voted_accept,
+          voted_reject: voted_reject
+        },
+        success: res=>{
+          console.log(res)
+          wx.navigateBack()
+        }
+      })
+    }
+
     app.globalData.request_detail.state = 0
     wx.cloud.callFunction({
       name: "update_request",
@@ -163,54 +203,21 @@ Page({
     request_detail.time_new = time
     request_detail.month_new = (time.getMonth()+1).toString()
     request_detail.date_new = time.getDate().toString()
-    request_detail.hour_new = time.getHours().toString()
-    var temp = time.getMinutes()
-    if (temp<10){
-      temp = "0" + temp
-    }
-    request_detail.minute_new = temp.toString()
+    request_detail.hour_new = time.getHours().toString().padStart(2,"0")
+    request_detail.minute_new = time.getMinutes().toString().padStart(2,"0")
 
     var time = new Date(request_detail.request_time)
     request_detail.time_req = time
     request_detail.month_req = (time.getMonth()+1).toString()
     request_detail.date_req = time.getDate().toString()
-    request_detail.hour_req = time.getHours().toString()
-    var temp = time.getMinutes()
-    if (temp<10){
-      temp = "0" + temp
-    }
-    request_detail.minute_req = temp.toString()
+    request_detail.hour_req = time.getHours().toString().padStart(2,"0")
+    request_detail.minute_req = time.getMinutes().toString().padStart(2,"0")
 
-    if (request_detail.state == 1){
-      request_detail.stateInfo = "等待领队确认"
-    }
-    else if (request_detail.state == 2){
-      request_detail.stateInfo = "通过"
-    }
-    else if (request_detail.state == 3){
-      request_detail.stateInfo = "抽签申请中"
-    }
-    else if (request_detail.state == 4){
-      request_detail.stateInfo = "跨周调整申请中"
-    }
-    else if (request_detail.state == 0){
-      request_detail.stateInfo = "拒绝"
-    }
-    if (request_detail.type == 1){
-      this.setData({
-        type: '普通调整'
-      })
-    }
-    else if(request_detail.type==2){
-      this.setData({
-        type: '抽签'
-      })
-    }
-    else if(request_detail.type==3){
-      this.setData({
-        type: '跨轮次调整'
-      })
-    }
+    request_detail.stateInfo = app.globalData.STATE[request_detail.state]
+    this.setData({
+      type: app.globalData.TYPES[request_detail.type-1]
+    })
+
     if (request_detail.state == 3){
       this.setData({
         new_time: '无'

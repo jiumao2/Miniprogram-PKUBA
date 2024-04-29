@@ -34,12 +34,25 @@ Page({
         var request_out = []
         var request_in = []
         for (var i=0;i<request.length;i++){
+          request[i].stateInfo = app.globalData.STATE[request[i].state]
+
           if (request[i].requester == app.globalData.leader_info.team){
             request[i].from_myself = true
+            request[i].is_vote = false
             request_out.push(request[i])
           }
           else{
             request[i].from_myself = false
+            if (request[i].to_vote_in_same_group 
+              && request[i].state == 5
+              && request[i].teams_to_vote.includes(app.globalData.leader_info.team)
+              && (!request[i].voted_accept.includes(app.globalData.leader_info.team))
+              && (!request[i].voted_reject.includes(app.globalData.leader_info.team))){
+              request[i].is_vote = true
+            }
+            else{
+              request[i].is_vote = false
+            }
             request_in.push(request[i])
           }
         }
@@ -49,12 +62,8 @@ Page({
           request_out[i].year = time.getFullYear().toString()
           request_out[i].month = (time.getMonth()+1).toString()
           request_out[i].date = time.getDate().toString()
-          request_out[i].hour = time.getHours().toString()
-          var temp = time.getMinutes()
-          if (temp<10){
-            temp = "0" + temp
-          }
-          request_out[i].minute = temp.toString()
+          request_out[i].hour = time.getHours().toString().padStart(2, "0")
+          request_out[i].minute = time.getMinutes().toString().padStart(2, "0")
         }
         for (var i=0;i<request_in.length;i++){
           var time = new Date(request_in[i].time)
@@ -62,12 +71,8 @@ Page({
           request_in[i].year = time.getFullYear().toString()
           request_in[i].month = (time.getMonth()+1).toString()
           request_in[i].date = time.getDate().toString()
-          request_in[i].hour = time.getHours().toString()
-          var temp = time.getMinutes()
-          if (temp<10){
-            temp = "0" + temp
-          }
-          request_in[i].minute = temp.toString()
+          request_in[i].hour = time.getHours().toString().padStart(2, "0")
+          request_in[i].minute = time.getMinutes().toString().padStart(2, "0")
         }
         console.log(request_out)
         console.log(request_in)

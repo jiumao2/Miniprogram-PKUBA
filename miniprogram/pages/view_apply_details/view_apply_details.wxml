@@ -38,10 +38,31 @@
         <view class="weui-cell__bd">申请时间</view>
         <view class="weui-cell__ft">{{request_detail.month_req}}.{{request_detail.date_req}} {{request_detail.hour_req}}:{{request_detail.minute_req}}</view>
     </view>
+    <view class="weui-cell">
+        <view class="weui-cell__bd">是否需要同组同意</view>
+        <view wx:if="{{request_detail.to_vote_in_same_group}}" class="weui-cell__ft">是</view>
+        <view wx:if="{{!request_detail.to_vote_in_same_group}}" class="weui-cell__ft">否</view>
+    </view>
+    <view class="weui-cell">
+        <view class="weui-cell__bd">需要同意的同组队伍</view>
+        <view class="weui-cell__ft">{{request_detail.teams_to_vote}}</view>
+    </view>
+    <view class="weui-cell">
+        <view class="weui-cell__bd">已同意的同组队伍</view>
+        <view class="weui-cell__ft">{{request_detail.voted_accept}}</view>
+    </view>
+    <view class="weui-cell">
+        <view class="weui-cell__bd">已拒绝的同组队伍</view>
+        <view class="weui-cell__ft">{{request_detail.voted_reject}}</view>
+    </view>
+    <view class="weui-cell">
+        <view class="weui-cell__bd">备注</view>
+        <view class="weui-cell__ft">{{request_detail.notes}}</view>
+    </view>
 </view>
 
 <text>\n</text>
-<view wx:if="{{request_detail.state==1 && (!request_detail.from_myself)}}">
+<view wx:if="{{(request_detail.state==1 && (!request_detail.from_myself)) || request_detail.is_vote}}">
       <a class="weui-btn weui-btn_primary" bindtap="accept">接受</a>
       <a class="weui-btn weui-btn_primary" bindtap="reject">拒绝</a>
 </view>

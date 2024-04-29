@@ -21,7 +21,9 @@
     "pages/schedule_scoresheet/schedule_scoresheet",
     "pages/edit_scoresheet/edit_scoresheet",
     "pages/knockout/knockout",
-    "pages/knockout_choose/knockout_choose"
+    "pages/knockout_choose/knockout_choose",
+    "pages/manager_view_apply/manager_view_apply",
+    "pages/manager_view_apply_details/manager_view_apply_details"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
