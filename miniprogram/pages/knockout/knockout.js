@@ -11,7 +11,7 @@ Page({
     score: null,
     final : 0,
     showselector: false,
-    allgroups: app.globalData.GROUP_NAMES,
+    allgroups: [],
     value : 0
   },
   selectGroup:  function(e){
@@ -52,6 +52,7 @@ Page({
     this.setData({
       value: parseInt(options.group),
       group: app.globalData.GROUP_NAMES[parseInt(options.group)],
+      allgroups: app.globalData.GROUP_NAMES,
       loading: true
     })
     wx.cloud.callFunction({

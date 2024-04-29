@@ -55,9 +55,9 @@ Page({
     teams: null,
     score: null,
     nonzero: 0,
-    array1: app.globalData.GROUP_NAMES,
+    array1: [],
     value1: 0,
-    array2: app.globalData.LITTLEGROUPS[0],
+    array2: [],
     value2: 0,
   },
   bindPickerChange1: function(e) {
@@ -201,7 +201,9 @@ Page({
   onLoad(options) {
   this.setData({
     group: app.globalData.GROUP_NAMES[parseInt(options.group)],
-    littlegroup: app.globalData.LITTLEGROUPS[parseInt(options.group)][parseInt(options.littlegroup)]
+    littlegroup: app.globalData.LITTLEGROUPS[parseInt(options.group)][parseInt(options.littlegroup)],
+    array1: app.globalData.GROUP_NAMES,
+    array2: app.globalData.LITTLEGROUPS[0],
   })
   wx.cloud.callFunction({
     name:"make_table",
