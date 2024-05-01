@@ -29,6 +29,17 @@ Page({
         var request = res.result.data
         var request_to_review = []
         var request_reviewed = []
+        // sort by time
+        for (var i=0; i<request.length; i++){
+          for (var j=i+1; j<request.length; j++){
+            if (request[j].time > request[i].time){
+              let temp = request[j]
+              request[j] = request[i]
+              request[i] = temp
+            }
+          }
+        }
+
         for (var i=0;i<request.length;i++){
           if (request[i].is_reviewed){
             request_reviewed.push(request[i])
