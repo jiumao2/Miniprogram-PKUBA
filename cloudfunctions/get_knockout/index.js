@@ -23,7 +23,7 @@ exports.main = async (event, context) => {
     final = 3
   }
   if (event.group == "女甲"){
-    tempname = [["",""],Array(1)]
+    tempname = [["医学","元培"],Array(1)]
     tempscore = [Array(2),Array(1)]
     final = 1
   }
@@ -38,7 +38,7 @@ exports.main = async (event, context) => {
       let game = await db.collection('Schedule').where({
         home_team: tempname[_][i],
         away_team: tempname[_][i+1],
-        description: "淘汰赛",
+        description: _==final-1?"决赛":"淘汰赛",
         group: event.group
       }).get()
       if (game.data.length>0){
