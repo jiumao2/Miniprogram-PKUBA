@@ -63,9 +63,9 @@ Page({
             }
             break
           }
-          // if (i == schedule.length-1){
-          //   old_schedule = schedule.reverse()
-          // }
+          if (i == schedule.length-1){
+            old_schedule = schedule
+          }
         }
         console.log(future_schedule)
         console.log(old_schedule)
