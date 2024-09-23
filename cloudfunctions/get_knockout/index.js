@@ -12,24 +12,14 @@ exports.main = async (event, context) => {
   var tempname = []
   var tempscore = []
   var final = 0
-  if (event.group == "男甲"){
-    tempname = [['城环','数学','医学','生科'],Array(2),Array(1)]
-    tempscore = [Array(4),Array(2),Array(1)]
-    final = 2
-  }
-  if (event.group == "男乙"){
-    tempname = [["政管","光华","工学","教历","叉院","电子","燕京","物理"],Array(4),Array(2),Array(1)]
-    tempscore = [Array(8),Array(4),Array(2),Array(1)]
+  if (event.group == "男篮"){
+    tempname = [["F1","F8","F2","F7","F3","F6","F4","F5"],Array(4),Array(2),Array(1)]
+    tempscore = [Array(8),Array(4),Array(2)]
     final = 3
   }
-  if (event.group == "女甲"){
-    tempname = [["医学","元培"],Array(1)]
-    tempscore = [Array(2),Array(1)]
-    final = 1
-  }
-  if (event.group == "女乙"){
-    tempname = [["社会","生历","物理","心理","中文","国关","数学","光经"],Array(4),Array(2),Array(1)]
-    tempscore = [Array(8),Array(4),Array(2),Array(1)]
+  if (event.group == "女篮"){
+    tempname = [["G1","G8","G2","G7","G3","G6","G4","G5"],Array(4),Array(2),Array(1)]
+    tempscore = [Array(8),Array(4),Array(2)]
     final = 3
   }
   for(_=0;_ <final;_++){

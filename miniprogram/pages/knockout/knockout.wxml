@@ -13,7 +13,7 @@
 		<h2 class="weui-form__title">淘汰赛对阵图</h2>
 	</view>
         
-  <view wx:if="{{group=='男乙'|group=='女乙'}}" class="container">
+  <view wx:if="{{group=='男篮'|group=='女篮'}}" class="container">
     <view class="row">
       <view class="table" style="left: 15%">
         <view class="tablerow">

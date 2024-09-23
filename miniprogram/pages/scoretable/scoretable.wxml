@@ -26,7 +26,7 @@
 		<h2 class="weui-form__title">{{group}}{{littlegroup}}组积分表</h2>
 		<view class="weui-form__desc">表内第一个数字为行队得分</view>
 	</view>
-	<view wx:if="{{group == '男乙'||group == '女乙'}}" class="container">
+	<view wx:if="{{group == '男篮'||group == '女篮'}}" class="container">
     <view class="table">
       <!-- 表头 -->
       <view class="row">
