@@ -32,6 +32,13 @@ Page({
         success: res=>{
           console.log(res)
           wx.navigateBack()
+
+          return
+        },
+
+        fail: err=>{
+          console.log(res)
+          return
         }
       })
     }
