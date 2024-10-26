@@ -60,7 +60,7 @@ Page({
               getApp().globalData.manager_info = res.result.data[0]
               console.log(getApp().globalData.manager_info)
               wx.navigateTo({
-                url: '../manager_home/manager_home',
+                url: '../manager_home/manager_home?name='+res.result.data[0].name,
               })
             }
             else{

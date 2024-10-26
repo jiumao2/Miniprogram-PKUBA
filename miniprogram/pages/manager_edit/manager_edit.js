@@ -174,9 +174,24 @@ Page({
       away_team:game_raw.away_team,
       home_team_score:game_raw.home_team_score,
       away_team_score:game_raw.away_team_score,
-      description:game_raw.description
+      description:game_raw.description,
+      updated_by: game_raw.updated_by,
     })
+    const date = new Date(game_raw.update_time);
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1; // getMonth() 返回的月份是从0开始的
+    const day = date.getDate();
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const seconds = date.getSeconds();
 
+    // 格式化月份、日期、小时、分钟、秒（如果需要，可以添加前导零）
+    const formattedDate = `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day} ${hours < 10 ? '0' + hours : hours}:${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+    
+    this.setData({
+      update_time: formattedDate
+    })
+    console.log(this.data.update_time)
     if (this.data.game_raw.adjustable){
       this.setData({
         adjustable:true,

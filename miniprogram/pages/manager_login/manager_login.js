@@ -82,7 +82,7 @@ Page({
                 })
 
                 wx.navigateTo({
-                  url: '../manager_home/manager_home',
+                  url: '../manager_home/manager_home?name='+this.data.name,
                 })
               }
               else{

@@ -4,8 +4,9 @@
   <image src="../index/logo.jpg" mode="aspectFit">
   </image>
 </view>
-
-<text>\n</text>
+<text> \n </text>
+<view class = "centering"> 当前登录账号：{{name}}</view>
+<text> \n </text>
 <view>
   <a class="weui-btn weui-btn_primary" bindtap="to_schedule_edit">更新比赛信息</a>
   <a class="weui-btn weui-btn_primary" bindtap="to_scoresheet_edit">查看/上传图片</a>

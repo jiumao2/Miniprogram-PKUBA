@@ -2,7 +2,9 @@
 <view class="weui-form">
 	<view class="weui-form__text-area">
 		<h2 class="weui-form__title">更新比赛信息</h2>
-		<view class="weui-form__desc">请填入对阵双方的球队与比分</view>
+		<view class="weui-form__desc">
+    上次于{{update_time}} 由 {{updated_by}} 修改
+    </view>
 	</view>
 	<view class="weui-form__control-area">
 		<view class="weui-cells__group weui-cells__group_form">

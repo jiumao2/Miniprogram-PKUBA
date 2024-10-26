@@ -6,14 +6,17 @@ Page({
    * 页面的初始数据
    */
   data: {
-    loading:false
+    loading:false,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-
+    console.log(options)
+    this.setData({
+      name: options.name
+    })
   },
 
   to_schedule_edit(){
