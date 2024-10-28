@@ -1,22 +1,26 @@
 // pages/scoretable/scoretable.js
 var app = getApp()
-function rerank(t,arr,teams) {
-  var templen = t.length
-  if (templen==1){
+function rerank(t,arr) {
+  var len = t.length
+  if (len==1){
     return t
   }
-  var tempteam = new Array(templen)
-  for (var _=0;_<templen;_++){
+  var tempteam = new Array(len)
+  for (var _=0;_<len;_++){
     tempteam[_]={
       id: t[_].id,
+      name: t[_].name,
       point: 0,
       netscore: 0,
       totalscore: 0,
+      grouppoint: t[_].grouppoint,
+      groupnetscore: t[_].groupnetscore,
+      grouptotalscore: t[_].grouptotalscore
     }
   }
-  for (var _=0;_<templen;_++){
+  for (var _=0;_<len;_++){
     var ii = tempteam[_].id
-    for (var __=0;__<templen;__++){
+    for (var __=0;__<len;__++){
       var jj = tempteam[__].id
       tempteam[_].point+= (arr[ii][jj][2]>=0?arr[ii][jj][2]:0)
       tempteam[_].netscore+= (arr[ii][jj][0]>=0?(arr[ii][jj][0]-arr[ii][jj][1]):0)
@@ -33,13 +37,26 @@ function rerank(t,arr,teams) {
     if (a.totalscore!=b.totalscore){
       return b.totalscore-a.totalscore
     }
-    if (teams[a.id].netscore!=teams[b.id].netscore){
-      return teams[b.id].netscore - teams[a.id].netscore
+    if (b.groupnetscore!=a.groupnetscore){
+      return b.groupnetscore-a.groupnetscore
     }
-    if (teams[a.id].totalscore!=teams[b.id].totalscore){
-      return teams[b.id].totalscore - teams[a.id].totalscore
+    if (b.grouptotalscore!=a.grouptotalscore){
+      return b.grouptotalscore-a.grouptotalscore
     }
   })
+  console.log(tempteam)
+  for(var i=0;i<len-1;i++){
+    if (tempteam[i].point==tempteam[i+1].point){
+      var j = i+2;
+      for(;j<len&&tempteam[j].point==tempteam[i].point;j++){}
+      if (i==0&j==len) return tempteam
+      var temptemp = rerank(tempteam.slice(i,j), arr);
+      for (var _=0;_<j-i;_++){
+        tempteam[_+i] = temptemp[_]
+      }
+      i = j-1;
+    }
+  }
   return tempteam
 }
 Page({
@@ -81,39 +98,19 @@ Page({
           score:res.result.arr,
           names:res.result.names
         })
-        var teams = Object.assign([],res.result.teams)
-        var temp = Object.assign([],res.result.teams)
-        
-        temp.sort((a,b)=>{
-          return b.point-a.point
-        })
-        var len = temp.length
+        var temp = rerank(res.result.teams,res.result.arr)
         console.log(temp)
-        for(var i=0;i<len-1;i++){
-          if (temp[i].point==temp[i+1].point){
-            var j = i+2;
-            for(;j<len&&temp[j].point==temp[i].point;j++){}
-            var temptemp = rerank(temp.slice(i,j),this.data.score,teams);
-            for (var _=0;_<j-i;_++){
-              temp[_+i] = temptemp[_]
-            }
-            i = j-1;
-          }
-        }
-        console.log(temp)
-        var tt = Object.assign([],teams);
         var cnt = 0
-        for(var i=0;i<len;i++){
-          teams[i] = tt[temp[i].id]
-          if (teams[i].totalpoint>0){
+        for(var i=0;i<temp.length;i++){
+          if (temp[i].totalpoint>0){
             cnt++
           }
         }
         console.log(this.data.teams)
-        console.log(teams)
+        console.log(temp)
         console.log(cnt)
         this.setData({
-          teams: teams,
+          teams: temp,
           nonzero: cnt,
           loading: false
         })
@@ -146,39 +143,19 @@ Page({
           score:res.result.arr,
           names:res.result.names
         })
-        var teams = Object.assign([],res.result.teams)
-        var temp = Object.assign([],res.result.teams)
-        
-        temp.sort((a,b)=>{
-          return b.point-a.point
-        })
-        var len = temp.length
+        var temp = rerank(res.result.teams,res.result.arr)
         console.log(temp)
-        for(var i=0;i<len-1;i++){
-          if (temp[i].point==temp[i+1].point){
-            var j = i+2;
-            for(;j<len&&temp[j].point==temp[i].point;j++){}
-            var temptemp = rerank(temp.slice(i,j),this.data.score,teams);
-            for (var _=0;_<j-i;_++){
-              temp[_+i] = temptemp[_]
-            }
-            i = j-1;
-          }
-        }
-        console.log(temp)
-        var tt = Object.assign([],teams);
         var cnt = 0
-        for(var i=0;i<len;i++){
-          teams[i] = tt[temp[i].id]
-          if (teams[i].totalpoint>0){
+        for(var i=0;i<temp.length;i++){
+          if (temp[i].totalpoint>0){
             cnt++
           }
         }
         console.log(this.data.teams)
-        console.log(teams)
+        console.log(temp)
         console.log(cnt)
         this.setData({
-          teams: teams,
+          teams: temp,
           nonzero: cnt,
           loading: false
         })
@@ -217,39 +194,19 @@ Page({
         score:res.result.arr,
         names:res.result.names
       })
-      var teams = Object.assign([],res.result.teams)
-      var temp = Object.assign([],res.result.teams)
-      
-      temp.sort((a,b)=>{
-        return b.point-a.point
-      })
-      var len = temp.length
+      var temp = rerank(res.result.teams,res.result.arr)
       console.log(temp)
-      for(var i=0;i<len-1;i++){
-        if (temp[i].point==temp[i+1].point){
-          var j = i+2;
-          for(;j<len&&temp[j].point==temp[i].point;j++){}
-          var temptemp = rerank(temp.slice(i,j),this.data.score,teams);
-          for (var _=0;_<j-i;_++){
-            temp[_+i] = temptemp[_]
-          }
-          i = j-1;
-        }
-      }
-      console.log(temp)
-      var tt = Object.assign([],teams);
       var cnt = 0
-      for(var i=0;i<len;i++){
-        teams[i] = tt[temp[i].id]
-        if (teams[i].totalpoint>0){
+      for(var i=0;i<temp.length;i++){
+        if (temp[i].totalpoint>0){
           cnt++
         }
       }
       console.log(this.data.teams)
-      console.log(teams)
+      console.log(temp)
       console.log(cnt)
       this.setData({
-        teams: teams,
+        teams: temp,
         nonzero: cnt,
         loading: false
       })

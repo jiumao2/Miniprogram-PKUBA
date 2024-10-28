@@ -19,9 +19,9 @@ exports.main = async (event, context) => {
   for (var i=0; i<len;i++){
     teams[i]={
       name:list.data[i].name,
-      point: 0,
-      totalscore: 0,
-      netscore: 0,
+      grouppoint: 0, 
+      grouptotalscore: 0,
+      groupnetscore: 0,
       id : i
     }
     names[i] = list.data[i].name
@@ -57,9 +57,9 @@ exports.main = async (event, context) => {
   }
   for (var i=0;i<len;i++){
     for (var j=0;j<len;j++){
-      teams[i].point += arr[i][j][2]>=0?arr[i][j][2]:0
-      teams[i].netscore += arr[i][j][0]>=0?(arr[i][j][0]-arr[i][j][1]):0
-      teams[i].totalscore += arr[i][j][0]>=0?arr[i][j][2]:0
+      teams[i].grouppoint += arr[i][j][2]>=0?arr[i][j][2]:0
+      teams[i].groupnetscore += arr[i][j][0]>=0?(arr[i][j][0]-arr[i][j][1]):0
+      teams[i].grouptotalscore += arr[i][j][0]>=0?arr[i][j][0]:0
     }
   }
   for(var i=0;i<len;i++){

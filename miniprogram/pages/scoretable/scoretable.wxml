@@ -111,8 +111,8 @@
       <block wx:for="{{teams}}" wx:for-index="i1" wx:for-item="s1">
         <view class="row">
           <text class="cell1">{{s1.name}}</text>
-          <text class="cell1">{{s1.point}}</text>
-          <text class="cell1" style = "width:70px">{{s1.netscore}}</text>
+          <text class="cell1">{{s1.grouppoint}}</text>
+          <text class="cell1" style = "width:70px">{{s1.groupnetscore}}</text>
           <text class="cell1">{{s1.point==0?(nonzero+1):(i1+1)}}</text>
         </view>
       </block>
