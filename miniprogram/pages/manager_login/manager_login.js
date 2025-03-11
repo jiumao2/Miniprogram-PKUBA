@@ -41,6 +41,7 @@ Page({
           wx.navigateTo({
             url: '../error_page/error_page',
           })          
+          return
         }
         if (this.data.password == res.result.data[0].LoginPassword){
           // 检查是否已经注册
