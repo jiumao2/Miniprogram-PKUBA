@@ -20,7 +20,7 @@ var config = {
 var transporter = nodemailer.createTransport(config);
 // 云函数入口函数
 exports.main = async(event, context) => {
-  root_path = cloud.getWXContext().ENV
+  const root_path = cloud.getWXContext().ENV
   // 创建一个邮件对象
   if (event.attachment != 0){
     const fileList = [event.fileID]

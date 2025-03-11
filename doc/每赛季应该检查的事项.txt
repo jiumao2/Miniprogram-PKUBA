@@ -1,10 +1,10 @@
 1. 周中比赛的轮次属于上一个周末，周中比赛的调整时间范围在上一个周六至下一个周五之间。
 2. 注意检查是否出现小程序未更新而导致的领队无法注册或注册错误的情况，例如女乙组别变为女篮组别。
 3. 最后一轮小组赛是否锁住
-4. 重新配置环境后，云函数需要重新设置环境变量：
+4. 重新配置环境和上传云函数后，云函数需要重新设置环境变量：
 functions: check_request, search_available_date, search_future_games
 Key: TZ
 Value: Asia/Shanghai
 5. 需要将文件中所有的环境名更换为新的环境名（查找-替换功能）
-6. 重新新建数据库Schedule, Leader, Request, Private, Manager, Photo, Team. Private中导入赛季元信息
+6. 重新新建数据库Schedule, Leader, Request, Private, Manager, Photo, Team. Private中导入赛季元信息，导入Manager名单
 7. 检查运营者是否加入开发者名单（“小程序助手”微信小程序）
