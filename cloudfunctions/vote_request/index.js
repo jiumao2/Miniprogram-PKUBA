@@ -18,8 +18,7 @@ exports.main = async (event, context) => {
   await db.collection('Request').doc(event.request._id).update({
     data:{
       voted_accept: event.voted_accept,
-      voted_reject: event.voted_reject,
-      is_reviewed: false
+      voted_reject: event.voted_reject
     }
   })    
 
