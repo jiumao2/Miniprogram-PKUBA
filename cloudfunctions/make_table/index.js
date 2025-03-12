@@ -63,17 +63,41 @@ exports.main = async (event, context) => {
     }
   }
   for(var i=0;i<len;i++){
-    if (names[i]=='未来技术-现代农学院联队'){
-      teams[i].name = '未农'
-      names[i] = '未农'
+    if (names[i]=='未来-现代'){
+      teams[i].name = '未现'
+      names[i] = '未现'
     }
-    if (names[i]=='国发体教联队'){
-      teams[i].name = '国体'
-      names[i] = '国体'
+    if (names[i]=='地空-政管'){
+      teams[i].name = '地政'
+      names[i] = '地政'
     }
-    if (names[i]=='哲学教育联队'){
-      teams[i].name = '教哲'
-      names[i] = '教哲'
+    if (names[i]=='考古-艺术'){
+      teams[i].name = '考艺'
+      names[i] = '考艺'
+    }
+    if (names[i]=='考古-政管'){
+      teams[i].name = '考管'
+      names[i] = '考管'
+    }
+    if (names[i]=='生科-历史'){
+      teams[i].name = '生历'
+      names[i] = '生历'
+    }
+    if (names[i]=='光华-经济'){
+      teams[i].name = '光经'
+      names[i] = '光经'
+    }
+    if (names[i]=='环科-哲学'){
+      teams[i].name = '环哲'
+      names[i] = '环哲'
+    }
+    if (names[i]=='教育-历史'){
+      teams[i].name = '教历'
+      names[i] = '教历'
+    }
+    if (names[i]=='集电-体教'){
+      teams[i].name = '集体'
+      names[i] = '集体'
     }
   }
   return {

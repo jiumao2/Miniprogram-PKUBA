@@ -13,12 +13,12 @@ exports.main = async (event, context) => {
   var tempscore = []
   var final = 0
   if (event.group == "男篮"){
-    tempname = [["F1","F8","F2","F7","F3","F6","F4","F5"],Array(4),Array(2),Array(1)]
+    tempname = [["考信","元培","医学","法学","化学","环科","物理","光经"],Array(4),Array(2),Array(1)]
     tempscore = [Array(8),Array(4),Array(2)]
     final = 3
   }
   if (event.group == "女篮"){
-    tempname = [["G1","G8","G2","G7","G3","G6","G4","G5"],Array(4),Array(2),Array(1)]
+    tempname = [["外院","法学","新传","化学","中文","医学","心理","信科"],Array(4),Array(2),Array(1)]
     tempscore = [Array(8),Array(4),Array(2)]
     final = 3
   }
@@ -26,9 +26,9 @@ exports.main = async (event, context) => {
     var l = tempname[_].length
     for( i=0 ; i<l ; i+=2){
       let game = await db.collection('Schedule').where({
-        home_team: tempname[_][i],
+        home_team: tempname[_][i]=="考信"?"考古-信管":tempname[_][i],
         away_team: tempname[_][i+1],
-        description: _==final-1?"决赛":"淘汰赛",
+        description: _==final-1?event.group+"决赛":"淘汰赛",
         group: event.group
       }).get()
       if (game.data.length>0){
