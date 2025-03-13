@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {"group": "男乙", "littlegroup": "A", "name": "光华"}
 {"group": "男乙", "littlegroup": "A", "name": "元培"}
 {"group": "男乙", "littlegroup": "A", "name": "哲学"}
@@ -56,3 +57,5 @@
 {"group": "女甲", "littlegroup": "A", "name": "心理"}
 {"group": "女甲", "littlegroup": "A", "name": "外院"}
 {"group": "女甲", "littlegroup": "A", "name": "法学"}
+=======
+>>>>>>> parent of 8b92191 (Revert "Merge branch 'master' of https://github.com/jiumao2/Miniprogram-PKUBA")

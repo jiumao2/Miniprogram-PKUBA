@@ -261,7 +261,7 @@ Page({
             name: "review_request",
             data:{
               request:this.data.request_detail,
-              new_state: this.data.request_detail.state,
+              new_state: 5, // 等待同组其他领队确认
               to_delete: false,
               is_reviewed: true,
               reviewed_by: app.globalData.manager_info.name,
