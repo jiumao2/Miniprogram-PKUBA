@@ -271,7 +271,7 @@ Page({
         }
         for (var i0=0;i0<time_not_available.length;i0++){
           for (var i=0;i<available_time.length;i++){
-            if (getdate(time_not_available[i0].time) == getdate(available_time[i].time)){
+            if (getdate(time_not_available[i0].time) == getdate(available_time[i].date)){
               for (var j=0; j<available_time[i].time_and_place.length;j++){
                 if (getperiod(time_not_available[i0].time) == getperiod(available_time[i].time_and_place[j].time)){
                   available_time[i].time_and_place[j].max_game--
