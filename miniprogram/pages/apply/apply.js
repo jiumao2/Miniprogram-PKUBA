@@ -1,5 +1,36 @@
 // miniprogram/pages/apply/apply.js
 var app = getApp()
+function getdate(time){
+  const nowtime = new Date(time)
+  const month = nowtime.getMonth()
+  const day = nowtime.getDate()
+  return 10000*month+day
+}
+function getperiod(time){
+  const nowtime = new Date(time)
+  const hour = nowtime.getUTCHours()+8
+  const minutes = nowtime.getMinutes()
+  const totalminutes = 60*hour + minutes
+  if (totalminutes >= 60*12+20 && totalminutes <= 60*13+20){
+    return 1
+  }
+  if (totalminutes >= 60*13+50 && totalminutes <= 60*14+50){
+    return 2
+  }
+  if (totalminutes >= 60*15+20 && totalminutes <= 60*16+20){
+    return 3
+  }
+  if (totalminutes >= 60*17+50 && totalminutes <= 60*18+50){
+    return 4
+  }
+  if (totalminutes >= 60*19+20 && totalminutes <= 60*20+20){
+    return 5
+  }
+  if (totalminutes >= 60*20+30){
+    return 6
+  }
+  return 0
+}
 Page({
 
   /**
@@ -172,7 +203,7 @@ Page({
       game_date.getMonth(),
       game_date.getDate()+(-game_day+app.globalData.ROUND_START_DAY)) 
     
-    // 找出date0与date1靠后者，date0-date2为可调整的日期段
+    // 找出date0与date2靠后者，date0-date2为可调整的日期段
     if (date2.getTime()>date0.getTime()) date0 = date2
     }
     console.log(date0)
@@ -240,9 +271,9 @@ Page({
         }
         for (var i0=0;i0<time_not_available.length;i0++){
           for (var i=0;i<available_time.length;i++){
-            if (time_not_available[i0].full_date.getTime() == available_time[i].date.getTime()){
+            if (getdate(time_not_available[i0].time) == getdate(available_time[i].date)){
               for (var j=0; j<available_time[i].time_and_place.length;j++){
-                if (time_not_available[i0].time.getTime() == available_time[i].time_and_place[j].time.getTime()){
+                if (getperiod(time_not_available[i0].time) == getperiod(available_time[i].time_and_place[j].time)){
                   available_time[i].time_and_place[j].max_game--
                   var temp_place_new = []
                   for(var i1=0;i1<available_time[i].time_and_place[j].place_available.length;i1++){
