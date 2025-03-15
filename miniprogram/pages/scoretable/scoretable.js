@@ -49,7 +49,7 @@ function rerank(t,arr) {
     if (tempteam[i].point==tempteam[i+1].point){
       var j = i+2;
       for(;j<len&&tempteam[j].point==tempteam[i].point;j++){}
-      if (i==0&j==len) return tempteam
+      if (i==0&&j==len) return tempteam
       var temptemp = rerank(tempteam.slice(i,j), arr);
       for (var _=0;_<j-i;_++){
         tempteam[_+i] = temptemp[_]
@@ -102,7 +102,7 @@ Page({
         console.log(temp)
         var cnt = 0
         for(var i=0;i<temp.length;i++){
-          if (temp[i].totalpoint>0){
+          if (temp[i].grouppoint>0){
             cnt++
           }
         }
@@ -147,7 +147,7 @@ Page({
         console.log(temp)
         var cnt = 0
         for(var i=0;i<temp.length;i++){
-          if (temp[i].totalpoint>0){
+          if (temp[i].grouppoint>0){
             cnt++
           }
         }
@@ -198,7 +198,7 @@ Page({
       console.log(temp)
       var cnt = 0
       for(var i=0;i<temp.length;i++){
-        if (temp[i].totalpoint>0){
+        if (temp[i].grouppoint>0){
           cnt++
         }
       }

@@ -26,7 +26,7 @@
 		<h2 class="weui-form__title">{{group}}{{littlegroup}}组积分表</h2>
 		<view class="weui-form__desc">表内第一个数字为行队得分</view>
 	</view>
-	<view wx:if="{{group == '男乙'||group == '女乙'}}" class="container">
+	<view wx:if="{{(group == '男乙'||group == '女乙')&&(!loading)}}" class="container">
     <view class="table">
       <!-- 表头 -->
       <view class="row">
@@ -50,7 +50,7 @@
       </block>
     </view>
   </view>
-  <view wx:if="{{group == '男甲'}}" class="container">
+  <view wx:if="{{group == '男甲'&&(!loading)}}" class="container">
     <view class="table">
       <!-- 表头 -->
       <view class="row">
@@ -74,7 +74,7 @@
       </block>
     </view>
   </view>
-  <view wx:if="{{group=='女甲'}}" class="container">
+  <view wx:if="{{group=='女甲'&&(!loading)}}" class="container">
     <view class="table">
       <!-- 表头 -->
       <view class="row">
@@ -98,7 +98,7 @@
       </block>
     </view>
   </view>
-  <view class="container">
+  <view class="container" wx:if="{{!loading}}">
     <view class="table">
       <!-- 表头 -->
       <view class="row">
