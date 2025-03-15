@@ -3,7 +3,7 @@
 	<view class="weui-form__text-area">
 		<h2 class="weui-form__title">更新比赛信息</h2>
 		<view class="weui-form__desc">
-    上次于{{update_time}} 由 {{updated_by}} 修改
+    最近于 {{update_time}} 由 {{updated_by}} 修改
     </view>
 	</view>
 	<view class="weui-form__control-area">
