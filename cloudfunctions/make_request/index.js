@@ -4,37 +4,6 @@ const cloud = require('wx-server-sdk')
 cloud.init({
   env: cloud.DYNAMIC_CURRENT_ENV
 })
-function getdate(time){
-  const nowtime = new Date(time)
-  const month = nowtime.getMonth()
-  const day = nowtime.getDate()
-  return 10000*month+day
-}
-function getperiod(time){
-  const nowtime = new Date(time)
-  const hour = nowtime.getUTCHours()+8
-  const minutes = nowtime.getMinutes()
-  const totalminutes = 60*hour + minutes
-  if (totalminutes >= 60*12+20 && totalminutes <= 60*13+20){
-    return 1
-  }
-  if (totalminutes >= 60*13+50 && totalminutes <= 60*14+50){
-    return 2
-  }
-  if (totalminutes >= 60*15+20 && totalminutes <= 60*16+20){
-    return 3
-  }
-  if (totalminutes >= 60*17+50 && totalminutes <= 60*18+50){
-    return 4
-  }
-  if (totalminutes >= 60*19+20 && totalminutes <= 60*20+20){
-    return 5
-  }
-  if (totalminutes >= 60*20+30){
-    return 6
-  }
-  return 0
-}
 
 // 云函数入口函数
 exports.main = async (event, context) => {
@@ -42,10 +11,18 @@ exports.main = async (event, context) => {
     env: cloud.DYNAMIC_CURRENT_ENV
   })
   const _ = db.command
-  const date = getdate(event.game.time)
-  const period = getperiod(event.game.time)
-  const date_new = getdate(event.new_time.time)
-  const period_new = getperiod(event.new_time.time)
+  const date_period = await cloud.callFunction({
+    name: "get_date_period",
+    data: {time:event.game.time}
+  })
+  const date = date_period.result.date
+  const period = date_period.result.period
+  const date_period_new = await cloud.callFunction({
+    name: "get_date_period",
+    data: {time:event.new_time.time}
+  })
+  const date_new = date_period_new.result.date
+  const period_new = date_period_new.result.period
   if (event.type == 1 || event.type == 3){
     await db.collection('Request').add({
       data: {

@@ -43,3 +43,8 @@
 .scorecell {
   text-decoration:underline;
 }
+
+.pad_down {
+  height: 30px;
+  background-color: inherit;
+}

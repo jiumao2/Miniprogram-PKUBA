@@ -31,14 +31,14 @@
       <!-- 表头 -->
       <view class="row">
         <text class="cell1"></text>
-        <text class="cell1" wx:for="{{names}}">{{item}}</text>
+        <text class="cell1" wx:key="item" wx:for="{{names}}">{{item}}</text>
       </view>
 
       <!-- 表格内容 -->
-      <block wx:for="{{score}}" wx:for-index="i1" wx:for-item="s1">
+      <block wx:for="{{score}}" wx:key="i1" wx:for-index="i1" wx:for-item="s1">
         <view class="row">
           <text class="cell1">{{names[i1]}}</text>
-          <block wx:for="{{s1}}" wx:for-index="i2" wx:for-item="s2"> 
+          <block wx:for="{{s1}}" wx:key="i2" wx:for-index="i2" wx:for-item="s2"> 
             <view class="cell1" wx:if="{{i1!=i2&&s2[0]>=0}}" style="color:{{s2[0]<s2[1]?'rgb(0, 0, 0)':'rgb(255, 72, 0)'}}">
               <text class ="scorecell" >{{s2[0]}}:{{s2[1]}}\n</text>
               <text>{{s2[2]}}</text>
@@ -55,14 +55,14 @@
       <!-- 表头 -->
       <view class="row">
         <text class="cell2"></text>
-        <text class="cell2" wx:for="{{names}}">{{item}}</text>
+        <text class="cell2" wx:key="item" wx:for="{{names}}">{{item}}</text>
       </view>
 
       <!-- 表格内容 -->
-      <block wx:for="{{score}}" wx:for-index="i1" wx:for-item="s1">
+      <block wx:for="{{score}}" wx:key="i1" wx:for-index="i1" wx:for-item="s1">
         <view class="row">
           <text class="cell2">{{names[i1]}}</text>
-          <block wx:for="{{s1}}" wx:for-index="i2" wx:for-item="s2"> 
+          <block wx:for="{{s1}}" wx:key="i2" wx:for-index="i2" wx:for-item="s2"> 
             <view class="cell2" wx:if="{{i1!=i2&&s2[0]>=0}}" style="color:{{s2[0]<s2[1]?'rgb(0, 0, 0)':'rgb(255, 72, 0)'}}">
               <text class ="scorecell" >{{s2[0]}}:{{s2[1]}}\n</text>
               <text>{{s2[2]}}</text>
@@ -79,14 +79,14 @@
       <!-- 表头 -->
       <view class="row">
         <text class="cell3"></text>
-        <text class="cell3" wx:for="{{names}}">{{item}}</text>
+        <text class="cell3" wx:key="item" wx:for="{{names}}">{{item}}</text>
       </view>
 
       <!-- 表格内容 -->
-      <block wx:for="{{score}}" wx:for-index="i1" wx:for-item="s1">
+      <block wx:for="{{score}}" wx:key="i1" wx:for-index="i1" wx:for-item="s1">
         <view class="row">
           <text class="cell3">{{names[i1]}}</text>
-          <block wx:for="{{s1}}" wx:for-index="i2" wx:for-item="s2"> 
+          <block wx:for="{{s1}}" wx:key="i2" wx:for-index="i2" wx:for-item="s2"> 
             <view class="cell3" wx:if="{{i1!=i2&&s2[0]>=0}}" style="color:{{s2[0]<s2[1]?'rgb(0, 0, 0)':'rgb(255, 72, 0)'}}">
               <text class ="scorecell" >{{s2[0]}}:{{s2[1]}}\n</text>
               <text>{{s2[2]}}</text>
@@ -108,7 +108,7 @@
         <text class="cell1">排名</text>
       </view>
       <!-- 表格内容 -->
-      <block wx:for="{{teams}}" wx:for-index="i1" wx:for-item="s1">
+      <block wx:for="{{teams}}" wx:key="i1" wx:for-index="i1" wx:for-item="s1">
         <view class="row">
           <text class="cell1">{{s1.name}}</text>
           <text class="cell1">{{s1.grouppoint}}</text>
@@ -118,6 +118,7 @@
       </block>
     </view>
   </view>
+  <view class="pad_down"></view>
 </view>
 
 <view class="fadeIn {{hideLoading ? 'fadeOut' : ''}}" wx:if="{{loading}}">
@@ -129,5 +130,3 @@
 		<view class="weui-toast__content">加载中</view>
 	</view>
 </view>
-
-<view style="height: 30px; background-color: #ffffff"></view>

@@ -6,12 +6,12 @@
 	<view class="weui-form__control-area">
 		<view class="weui-cells__group weui-cells__group_form">
 			<view class="weui-cells">
-				<view class="weui-cell weui-cell_active weui-cell_select-after">
+				<view class="weui-cell weui-cell_active weui-cell_select weui-cell_select-after">
 					<view class="weui-cell__hd">
 						<label class="weui-label">场次</label>
 					</view>
 					<view class="weui-cell__bd">
-						<picker bindchange="bindPicker1Change" range="{{array1}}">
+						<picker bindchange="bindPicker1Change" range="{{array1}}" value = "{{value1}}">
 							<view class="weui-select" style="overflow: hidden;">{{array1[value1]}}</view>
 						</picker>
 					</view>
@@ -22,7 +22,7 @@
 						<label class="weui-label">新的日期</label>
 					</view>
 					<view class="weui-cell__bd">
-						<picker bindchange="bindPicker2Change" range="{{array2}}">
+						<picker bindchange="bindPicker2Change" range="{{array2}}" value = "{{value2}}">
 							<view class="weui-select">{{array2[value2]}}</view>
 						</picker>
 					</view>
@@ -33,7 +33,7 @@
 						<label class="weui-label">新的时间</label>
 					</view>
 					<view class="weui-cell__bd">
-						<picker bindchange="bindPicker3Change" range="{{array3}}">
+						<picker bindchange="bindPicker3Change" range="{{array3}}" value = "{{value3}}">
 							<view class="weui-select">{{array3[value3]}}</view>
 						</picker>
 					</view>
@@ -46,6 +46,8 @@
 		<a class="weui-btn weui-btn_primary" bindtap="make_request">确定</a>
 	</view>
 </view>
+
+
 
 <view class="fadeIn {{hideLoading ? 'fadeOut' : ''}}" wx:if="{{loading}}">
 	<view class="weui-mask_transparent"></view>
