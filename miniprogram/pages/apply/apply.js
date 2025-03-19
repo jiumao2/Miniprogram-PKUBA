@@ -1,26 +1,5 @@
 // miniprogram/pages/apply/apply.js
 var app = getApp()
-function getdate(time){
-  const nowtime = new Date(time)
-  const month = nowtime.getMonth()
-  const day = nowtime.getDate()
-  return 10000*month+day
-}
-function getperiod(time){
-  const nowtime = new Date(time)
-  const hour = nowtime.getUTCHours()+8
-  const minutes = nowtime.getMinutes()
-  const totalminutes = 60*hour + minutes
-  switch(totalminutes){
-    case totalminutes >= 60*12+20 && totalminutes <= 60*13+20: return 1;
-    case totalminutes >= 60*13+50 && totalminutes <= 60*14+50: return 2;
-    case totalminutes >= 60*15+20 && totalminutes <= 60*16+20: return 3;
-    case totalminutes >= 60*17+50 && totalminutes <= 60*18+50: return 4;
-    case totalminutes >= 60*19+20 && totalminutes <= 60*20+20: return 5;
-    case totalminutes >= 60*20+30: return 6;
-    default: return 0
-  }
-}
 Page({
 
   /**
@@ -34,7 +13,7 @@ Page({
         value2: 0,
         value3: 0,
         hideLoading: false,
-        loading: false,
+        loading: true,
     },
 
     bindPicker1Change: function(e) {
@@ -65,99 +44,81 @@ Page({
     this.setData({
       loading: true,
     })
-    if (this.data.time_place_rawdata.length == 0){
+    if (this.data.available_date_period.length == 0){
       app.globalData.errInfo = "该比赛没有可以调整的时间"
       wx.navigateTo({
         url: '../error_page/error_page',
       })
       return
     }
+    var date_new = this.data.available_date_period[this.data.value2][0]
+    var period_new = this.data.available_date_period[this.data.value2][1][this.data.value3]
     wx.cloud.callFunction({
-      name: "check_request",
+      name: "search_available_place",
       data:{
-        new_time: this.data.time_place_rawdata[this.data.value2][this.data.value3],
+        date_new: date_new,
+        period_new: period_new
       },
       success: res => {
-        if (res.result.state){
-          const place_all = app.globalData.PLACE_NAMES
-          var place_available = []
-          for (var i=0;i<place_all.length;i++){
-            var flag = 0
-            for (var j=0;j<res.result.place_not_available.length;j++){
-              if (place_all[i] == res.result.place_not_available[j]){
-                flag = 1
+        console.log(res.result)
+        console.log(this.data.games)
+        var place_new = res.result.available_place[0]
+        const hour_minute_new = app.period_to_time(period_new)
+        var time_new = app.date_to_time(date_new, hour_minute_new[0], hour_minute_new[1])
+        var game = this.data.games[this.data.value1]
+        wx.cloud.callFunction({
+          name: "make_request_new",
+          data:{
+            time_new: time_new,
+            date_new: date_new,
+            period_new: period_new,
+            place_new: place_new,
+            game: game,
+            requester: app.globalData.leader_info.team,
+            type: 1
+          },
+          success: res => {
+            wx.navigateBack({
+              delta: 0,
+            })
+            var now = new Date()
+            var text_email = "原比赛: " + game.month+'月'+game.date+'日 ' 
+            + game.hour+':'+game.minute + " "
+            + game.home_team + " VS "+ game.away_team
+            + ' ' + game.place + '\n' 
+            + "调整后比赛: "+ (time_new.getMonth()+1).toString()+'月'+time_new.getDate().toString()+'日 ' 
+            + time_new.getHours().toString()+':'+time_new.getMinutes().toString() + " "
+            + game.home_team + " VS "+ game.away_team
+            + ' ' + place_new + '\n'
+            + "申请日期: "+(now.getMonth()+1).toString()+'月'+now.getDate().toString()+'日 ' 
+            + now.getHours().toString()+':'+now.getMinutes().toString() + '\n'
+            + "申请方: "+app.globalData.leader_info.team +'\n'
+            + "申请类型: "+app.globalData.TYPES[0] + '\n'
+            + "组别: " + game.group + '\n'
+            console.log(text_email)
+            wx.cloud.callFunction({
+              name: 'send_email',
+              data:{
+                text: text_email,
+                attachment: 0,
+                subject: app.globalData.TYPES[0]+'申请（协商中）'+ game.home_team + " VS "+ game.away_team
+              },
+              success: res =>{
+                console.log(res)
+              },
+              fail: err =>{
+                console.log(err)
               }
-            }
-            if (flag == 0) place_available.push(place_all[i])
+            })
+          },
+          fail: err => {
+            console.log(err)
+            app.globalData.errInfo = "该时间段场次已满"
+            wx.navigateTo({
+              url: '../error_page/error_page',
+            })
           }
-          var place_new = place_available[0]
-          console.log(place_new)
-          console.log(this.data.games)
-          wx.cloud.callFunction({
-            name: "make_request",
-            data:{
-              new_time: this.data.time_place_rawdata[this.data.value2][this.data.value3],
-              game: this.data.games[this.data.value1],
-              requester: app.globalData.leader_info.team,
-              place_new: place_new,
-              type: 1
-            },
-            success: res => {
-              wx.navigateBack({
-                delta: 0,
-              })
-              var game = this.data.games[this.data.value1]
-              var new_time = this.data.time_place_rawdata[this.data.value2][this.data.value3].time
-              var now = new Date()
-
-              var text_email = "原比赛: " + game.month+'月'+game.date+'日 ' 
-              + game.hour+':'+game.minute + " "
-              + game.home_team + " VS "+ game.away_team
-              + ' ' + game.place + '\n' 
-              + "调整后比赛: "+ (new_time.getMonth()+1).toString()+'月'+new_time.getDate().toString()+'日 ' 
-              + new_time.getHours().toString()+':'+new_time.getMinutes().toString() + " "
-              + game.home_team + " VS "+ game.away_team
-              + ' ' + place_new + '\n'
-              + "申请日期: "+(now.getMonth()+1).toString()+'月'+now.getDate().toString()+'日 ' 
-              + now.getHours().toString()+':'+now.getMinutes().toString() + '\n'
-              + "申请方: "+app.globalData.leader_info.team +'\n'
-              + "申请类型: "+app.globalData.TYPES[0] + '\n'
-              + "组别: " + game.group + '\n'
-              console.log(text_email)
-              wx.cloud.callFunction({
-                name: 'send_email',
-                data:{
-                  text: text_email,
-                  attachment: 0,
-                  subject: app.globalData.TYPES[0]+'申请（协商中）'+ game.home_team + " VS "+ game.away_team
-                },
-                success: res =>{
-                  console.log(res)
-                  wx.navigateBack({
-                    delta: 0,
-                  })
-                },
-                fail: err =>{
-                  console.log(err)
-                }
-              })
-
-            },
-            fail: err => {
-              console.log(err)
-              app.globalData.errInfo = "该时间段场次已满"
-              wx.navigateTo({
-                url: '../error_page/error_page',
-              })
-            }
-          })
-        }
-        else{
-          app.globalData.errInfo = "该时间段场次已满"
-          wx.navigateTo({
-            url: '../error_page/error_page',
-          })
-        }
+        })
       },
       fail: err => {
         console.log(err)
@@ -174,9 +135,7 @@ Page({
     const apply_time = new Date()
     const apply_date = app.get_date_period(apply_time).date
     const game_time = this.data.games[this.data.value1].time
-    const game_date_period = app.get_date_period(game_time)
-    const game_date = game_date_period.date
-    const game_period = game_date_period.period
+    const game_date = app.get_date_period(game_time).date
     // date0 为三天之后的日期，需要提前三天申请调整赛程
     console.log(apply_date)
     var date0 = apply_date + 3
@@ -196,35 +155,34 @@ Page({
     console.log(date1)
     console.log(date2)
     wx.cloud.callFunction({
-      name: "search_available_time",
+      name: "search_available_date_period",
       data:{date0:date0,
             date1:date1
-      },
+            },
       success: res=>{
-        let available_date_period = res.result.available_time
-        available_date_period.push([-1,-1])
+        const available_date_period = res.result.available_time
         console.log(available_date_period)
         console.log(res.result.requests)
-        const period_to_time = [[0,0],[12,50],[14,20],[15,50],[18,20],[19,50],[20,40]]
+        const p_to_t = app.globalData.PERIOD_TO_TIME
         var available_date = []
         var available_period = []
-        var temp_period = []
-        for(let i=0;i<available_date_period.length-1;++i){
+        for(let i=0;i<available_date_period.length;++i){
           const nowdate = available_date_period[i][0]
-          const nowperiod = available_date_period[i][1]
-          temp_period.push(period_to_time[nowperiod][0]+":"+period_to_time[nowperiod][1])
-          if (nowdate!=available_date_period[i+1][0]){
-            const nowdate_to_time = app.date_to_time(nowdate)
-            const nowdate_month = nowdate_to_time.getMonth()+1
-            const nowdate_date = nowdate_to_time.getDate()
-            available_date.push(nowdate_month+"."+nowdate_date)
-            available_period.push(temp_period)
-            temp_period = []
+          const nowdate_to_time = app.date_to_time(nowdate,0,0)
+          const nowdate_month = nowdate_to_time.getMonth()+1
+          const nowdate_date = nowdate_to_time.getDate()
+          available_date.push(nowdate_month+"."+nowdate_date)
+          let temp_period = []
+          for(let j=0;j<available_date_period[i][1].length;++j){
+            const nowperiod = available_date_period[i][1][j]
+            temp_period.push(p_to_t[nowperiod][0]+":"+p_to_t[nowperiod][1])
           }
-        }
+          available_period.push(temp_period)
+          }
         console.log(available_date)
         console.log(available_period)
         this.setData({
+          available_date_period: available_date_period,
           available_date: available_date,
           available_period: available_period,
           array2: available_date,
@@ -284,7 +242,6 @@ Page({
         for (var i=0;i<games.length;i++){
           array1.push(games[i].month+"."+games[i].date+" "+games[i].hour+":"+games[i].minute+" "+games[i].home_team+"VS"+games[i].away_team)
         }
-
         this.setData({
           array1:array1,
           games: games
@@ -297,9 +254,5 @@ Page({
     })
   },
   onShow: function (options) {
-    this.setData({
-      loading:false
-    })
-    this.onLoad()
   }
 })

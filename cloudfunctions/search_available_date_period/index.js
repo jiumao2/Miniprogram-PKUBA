@@ -32,14 +32,17 @@ exports.main = async (event, context) => {
   
   for (let i = date0; i <= date1; ++i) {
     let max_game = (1 <= nowday && nowday <= 5) ? maxGameMap.weekday : maxGameMap.weekend
+    let temp_available_time = []
+    let flag = false
     for (let j = 1; j <= 6; ++j) {
       let existed_game_number = allGames.filter(game => game.date === i && game.period === j).length
       let requested_game_number = allRequests.filter(request => request.date_new === i && request.period_new === j).length
-
       if (existed_game_number + requested_game_number < max_game[j]) {
-        available_time.push([i, j])
+        temp_available_time.push(j)
+        flag = true
       }
     }
+    if (flag) available_time.push([i,temp_available_time])
     nowday = (nowday+1)%7
   }
 

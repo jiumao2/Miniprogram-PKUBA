@@ -26,9 +26,9 @@ App({
       }
     })
   },
-  date_to_time(date){
+  date_to_time(date, hour, minute){
     const year = new Date().getFullYear(); // 获取当前年份
-    const datetime = new Date(year, 0, date); // 生成日期对象
+    const datetime = new Date(year, 0, date, hour, minute); // 生成日期对象
     return datetime;
   },
   period_to_time(period){
