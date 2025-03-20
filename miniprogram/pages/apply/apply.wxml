@@ -16,7 +16,16 @@
 						</picker>
 					</view>
 				</view>
-
+        <view class="weui-cell weui-cell_active weui-cell_select weui-cell_select-after">
+					<view class="weui-cell__hd">
+						<label class="weui-label">调整类型</label>
+					</view>
+					<view class="weui-cell__bd">
+						<picker bindchange="bindPicker4Change" range="{{array4}}" value = "{{value4}}">
+							<view class="weui-select" style="overflow: hidden;">{{array4[value4]}}</view>
+						</picker>
+					</view>
+				</view>
 				<view class="weui-cell weui-cell_active weui-cell_select weui-cell_select-after">
 					<view class="weui-cell__hd">
 						<label class="weui-label">新的日期</label>

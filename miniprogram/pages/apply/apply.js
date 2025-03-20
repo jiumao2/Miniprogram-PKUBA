@@ -1,7 +1,6 @@
 // miniprogram/pages/apply/apply.js
 var app = getApp()
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -9,9 +8,11 @@ Page({
         array1: [], // 场次
         array2: [], // 新的日期
         array3: [], // 新的时间
+        array4: ['普通调整','跨周调整'],
         value1: 0,
         value2: 0,
         value3: 0,
+        value4: 0,
         hideLoading: false,
         loading: true,
     },
@@ -20,11 +21,18 @@ Page({
         this.setData({
             value1: e.detail.value,
             value2: 0,
-            value3: 0
+            value3: 0,
         })
-        this.refresh_available_date()
+        this.get_available_time(this.data.games[this.data.value1].time,this.data.value4)
     },
-
+    bindPicker4Change: function(e){
+      this.setData({
+        value4: e.detail.value,
+        value2: 0,
+        value3: 0,
+      })
+      this.get_available_time(this.data.games[this.data.value1].time,this.data.value4)
+    },
     bindPicker2Change: function(e) {
         this.setData({
             value2: e.detail.value,
@@ -38,7 +46,37 @@ Page({
           value3: e.detail.value
       })
     },
-
+  send_email(game, time_new, place_new){
+    var now = new Date()
+    var text_email = "原比赛: " + game.month+'月'+game.date+'日 ' 
+    + game.hour+':'+game.minute + " "
+    + game.home_team + " VS "+ game.away_team
+    + ' ' + game.place + '\n' 
+    + "调整后比赛: "+ (time_new.getMonth()+1).toString()+'月'+time_new.getDate().toString()+'日 ' 
+    + time_new.getHours().toString()+':'+time_new.getMinutes().toString() + " "
+    + game.home_team + " VS "+ game.away_team
+    + ' ' + place_new + '\n'
+    + "申请日期: "+(now.getMonth()+1).toString()+'月'+now.getDate().toString()+'日 ' 
+    + now.getHours().toString()+':'+now.getMinutes().toString() + '\n'
+    + "申请方: "+app.globalData.leader_info.team +'\n'
+    + "申请类型: "+app.globalData.TYPES[0] + '\n'
+    + "组别: " + game.group + '\n'
+    console.log(text_email)
+    wx.cloud.callFunction({
+      name: 'send_email',
+      data:{
+        text: text_email,
+        attachment: 0,
+        subject: app.globalData.TYPES[0]+'申请（协商中）'+ game.home_team + " VS "+ game.away_team
+      },
+      success: res =>{
+        console.log(res)
+      },
+      fail: err =>{
+        console.log(err)
+      }
+    })
+  },
   make_request(){
     if (this.data.loading) return
     this.setData({
@@ -75,41 +113,13 @@ Page({
             place_new: place_new,
             game: game,
             requester: app.globalData.leader_info.team,
-            type: 1
+            type: this.data.value4==0? 1: 3
           },
           success: res => {
             wx.navigateBack({
               delta: 0,
             })
-            var now = new Date()
-            var text_email = "原比赛: " + game.month+'月'+game.date+'日 ' 
-            + game.hour+':'+game.minute + " "
-            + game.home_team + " VS "+ game.away_team
-            + ' ' + game.place + '\n' 
-            + "调整后比赛: "+ (time_new.getMonth()+1).toString()+'月'+time_new.getDate().toString()+'日 ' 
-            + time_new.getHours().toString()+':'+time_new.getMinutes().toString() + " "
-            + game.home_team + " VS "+ game.away_team
-            + ' ' + place_new + '\n'
-            + "申请日期: "+(now.getMonth()+1).toString()+'月'+now.getDate().toString()+'日 ' 
-            + now.getHours().toString()+':'+now.getMinutes().toString() + '\n'
-            + "申请方: "+app.globalData.leader_info.team +'\n'
-            + "申请类型: "+app.globalData.TYPES[0] + '\n'
-            + "组别: " + game.group + '\n'
-            console.log(text_email)
-            wx.cloud.callFunction({
-              name: 'send_email',
-              data:{
-                text: text_email,
-                attachment: 0,
-                subject: app.globalData.TYPES[0]+'申请（协商中）'+ game.home_team + " VS "+ game.away_team
-              },
-              success: res =>{
-                console.log(res)
-              },
-              fail: err =>{
-                console.log(err)
-              }
-            })
+            this.send_email(game, time_new, place_new)
           },
           fail: err => {
             console.log(err)
@@ -129,129 +139,139 @@ Page({
       }
     })
   },
-
-  refresh_available_date(){
-    this.setData({loading:true})
-    const apply_time = new Date()
-    const apply_date = app.get_date_period(apply_time).date
-    const game_time = this.data.games[this.data.value1].time
-    const game_date = app.get_date_period(game_time).date
-    // date0 为三天之后的日期，需要提前三天申请调整赛程
-    console.log(apply_date)
-    var date0 = apply_date + 3
-    console.log(date0)
-    let game_day = game_time.getDay()
-    if (game_day==0) game_day = 7 // 周天默认为0，改为7
-    console.log(game_day)
-    // 仅允许在当周内调整赛程
-    // date1 为本周日，date2为本周一
-    var date1 = game_date - game_day + app.globalData.ROUND_END_DAY   
-    var date2 = game_date - game_day + app.globalData.ROUND_START_DAY 
-    
-    // 找出date0与date2靠后者，date0-date1为可调整的日期段
-    if (date2>date0) date0 = date2
-
-    console.log(date0)
-    console.log(date1)
-    console.log(date2)
-    wx.cloud.callFunction({
-      name: "search_available_date_period",
-      data:{date0:date0,
-            date1:date1
-            },
-      success: res=>{
-        const available_date_period = res.result.available_time
-        console.log(available_date_period)
-        console.log(res.result.requests)
-        const p_to_t = app.globalData.PERIOD_TO_TIME
-        var available_date = []
-        var available_period = []
-        for(let i=0;i<available_date_period.length;++i){
-          const nowdate = available_date_period[i][0]
-          const nowdate_to_time = app.date_to_time(nowdate,0,0)
-          const nowdate_month = nowdate_to_time.getMonth()+1
-          const nowdate_date = nowdate_to_time.getDate()
-          available_date.push(nowdate_month+"."+nowdate_date)
-          let temp_period = []
-          for(let j=0;j<available_date_period[i][1].length;++j){
-            const nowperiod = available_date_period[i][1][j]
-            temp_period.push(p_to_t[nowperiod][0]+":"+p_to_t[nowperiod][1])
+  search_future_games(){
+    return new Promise( (resolve,reject)=> {
+      wx.cloud.callFunction({
+        name:"search_future_games",
+        data:{
+          team: app.globalData.leader_info.team,
+          group: app.globalData.leader_info.group,
+          for_request: true,
+          now: new Date(),
+        },
+        success: res =>{
+          console.log(res.result)
+          var array1 = []
+          var games = res.result.data
+          if (games.length == 0){
+            wx.navigateBack({
+              delta: 0,
+            })
+            app.globalData.errInfo = "没有可调整的赛程"
+            wx.navigateTo({
+              url: '../error_page/error_page',
+            })
+            resolve()
+            return
           }
-          available_period.push(temp_period)
+          for (var i=0;i<games.length;i++){
+            var time = new Date(games[i].time)
+            games[i].time = time
+            games[i].month = (time.getMonth()+1).toString()
+            games[i].date = time.getDate().toString()
+            games[i].hour = time.getHours().toString()
+            var temp = time.getMinutes()
+            if (temp<10){
+              temp = "0" + temp
+            }
+            games[i].minute = temp.toString()
           }
-        console.log(available_date)
-        console.log(available_period)
-        this.setData({
-          available_date_period: available_date_period,
-          available_date: available_date,
-          available_period: available_period,
-          array2: available_date,
-          array3: available_period[0],
-          loading: false
-        })
-      },
-      fail: err=>{
-        console.log(err)
-      }
+
+          games.sort((a,b)=>{
+            return a.time - b.time
+          })
+          console.log(games)
+          for (var i=0;i<games.length;i++){
+            array1.push(games[i].month+"."+games[i].date+" "+games[i].hour+":"+games[i].minute+" "+games[i].home_team+"VS"+games[i].away_team)
+          }
+          this.setData({
+            array1:array1,
+            games: games
+          })
+          resolve()
+          },
+        fail: err => {
+          console.log(err)
+          reject(err)
+        }
+      })
     })
   },
-  
+  search_all_available_time: function () {
+    return new Promise((resolve, reject) => {
+      this.setData({ loading: true })
+      const apply_time = new Date()
+      const apply_date = app.get_date_period(apply_time).date
+      var date0 = apply_date + 3
+      var date1 = app.globalData.GAME_END_DATE
+      console.log(date0)
+      console.log(date1)
+      wx.cloud.callFunction({
+        name: "search_available_date_period",
+        data: {
+          date0: date0,
+          date1: date1,
+        },
+        success: res => {
+          console.log(res.result)
+          this.setData({
+            available_date_period: res.result.available_time
+          })
+          resolve() // 成功时调用 resolve
+        },
+        fail: err => {
+          console.log(err)
+          reject(err) // 失败时调用 reject
+        }
+      })
+    })
+  },
+  get_available_time (game_time,request_type) {
+    this.setData({loading:true})
+    const game_date = app.get_date_period(game_time).date
+    let game_day = game_time.getDay()
+    if (game_day==0) game_day = 7
+    console.log(game_date)
+    const date1 = game_date - game_day + app.globalData.ROUND_START_DAY
+    const date2 = game_date - game_day + app.globalData.ROUND_END_DAY
+    console.log(date1)
+    console.log(date2)
+    console.log(this.data.available_date_period)
+    if (request_type==0){
+      var available_date_period = this.data.available_date_period.filter(item=> (item[0]>=date1&&item[0]<=date2))
+    }
+    else {
+      var available_date_period = this.data.available_date_period.filter(item=> !(item[0]>=date1&&item[0]<=date2))
+    }
+    const p_to_t = app.globalData.PERIOD_TO_TIME
+    var available_date = []
+    var available_period = []
+    for(let i=0;i<available_date_period.length;++i){
+      const nowdate = available_date_period[i][0]
+      const nowdate_to_time = app.date_to_time(nowdate,0,0)
+      const nowdate_month = nowdate_to_time.getMonth()+1
+      const nowdate_date = nowdate_to_time.getDate()
+      available_date.push(nowdate_month+"."+nowdate_date)
+      const temp_period = available_date_period[i][1].map(item => p_to_t[item][0]+":"+p_to_t[item][1])
+      available_period.push(temp_period)
+      }
+      console.log(available_date)
+      console.log(available_period)
+      this.setData({
+        available_date: available_date,
+        available_period: available_period,
+        array2: available_date,
+        array3: available_period[0],
+        loading: false
+      })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    wx.cloud.callFunction({
-      name:"search_future_games",
-      data:{
-        team: app.globalData.leader_info.team,
-        group: app.globalData.leader_info.group,
-        for_request: true,
-        now: new Date(),
-      },
-      success: res =>{
-        console.log(res.result)
-        var array1 = []
-        var games = res.result.data
-        if (games.length == 0){
-          wx.navigateBack({
-            delta: 0,
-          })
-          app.globalData.errInfo = "没有可调整的赛程"
-          wx.navigateTo({
-            url: '../error_page/error_page',
-          })
-          return
-        }
-        for (var i=0;i<games.length;i++){
-          var time = new Date(games[i].time)
-          games[i].time = time
-          games[i].month = (time.getMonth()+1).toString()
-          games[i].date = time.getDate().toString()
-          games[i].hour = time.getHours().toString()
-          var temp = time.getMinutes()
-          if (temp<10){
-            temp = "0" + temp
-          }
-          games[i].minute = temp.toString()
-        }
-
-        games.sort((a,b)=>{
-          return a.time - b.time
-        })
-        console.log(games)
-        for (var i=0;i<games.length;i++){
-          array1.push(games[i].month+"."+games[i].date+" "+games[i].hour+":"+games[i].minute+" "+games[i].home_team+"VS"+games[i].away_team)
-        }
-        this.setData({
-          array1:array1,
-          games: games
-        })
-        this.refresh_available_date()
-        },
-      fail: err => {
-        console.log(err)
-      }
-    })
+  onLoad: async function (options) {
+    await this.search_future_games()
+    await this.search_all_available_time()
+    this.get_available_time(this.data.games[0].time,0)
   },
   onShow: function (options) {
   }

@@ -361,9 +361,5 @@ Page({
     })
   },
   onShow: function (options) {
-    this.setData({
-      loading:false
-    })
-    this.onLoad()
   }
 })

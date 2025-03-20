@@ -3,6 +3,31 @@ const cloud = require('wx-server-sdk')
 
 cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV }) // 使用当前云环境
 
+async function getAllData(collectionName, query) {
+  const db = cloud.database({
+    env: cloud.DYNAMIC_CURRENT_ENV
+  })
+  const _ = db.command
+  const MAX_LIMIT = 100 // 每次最多获取 100 条
+  let data = []
+  let skip = 0
+  let hasMore = true
+
+  while (hasMore) {
+    const res = await db.collection(collectionName)
+      .where(query)
+      .skip(skip)
+      .limit(MAX_LIMIT)
+      .get()
+
+    data = data.concat(res.data) // 合并数据
+    skip += MAX_LIMIT
+    hasMore = res.data.length === MAX_LIMIT // 如果返回的数据少于 MAX_LIMIT，说明没有更多数据了
+  }
+
+  return data
+}
+
 // 云函数入口函数
 exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext()
@@ -13,14 +38,14 @@ exports.main = async (event, context) => {
   const nowyear = new Date().getFullYear()
   const date0 = event.date0
   const date1 = event.date1
-  const allGames = (await db.collection('Schedule').where({
-    date: _.and(_.gte(date0), _.lte(date1)),
-  }).get()).data
+  const allGames = await getAllData('Schedule', {
+    date: _.and(_.gte(date0), _.lte(date1))
+  })
 
-  const allRequests = (await db.collection('Request').where({
+  const allRequests = await getAllData('Request', {
     date_new: _.and(_.gte(date0), _.lte(date1)),
     state: _.neq(2)
-  }).get()).data
+  })
 
   const maxGameMap = {
     weekday: [0, 1, 0, 0, 0, 0, 1],
@@ -47,8 +72,6 @@ exports.main = async (event, context) => {
   }
 
   return {
-    available_time: available_time,
-    games: allGames,
-    requests: allRequests
+    available_time: available_time
   }
 }
