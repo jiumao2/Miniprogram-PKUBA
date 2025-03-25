@@ -89,9 +89,11 @@ Page({
       })
       return
     }
-    var date_new = this.data.available_date_period[this.data.value2][0]
-    var period_new = this.data.available_date_period[this.data.value2][1][this.data.value3]
+    var date_new = this.data.now_available_date_period[this.data.value2][0]
+    var period_new = this.data.now_available_date_period[this.data.value2][1][this.data.value3]
     var place_new = '无'
+    console.log(date_new)
+    console.log(period_new)
     await wx.cloud.callFunction({
       name: "search_available_place",
       data:{
@@ -262,6 +264,7 @@ Page({
       console.log(available_date)
       console.log(available_period)
       this.setData({
+        now_available_date_period: available_date_period,
         available_date: available_date,
         available_period: available_period,
         array2: available_date,
@@ -273,6 +276,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: async function (options) {
+    console.log(app.period_to_time(4))
+    console.log(app.period_to_time(3))
     await this.search_future_games()
     await this.search_all_available_time()
     this.get_available_time(this.data.games[0].time,0)
