@@ -17,7 +17,6 @@ Page({
       url: '../manager_view_apply_details/manager_view_apply_details',
     })
   },
-
   /**
    * 生命周期函数--监听页面加载
    */
@@ -25,54 +24,32 @@ Page({
     wx.cloud.callFunction({
       "name": "get_all_requests",
       success: res =>{
-        console.log(res.result.data)
         var request = res.result.data
-        var request_to_review = []
-        var request_reviewed = []
-        // sort by time
-        for (var i=0; i<request.length; i++){
-          for (var j=i+1; j<request.length; j++){
-            if (request[j].time > request[i].time){
-              let temp = request[j]
-              request[j] = request[i]
-              request[i] = temp
-            }
-          }
-        }
-
+        request.sort((a,b) => {
+          return new Date(b.request_time).getTime() - new Date(a.request_time).getTime()
+        })
+        console.log(request)
         for (var i=0;i<request.length;i++){
-          if (request[i].is_reviewed){
-            request_reviewed.push(request[i])
-          }
-          else{
-            request_to_review.push(request[i])
-          }
+          var time = new Date(request[i].time)
+          request[i].time = time.toISOString()
+          request[i].year = time.getFullYear().toString()
+          request[i].month = (time.getMonth()+1).toString()
+          request[i].date = time.getDate().toString()
+          request[i].hour = time.getHours().toString().padStart(2,"0")
+          request[i].minute = time.getMinutes().toString().padStart(2,"0")
         }
+        const nowdate = app.get_date_period(new Date()).date
+        const request_passed = request.filter(item => item.state==2 || item.state==0)
+        const request_normal = request.filter(item => item.type==1&&item.state!=2&&item.state!=0&&item.date_new >= nowdate)
+        const request_across = request.filter(item => item.type==3&&item.state!=2&&item.state!=0&&item.date_new >= nowdate)
+        console.log(request_passed)
+        console.log(request_normal)
+        console.log(request_across)
 
-        for (var i=0;i<request_to_review.length;i++){
-          var time = new Date(request_to_review[i].time)
-          request_to_review[i].time = time.toISOString()
-          request_to_review[i].year = time.getFullYear().toString()
-          request_to_review[i].month = (time.getMonth()+1).toString()
-          request_to_review[i].date = time.getDate().toString()
-          request_to_review[i].hour = time.getHours().toString().padStart(2,"0")
-          request_to_review[i].minute = time.getMinutes().toString().padStart(2,"0")
-        }
-        for (var i=0;i<request_reviewed.length;i++){
-          var time = new Date(request_reviewed[i].time)
-          request_reviewed[i].time = time.toISOString()
-          request_reviewed[i].year = time.getFullYear().toString()
-          request_reviewed[i].month = (time.getMonth()+1).toString()
-          request_reviewed[i].date = time.getDate().toString()
-          request_reviewed[i].hour = time.getHours().toString().padStart(2,"0")
-          request_reviewed[i].minute = time.getMinutes().toString().padStart(2,"0")
-        }
-
-        console.log(request_to_review)
-        console.log(request_reviewed)
         this.setData({
-          request_to_review: request_to_review,
-          request_reviewed: request_reviewed
+          request_passed: request_passed,
+          request_normal: request_normal,
+          request_across: request_across
         })
       },
       fail: err=>{

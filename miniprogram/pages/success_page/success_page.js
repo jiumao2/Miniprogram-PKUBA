@@ -18,7 +18,7 @@ Page({
 
   },
 
-  ok_back: function(){
+  ok_back: function (){
     wx.navigateBack({
       delta: 0,
     })

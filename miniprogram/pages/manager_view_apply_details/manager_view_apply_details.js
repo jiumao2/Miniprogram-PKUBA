@@ -83,7 +83,7 @@ Page({
           this.setData({
             loading: true
           })
-          app.globalData.request_detail.state = 0
+          app.globalData.manager_request_detail.state = 0
           wx.cloud.callFunction({
             name: "review_request",
             data:{

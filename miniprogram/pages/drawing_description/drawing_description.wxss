@@ -1,1 +1,13 @@
 /* pages/drawing_description/drawing_description.wxss */
+.text-container {
+  padding: 20px; /* 四周留白 */
+  background-color: #f9f9f9; /* 可选：设置背景颜色 */
+}
+
+.paragraph {
+  display: block; /* 确保每段是独立的块级元素 */
+  text-indent: 2em; /* 首行缩进两格（2个中文字符宽度） */
+  margin-bottom: 16px; /* 段落之间的间距 */
+  line-height: 1.6; /* 设置行高，提升可读性 */
+  color: #333; /* 设置文本颜色 */
+}

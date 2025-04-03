@@ -13,7 +13,12 @@ exports.main = async (event, context) => {
     env: cloud.DYNAMIC_CURRENT_ENV
   })
   const _ = db.command
-
+  date_period_new = await cloud.callFunction({
+    name: "get_date_period",
+    data: {time:event.request.time_new}
+  })
+  const date_new = date_period_new.result.date
+  const period_new = date_period_new.result.period
   if (event.to_delete){
     await db.collection('Request').doc(event.request._id).remove()
   }
@@ -38,7 +43,9 @@ exports.main = async (event, context) => {
       data:{
         time: new Date(event.request.time_new),
         place: event.request.place_new,
-        adjustable: true       
+        adjustable: true,
+        period: period_new,
+        date: date_new
       }
     })
   }

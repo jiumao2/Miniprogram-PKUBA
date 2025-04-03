@@ -10,6 +10,10 @@ exports.main = async (event, context) => {
   db = cloud.database({
     env: cloud.DYNAMIC_CURRENT_ENV
   })
+  const date_period = (await cloud.callFunction({
+    name:"get_date_period",
+    data:{time:event.time}
+  })).result
   return await db.collection('Schedule').where({
     home_team: event.home_team_raw,
     away_team: event.away_team_raw,
@@ -24,6 +28,8 @@ exports.main = async (event, context) => {
         away_team_point: event.home_team_score>event.away_team_score?(event.is_given_up?0:1):((event.home_team_score<0)?0:2),
         place: event.place,
         time: new Date(event.time),
+        period: date_period.period,
+        date: date_period.date,
         home_team: event.home_team,
         away_team: event.away_team,
         group:event.group,

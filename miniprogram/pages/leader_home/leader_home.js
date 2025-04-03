@@ -42,18 +42,21 @@ Page({
           var time = new Date(games[i].time)
           games[i].time = time
           games[i].month = (time.getMonth()+1).toString()
-          games[i].day = time.getDate().toString()
-          games[i].hour = time.getHours().toString()
-          var temp = time.getMinutes()
-          if (temp<10){
-            temp = "0" + temp
+          let tempday = time.getDate()
+          if (tempday<10){
+          tempday = tempday + "  "
           }
-          games[i].minute = temp.toString()
+          games[i].day = tempday.toString()
+          games[i].hour = time.getHours().toString()
+          let tempminute = time.getMinutes()
+          if (tempminute<10){
+            tempminute = "0" + tempminute
+          }
+          games[i].minute = tempminute.toString()
         }
 
         games.sort((a,b)=>{
-          if (a.time.getTime() >= b.time.getTime()) return 1
-          else return -1
+          return a.time.getTime() - b.time.getTime()
         })
         console.log(games)
 
