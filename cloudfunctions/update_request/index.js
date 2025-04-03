@@ -67,7 +67,7 @@ exports.main = async (event, context) => {
       }
     })
   }
-  else{
+  else if (event.new_state == 0){
     await db.collection('Schedule').doc(event.request.game_id).update({
       data:{
         adjustable: true      
