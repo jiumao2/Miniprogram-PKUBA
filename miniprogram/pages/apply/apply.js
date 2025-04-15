@@ -77,7 +77,7 @@ Page({
       }
     })
   },
-  async make_request(){
+  make_request(){
     if (this.data.loading) return
     this.setData({
       loading: true,
@@ -94,7 +94,7 @@ Page({
     var place_new = '无'
     console.log(date_new)
     console.log(period_new)
-    await wx.cloud.callFunction({
+    wx.cloud.callFunction({
       name: "search_available_place",
       data:{
         date_new: date_new,
@@ -104,6 +104,37 @@ Page({
         console.log(res.result)
         console.log(this.data.games)
         place_new = res.result.available_place[0]
+        const hour_minute_new = app.period_to_time(period_new)
+        console.log(hour_minute_new)
+        var time_new = app.date_to_time(date_new, hour_minute_new.hour, hour_minute_new.minute)
+        console.log(time_new)
+        var game = this.data.games[this.data.value1]
+        wx.cloud.callFunction({
+          name: "make_request_new",
+          data:{
+            time_new: time_new,
+            date_new: date_new,
+            period_new: period_new,
+            place_new: place_new,
+            game: game,
+            requester: app.globalData.leader_info.team,
+            type: this.data.value4==0? 1: 3
+            },
+          success: res => {
+            app.globalData.errInfo = "调整成功"
+            wx.redirectTo({
+              url: '../success_page/success_page',
+            })
+            this.send_email(game, time_new, place_new)
+          },
+          fail: err => {
+            console.log(err)
+            app.globalData.errInfo = "该时间段场次已满"
+            wx.navigateTo({
+              url: '../error_page/error_page',
+            })
+          },
+        })
       },
       fail: err => {
         console.log(err)
@@ -113,37 +144,7 @@ Page({
         })
       }
     })
-    const hour_minute_new = app.period_to_time(period_new)
-    console.log(hour_minute_new)
-    var time_new = app.date_to_time(date_new, hour_minute_new.hour, hour_minute_new.minute)
-    console.log(time_new)
-    var game = this.data.games[this.data.value1]
-    await wx.cloud.callFunction({
-      name: "make_request_new",
-      data:{
-        time_new: time_new,
-        date_new: date_new,
-        period_new: period_new,
-        place_new: place_new,
-        game: game,
-        requester: app.globalData.leader_info.team,
-        type: this.data.value4==0? 1: 3
-        },
-      success: res => {
-        app.globalData.errInfo = "调整成功"
-        wx.redirectTo({
-          url: '../success_page/success_page',
-        })
-        this.send_email(game, time_new, place_new)
-      },
-      fail: err => {
-        console.log(err)
-        app.globalData.errInfo = "该时间段场次已满"
-        wx.navigateTo({
-          url: '../error_page/error_page',
-        })
-      },
-    })
+    
   },
   search_future_games(){
     return new Promise( (resolve,reject)=> {
