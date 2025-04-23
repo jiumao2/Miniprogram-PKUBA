@@ -12,6 +12,16 @@ exports.main = async (event, context) => {
   var tempname = []
   var tempscore = []
   var final = 0
+  if (event.group == "男甲"){
+    tempname = [["医学","化学","数学","城环"],Array(2),Array(1)]
+    tempscore = [Array(4),Array(2)]
+    final = 2
+  }
+  if (event.group == "女甲"){
+    tempname = [["",""],Array(1)]
+    tempscore = [Array(2)]
+    final = 1
+  }
   if (event.group == "男乙"){
     tempname = [["心理","教历","元培","计算机","物理","地政","叉院","智能"],Array(4),Array(2),Array(1)]
     tempscore = [Array(8),Array(4),Array(2)]
