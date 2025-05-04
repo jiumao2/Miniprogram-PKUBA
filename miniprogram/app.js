@@ -32,33 +32,35 @@ App({
     return datetime;
   },
   period_to_time(period){
-    var hour = 0
-    var minute = 0
+    var hour = 0;
+    var minute = 0;
     switch(period){
-      case 1:{
-        hour = 12
-        minute = 50
-      }
-      case 2:{
-        hour = 14
-        minute = 20
-      }
-      case 3:{
-        hour = 15
-        minute = 50
-      }
-      case 4:{
-        hour = 18
-        minute = 20
-      }
-      case 5:{
-        hour = 19
-        minute = 50
-      }
-      case 6:{
-        hour = 20
-        minute = 40
-      }
+      case 1:
+        hour = 12;
+        minute = 50;
+        break;
+      case 2:
+        hour = 14;
+        minute = 20;
+        break;
+      case 3:
+        hour = 15;
+        minute = 50;
+        break;
+      case 4:
+        hour = 18;
+        minute = 20;
+        break;
+      case 5:
+        hour = 19;
+        minute = 50;
+        break;
+      case 6:
+        hour = 20;
+        minute = 40;
+        break;
+      default:
+        break;
     }
     return {
       hour: hour,
@@ -72,17 +74,31 @@ App({
     const timeDiff = nowtime.getTime() - yearStart.getTime() // 计算时间差（毫秒）
     const dayOfYear = Math.floor(timeDiff / (1000 * 3600 * 24))+1 // 转换为天数
 
-    const hour = nowtime.getUTCHours()+8
-    const minutes = nowtime.getMinutes()
-    const totalminutes = 60*hour+8 + minutes
-    let period = 0
-    switch(totalminutes){
-      case totalminutes >= 60*12+20 && totalminutes <= 60*13+20: period = 1;
-      case totalminutes >= 60*13+50 && totalminutes <= 60*14+50: period = 2;
-      case totalminutes >= 60*15+20 && totalminutes <= 60*16+20: period = 3;
-      case totalminutes >= 60*17+50 && totalminutes <= 60*18+50: period = 4;
-      case totalminutes >= 60*19+20 && totalminutes <= 60*20+20: period = 5;
-      case totalminutes >= 60*20+30: period = 6;
+    const hour = nowtime.getUTCHours()+8;
+    const minutes = nowtime.getMinutes();
+    const totalminutes = 60*hour + minutes;
+    let period = 0;
+    switch(true){
+      case (totalminutes >= 60*12+20 && totalminutes <= 60*13+20):
+        period = 1;
+        break;
+      case (totalminutes >= 60*13+50 && totalminutes <= 60*14+50):
+        period = 2;
+        break;
+      case (totalminutes >= 60*15+20 && totalminutes <= 60*16+20):
+        period = 3;
+        break;
+      case (totalminutes >= 60*17+50 && totalminutes <= 60*18+50):
+        period = 4;
+        break;
+      case (totalminutes >= 60*19+20 && totalminutes <= 60*20+20):
+        period = 5;
+        break;
+      case (totalminutes >= 60*20+30):
+        period = 6;
+        break;
+      default:
+        break;
     }
     return {
       date: dayOfYear,
