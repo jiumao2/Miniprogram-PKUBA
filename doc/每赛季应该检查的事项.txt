@@ -7,4 +7,5 @@ Key: TZ
 Value: Asia/Shanghai
 5. 需要将文件中所有的环境名更换为新的环境名（查找-替换功能）
 6. 重新新建数据库Schedule, Leader, Request, Private, Manager, Photo, Team. Private中导入赛季元信息，导入Manager名单
-7. 检查运营者是否加入开发者名单（“小程序助手”微信小程序）
+7. 检查云数据库和存储权限配置，设置为所有用户可读，仅创建者可读写
+8. 检查运营者是否加入开发者名单（“小程序助手”微信小程序）
