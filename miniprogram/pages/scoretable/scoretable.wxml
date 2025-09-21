@@ -40,7 +40,8 @@
           <text class="cell1">{{names[i1]}}</text>
           <block wx:for="{{s1}}" wx:key="i2" wx:for-index="i2" wx:for-item="s2"> 
             <view class="cell1" wx:if="{{i1!=i2&&s2[0]>=0}}" style="color:{{s2[0]<s2[1]?'rgb(0, 0, 0)':'rgb(255, 72, 0)'}}">
-              <text class ="scorecell" >{{s2[0]}}:{{s2[1]}}\n</text>
+              <text class ="scorecell" >{{s2[0]}}:{{s2[1]}}</text>
+              <text>\n</text>
               <text>{{s2[2]}}</text>
             </view>
             <text class="cell1" wx:if="{{i1==i2}}">\</text>
@@ -64,7 +65,8 @@
           <text class="cell2">{{names[i1]}}</text>
           <block wx:for="{{s1}}" wx:key="i2" wx:for-index="i2" wx:for-item="s2"> 
             <view class="cell2" wx:if="{{i1!=i2&&s2[0]>=0}}" style="color:{{s2[0]<s2[1]?'rgb(0, 0, 0)':'rgb(255, 72, 0)'}}">
-              <text class ="scorecell" >{{s2[0]}}:{{s2[1]}}\n</text>
+              <text class ="scorecell" >{{s2[0]}}:{{s2[1]}}</text>
+              <text>\n</text>
               <text>{{s2[2]}}</text>
             </view>
             <text class="cell2" wx:if="{{i1==i2}}">\</text>
@@ -113,7 +115,7 @@
           <text class="cell1">{{s1.name}}</text>
           <text class="cell1">{{s1.grouppoint}}</text>
           <text class="cell1" style = "width:70px">{{s1.groupnetscore}}</text>
-          <text class="cell1">{{s1.point==0?(nonzero+1):(i1+1)}}</text>
+          <text class="cell1">{{s1.grouppoint==0?(nonzero+1):(i1+1)}}</text>
         </view>
       </block>
     </view>

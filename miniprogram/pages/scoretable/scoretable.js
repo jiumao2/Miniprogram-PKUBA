@@ -94,8 +94,14 @@ Page({
         console.log(temp)
         var cnt = 0
         for(var i=0;i<temp.length;i++){
+          temp[i].cross_group_point = temp[i].grouppoint
+          temp[i].cross_group_score = temp[i].groupnetscore
           if (temp[i].grouppoint>0){
             cnt++
+          }
+          if (temp.length > 4){
+            temp[i].cross_group_point-=res.result.arr[temp[i].id][temp[temp.length-1].id][2]
+            temp[i].cross_group_score-=res.result.arr[temp[i].id][temp[temp.length-1].id][0]
           }
         }
         console.log(this.data.teams)
