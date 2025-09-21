@@ -79,7 +79,7 @@ App({
     const totalminutes = 60*hour + minutes;
     let period = 0;
     switch(true){
-      case (totalminutes >= 60*12+20 && totalminutes <= 60*13+20):
+      case (totalminutes <= 60*13+20):
         period = 1;
         break;
       case (totalminutes >= 60*13+50 && totalminutes <= 60*14+50):
