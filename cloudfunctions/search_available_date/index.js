@@ -4,49 +4,24 @@ const cloud = require('wx-server-sdk')
 cloud.init({
   env: cloud.DYNAMIC_CURRENT_ENV
 })
-function getdate(time){
-  const nowtime = new Date(time)
-  const month = nowtime.getMonth()
-  const day = nowtime.getDate()
-  return 10000*month+day
-}
-function getperiod(time){
-  const nowtime = new Date(time)
-  const hour = nowtime.getHours()
-  const minutes = nowtime.getMinutes()
-  const totalminutes = 60*(hour+8) + minutes
-  if (totalminutes >= 60*12+20 && totalminutes <= 60*13+20){
-    return 1
-  }
-  if (totalminutes >= 60*13+50 && totalminutes <= 60*14+50){
-    return 2
-  }
-  if (totalminutes >= 60*15+20 && totalminutes <= 60*16+20){
-    return 3
-  }
-  if (totalminutes >= 60*17+50 && totalminutes <= 60*18+50){
-    return 4
-  }
-  if (totalminutes >= 60*19+20 && totalminutes <= 60*20+20){
-    return 5
-  }
-  if (totalminutes >= 60*20+30){
-    return 6
-  }
-  return 0
-}
-
 // 云函数入口函数
 exports.main = async (event, context) => {
   db = cloud.database({
     env: cloud.DYNAMIC_CURRENT_ENV
   })
   const _ = db.command
-
-  const date0 = getdate(event.date0)
-  const period0 = getperiod(event.date0)
-  const date1 = getdate(event.date1)
-  const period1 = getperiod(event.date1)
+  console.log('1')
+  date_period_0 = await cloud.callFunction({
+    name: "get_date_period",
+    data: {time:event.date0}
+  })
+  console.log('1')
+  date_period_1 = await cloud.callFunction({
+    name: "get_date_period",
+    data: {time:event.date1}
+  })
+  const date0 = date_period_0.result.date
+  const date1 = date_period_1.result.date
   let time_not_available1 = await db.collection('Schedule').where({
     date: _.gte(date0).and(_.lte(date1))
   }).get()

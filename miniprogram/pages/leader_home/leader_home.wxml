@@ -1,6 +1,5 @@
 <!--miniprogram/pages/leader_home/leader_home.wxml-->
 <view class="page__bd">
-
     <view class="weui-cells__title">基本信息</view>
     <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell">
@@ -19,8 +18,8 @@
 
     <view class="weui-cells__title">剩余比赛</view>
     <view class="weui-cells weui-cells_after-title">
-        <view class="weui-cell" wx:for="{{games}}">
-            <view class="weui-cell__bd">{{item.month}}.{{item.day}} {{item.hour}}:{{item.minute}} {{item.home_team}}VS{{item.away_team}}</view>
+        <view class="weui-cell" wx:for="{{games}}" wx:key="_id">
+            <view class="weui-cell__bd" style="white-space: pre">{{item.month}}.{{item.day}} {{item.hour}}:{{item.minute}} {{item.home_team}}VS{{item.away_team}}</view>
             <view class="weui-cell__ft">{{item.place}}</view>
         </view>
     </view>
@@ -29,10 +28,9 @@
       <a class="weui-btn weui-btn_primary" bindtap="view_apply">查看申请</a>
       <a class="weui-btn weui-btn_primary" bindtap="apply">申请调整</a>
       <a class="weui-btn weui-btn_primary" bindtap="drawing">申请抽签</a>
-      <a class="weui-btn weui-btn_primary" bindtap="apply_cross_round">申请跨周调整</a>
     </view>
+<view class = "pad_down"></view>
 </view>
-
 <view class="fadeIn {{hideLoading ? 'fadeOut' : ''}}" wx:if="{{loading}}">
 	<view class="weui-mask_transparent"></view>
 	<view class="weui-toast">

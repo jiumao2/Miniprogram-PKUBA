@@ -70,6 +70,8 @@
       <a class="weui-btn weui-btn_primary" bindtap="recall">撤销</a>
 </view>
 
+<view class = "pad_down"></view>
+
 <view class="fadeIn {{hideLoading ? 'fadeOut' : ''}}" wx:if="{{loading}}">
 	<view class="weui-mask_transparent"></view>
 	<view class="weui-toast">

@@ -19,27 +19,32 @@
 .cell1 {
   font-size: 12pt;
   border: 1px solid black;
-  width: 50px;
+  width: 90rpx;
   text-align: center;
-  padding: 5px 5px;
+  padding: 10rpx 10rpx;
 }
 
 .cell2 {
-  font-size: 12pt;
+  font-size: 10pt;
   border: 1px solid black;
-  width: 40px;
+  width: 75rpx;
   text-align: center;
-  padding: 5px 5px;
+  padding: 10rpx 10rpx;
 }
 
 .cell3 {
-  font-size: 9pt;
+  font-size: 8pt;
   border: 1px solid black;
-  width: 30px;
+  width: 50rpx;
   text-align: center;
-  padding: 5px 5px;
+  padding: 10rpx 10rpx;
 }
 
 .scorecell {
   text-decoration:underline;
+}
+
+.pad_down {
+  height: 30px;
+  background-color: inherit;
 }
