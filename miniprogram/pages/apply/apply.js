@@ -259,8 +259,9 @@ Page({
       const nowdate_month = nowdate_to_time.getMonth()+1
       const nowdate_date = nowdate_to_time.getDate()
       available_date.push(nowdate_month+"."+nowdate_date)
-      console.log(available_date_period)
+      console.log(available_date_period[i][1])
       const temp_period = available_date_period[i][1].map(item => p_to_t[item][0]+":"+p_to_t[item][1])
+      temp_period.sort()
       available_period.push(temp_period)
       }
       console.log(available_date)

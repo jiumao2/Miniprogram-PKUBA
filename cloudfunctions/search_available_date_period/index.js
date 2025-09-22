@@ -36,7 +36,7 @@ exports.main = async (event, context) => {
   })
   const _ = db.command
   const nowyear = new Date().getFullYear()
-  const date0 = event.date0
+  const date0 = event.date0>=270? event.date0: 270
   const date1 = event.date1
   const allGames = await getAllData('Schedule', {
     date: _.and(_.gte(date0), _.lte(date1))
@@ -48,18 +48,23 @@ exports.main = async (event, context) => {
   })
 
   const maxGameMap = {
-    weekday: [0, 1, 0, 0, 0, 0, 1],
-    weekend: [0, 3, 3, 3, 2, 2, 0]
+    weekday: [0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0],
+    weekend: [0, 3, 3, 3, 2, 2, 0, 0, 0, 0, 0],
+    special: [0, 0, 0, 0, 0, 2, 0, 3, 3, 3, 2],
   }
 
   const available_time = []
   var nowday = new Date(nowyear, 0, date0).getDay()
-  
   for (let i = date0; i <= date1; ++i) {
-    let max_game = (1 <= nowday && nowday <= 5) ? maxGameMap.weekday : maxGameMap.weekend
+    if (i>=270 && i<=271) {
+      var max_game = maxGameMap.special
+    }
+    else {
+      var max_game = (1 <= nowday && nowday <= 5) ? maxGameMap.weekday : maxGameMap.weekend
+    }
     let temp_available_time = []
     let flag = false
-    for (let j = 1; j <= 6; ++j) {
+    for (let j = 1; j <= 10; ++j) {
       let existed_game_number = allGames.filter(game => game.date === i && game.period === j).length
       let requested_game_number = allRequests.filter(request => request.date_new === i && request.period_new === j).length
       if (existed_game_number + requested_game_number < max_game[j]) {
