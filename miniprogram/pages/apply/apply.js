@@ -279,10 +279,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: async function (options) {
-    console.log(app.period_to_time(4))
-    console.log(app.period_to_time(3))
     await this.search_future_games()
     await this.search_all_available_time()
+    console.log(this.data.games)
     this.get_available_time(this.data.games[0].time,0)
   },
   onShow: function (options) {

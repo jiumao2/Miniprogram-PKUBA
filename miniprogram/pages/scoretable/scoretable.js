@@ -23,6 +23,7 @@ Page({
       return t
     }
     var tempteam = new Array(len)
+    console.log(t)
     for (var _=0;_<len;_++){
       tempteam[_]={
         id: t[_].id,
@@ -34,7 +35,9 @@ Page({
         groupnetscore: t[_].groupnetscore,
         grouptotalscore: t[_].grouptotalscore
       }
+      console.log(tempteam[_])
     }
+    console.log(tempteam)
     for (var _=0;_<len;_++){
       var ii = tempteam[_].id
       for (var __=0;__<len;__++){
@@ -43,6 +46,7 @@ Page({
         tempteam[_].netscore+= (arr[ii][jj][0]>=0?(arr[ii][jj][0]-arr[ii][jj][1]):0)
         tempteam[_].totalscore+= (arr[ii][jj][0]>=0?arr[ii][jj][0]:0)
       }
+      console.log(tempteam[_])
     }
     tempteam.sort((a,b)=>{
       if (a.point != b.point){

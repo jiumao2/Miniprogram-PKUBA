@@ -32,36 +32,8 @@ App({
     return datetime;
   },
   period_to_time(period){
-    var hour = 0;
-    var minute = 0;
-    switch(period){
-      case 1:
-        hour = 12;
-        minute = 50;
-        break;
-      case 2:
-        hour = 14;
-        minute = 20;
-        break;
-      case 3:
-        hour = 15;
-        minute = 50;
-        break;
-      case 4:
-        hour = 18;
-        minute = 20;
-        break;
-      case 5:
-        hour = 19;
-        minute = 50;
-        break;
-      case 6:
-        hour = 20;
-        minute = 40;
-        break;
-      default:
-        break;
-    }
+    let hour = Number(this.globalData.PERIOD_TO_TIME[period][0])
+    let minute = Number(this.globalData.PERIOD_TO_TIME[period][1])
     return {
       hour: hour,
       minute: minute

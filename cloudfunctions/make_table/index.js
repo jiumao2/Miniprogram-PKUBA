@@ -15,14 +15,15 @@ exports.main = async (event, context) => {
   }).get()
 
   let len = list.data.length
-  let teams = list.data.map((team, i) => ({
+  let teams = list.data.map(team => ({
     name: team.name,
     grouppoint: 0,
     grouptotalscore: 0,
     groupnetscore: 0,
-    id: i
-  }))
-  let names = list.data.map(team => team.name)
+    id: team.id-1
+  })).sort((a,b)=>(a.id-b.id))
+  
+  let names = teams.map(team => team.name)
 
   let arr = Array.from({ length: len }, () =>
     Array.from({ length: len }, () => Array(3).fill(0))
@@ -67,15 +68,11 @@ exports.main = async (event, context) => {
   }
 
   const nameMap = {
-    '未来-现代': '未现',
-    '地空-政管': '地政',
-    '考古-艺术': '考艺',
-    '考古-政管': '考管',
-    '生科-历史': '生历',
-    '光华-经济': '光经',
-    '环科-哲学': '环哲',
-    '教育-历史': '教历',
-    '集电-体教': '集体'
+    '光华-经济':'光经',
+    '历史-哲学':'历哲',
+    '心理-城环':'心城',
+    '社会-信管':'社信',
+    '生科-历史':'生历',
   }
 
   for (var i = 0; i < len; i++) {
