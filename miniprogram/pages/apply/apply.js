@@ -259,7 +259,9 @@ Page({
       const nowdate_month = nowdate_to_time.getMonth()+1
       const nowdate_date = nowdate_to_time.getDate()
       available_date.push(nowdate_month+"."+nowdate_date)
+      console.log(available_date_period[i][1])
       const temp_period = available_date_period[i][1].map(item => p_to_t[item][0]+":"+p_to_t[item][1])
+      temp_period.sort()
       available_period.push(temp_period)
       }
       console.log(available_date)
@@ -277,10 +279,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: async function (options) {
-    console.log(app.period_to_time(4))
-    console.log(app.period_to_time(3))
     await this.search_future_games()
     await this.search_all_available_time()
+    console.log(this.data.games)
     this.get_available_time(this.data.games[0].time,0)
   },
   onShow: function (options) {
