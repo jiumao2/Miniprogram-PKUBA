@@ -1,4 +1,50 @@
 //app.js
+// 定义一个等待函数，在App创建之前，使其能被加入到App定义中
+const createWaitForDataHandler = () => {
+  // 存储数据就绪后的回调函数队列
+  const callbacks = [];
+  // 数据就绪标志
+  let isReady = false;
+  // 存储的数据
+  let privateData = null;
+
+  return {
+    // 供外部（如onLaunch成功回调）调用来标记数据就绪
+    setReady: (data) => {
+      privateData = data;
+      isReady = true;
+      // 执行所有已注册的回调
+      while (callbacks.length) {
+        const cb = callbacks.shift();
+        cb(privateData);
+      }
+    },
+    // 供页面或组件调用的等待方法，返回一个Promise
+    waitForData: () => {
+      return new Promise((resolve) => {
+        if (isReady) {
+          // 如果已经就绪，直接返回数据
+          resolve(privateData);
+        } else {
+          // 否则，将resolve函数加入等待队列
+          callbacks.push(resolve);
+        }
+      });
+    },
+    // 直接获取数据（不推荐，仅用于不依赖此数据的场景），如果未就绪则返回null
+    getDataIfReady: () => {
+      return privateData;
+    },
+    // 检查是否就绪
+    getIsReady: () => {
+      return isReady;
+    }
+  };
+};
+
+// 创建等待处理器实例
+const dataHandler = createWaitForDataHandler();
+
 App({
   onLaunch: function () {
     if (!wx.cloud) {
@@ -21,47 +67,30 @@ App({
         "needed": "META"
       },
       success : res =>{
-        this.globalData = res.result.data[0]
+        const metaData = res.result.data[0];
+        this.globalData = metaData;
         console.log(this.globalData)
+
+        // 标记数据就绪，并通知所有等待者
+        dataHandler.setReady(metaData);
       }
     })
   },
+
+  // 将globalData初始化为空对象，避免未定义错误
+  globalData: {},
+
+  // 暴露给全局的等待方法
+  waitForGlobalData: dataHandler.waitForData,
+
   date_to_time(date, hour, minute){
     const year = new Date().getFullYear(); // 获取当前年份
     const datetime = new Date(year, 0, date, hour, minute); // 生成日期对象
     return datetime;
   },
   period_to_time(period){
-    var hour = 0;
-    var minute = 0;
-    switch(period){
-      case 1:
-        hour = 12;
-        minute = 50;
-        break;
-      case 2:
-        hour = 14;
-        minute = 20;
-        break;
-      case 3:
-        hour = 15;
-        minute = 50;
-        break;
-      case 4:
-        hour = 18;
-        minute = 20;
-        break;
-      case 5:
-        hour = 19;
-        minute = 50;
-        break;
-      case 6:
-        hour = 20;
-        minute = 40;
-        break;
-      default:
-        break;
-    }
+    let hour = Number(this.globalData.PERIOD_TO_TIME[period][0])
+    let minute = Number(this.globalData.PERIOD_TO_TIME[period][1])
     return {
       hour: hour,
       minute: minute
