@@ -100,7 +100,7 @@ for k = 1:row
                 tempdata.sex = false;
                 pos1 = strfind(upper(data{k,j}),'VS')-1;
 %                 tempdata.group = meta.games{2};
-                if (temp(1)>='A' && temp(1)<='Z') || contains(temp(1:pos1),'¼×')
+                if (temp(1)>='A' && temp(1)<='C') || contains(temp(1:pos1),'¼×')
                     tempdata.group = meta.games{3};
                 else
                     tempdata.group = meta.games{4};
@@ -110,7 +110,7 @@ for k = 1:row
                 tempdata.sex = true;
                 pos1 = strfind(upper(data{k,j}),'VS')-1;
 %                 tempdata.group = meta.games{1};
-                if (temp(1)>='A' && temp(1)<='Z') || contains(temp(1:pos1),'¼×')
+                if (temp(1)>='A' && temp(1)<='B') || contains(temp(1:pos1),'¼×')
                     tempdata.group = meta.games{1};
                 else
                     tempdata.group = meta.games{2};
