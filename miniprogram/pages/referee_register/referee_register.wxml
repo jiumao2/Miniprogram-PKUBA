@@ -1,0 +1,34 @@
+<view class="weui-form">
+  <view class="weui-form__text-area">
+    <h2 class="weui-form__title">裁判登记</h2>
+    <view class="weui-form__desc">首次登录请填写姓名，后续将自动登录</view>
+  </view>
+  <view class="weui-form__control-area">
+    <view class="weui-cells__group weui-cells__group_form">
+      <view class="weui-cells__title">基本信息</view>
+      <view class="weui-cells weui-cells_form">
+        <view class="weui-cell weui-cell_active">
+          <view class="weui-cell__hd">
+            <label class="weui-label">姓名</label>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" placeholder="请输入姓名" bindinput="nameInput" value="{{name}}" />
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="weui-form__opr-area">
+    <a class="weui-btn weui-btn_primary" bindtap="register">确定</a>
+  </view>
+</view>
+
+<view class="fadeIn {{hideLoading ? 'fadeOut' : ''}}" wx:if="{{loading}}">
+  <view class="weui-mask_transparent"></view>
+  <view class="weui-toast">
+    <view class="weui-primary-loading weui-primary-loading_transparent">
+      <view class="weui-primary-loading__dot"></view>
+    </view>
+    <view class="weui-toast__content">加载中...</view>
+  </view>
+</view>

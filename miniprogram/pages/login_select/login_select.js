@@ -1,33 +1,14 @@
-// miniprogram/pages/index/index.js
+var app = getApp()
+
 Page({
   data: {
     loading: false
   },
 
-  onLoad: function() {},
-
-  to_schedule() {
-    if (this.data.loading) return
-    this.setData({ loading: true })
-    wx.navigateTo({ url: '../schedule/schedule' })
-  },
-
-  to_scoretable() {
-    if (this.data.loading) return
-    this.setData({ loading: true })
-    wx.navigateTo({ url: '../scoretable/scoretable?group=0&littlegroup=0' })
-  },
-
-  to_knockout() {
-    if (this.data.loading) return
-    this.setData({ loading: true })
-    wx.navigateTo({ url: '../knockout/knockout?group=0' })
-  },
-
-  to_login_select() {
-    if (this.data.loading) return
-    this.setData({ loading: true })
-    wx.navigateTo({ url: '../login_select/login_select' })
+  onLoad: function() {
+    wx.setNavigationBarTitle({
+      title: '\u767b\u5f55\u9009\u62e9'
+    })
   },
 
   login_manager() {
@@ -42,19 +23,25 @@ Page({
           name: 'search_manager',
           success: mgrRes => {
             if (mgrRes.result.data.length > 0) {
-              getApp().globalData.manager_info = mgrRes.result.data[0]
+              app.globalData.manager_info = mgrRes.result.data[0]
               wx.navigateTo({
                 url: '../manager_home/manager_home?name=' + mgrRes.result.data[0].name
               })
             } else {
               wx.navigateTo({ url: '../manager_login/manager_login' })
             }
+          },
+          fail: err => {
+            console.log(err)
+            app.globalData.errInfo = '\u7ba1\u7406\u5458\u767b\u5f55\u5931\u8d25'
+            wx.navigateTo({ url: '../error_page/error_page' })
           }
         })
       },
       fail: err => {
-        console.error('[cloud] [login] failed', err)
-        wx.navigateBack({ delta: 0 })
+        console.log(err)
+        app.globalData.errInfo = '\u7ba1\u7406\u5458\u767b\u5f55\u5931\u8d25'
+        wx.navigateTo({ url: '../error_page/error_page' })
       }
     })
   },
@@ -72,17 +59,23 @@ Page({
           data: { openid: res.result.openid },
           success: leaderRes => {
             if (leaderRes.result.data.length > 0) {
-              getApp().globalData.leader_info = leaderRes.result.data[0]
+              app.globalData.leader_info = leaderRes.result.data[0]
               wx.navigateTo({ url: '../leader_home/leader_home' })
             } else {
               wx.navigateTo({ url: '../leader_register/leader_register' })
             }
+          },
+          fail: err => {
+            console.log(err)
+            app.globalData.errInfo = '\u9886\u961f\u767b\u5f55\u5931\u8d25'
+            wx.navigateTo({ url: '../error_page/error_page' })
           }
         })
       },
       fail: err => {
-        console.error('[cloud] [login] failed', err)
-        wx.navigateBack({ delta: 0 })
+        console.log(err)
+        app.globalData.errInfo = '\u9886\u961f\u767b\u5f55\u5931\u8d25'
+        wx.navigateTo({ url: '../error_page/error_page' })
       }
     })
   },
@@ -99,44 +92,30 @@ Page({
           data: {},
           success: refRes => {
             if (refRes.result && refRes.result.data && refRes.result.data.length > 0) {
-              getApp().globalData.referee_info = refRes.result.data[0]
+              app.globalData.referee_info = refRes.result.data[0]
               wx.navigateTo({ url: '../referee_home/referee_home' })
             } else {
               wx.navigateTo({ url: '../referee_register/referee_register' })
             }
           },
           fail: err => {
-            console.error('[cloud] [search_referee] failed', err)
-            getApp().globalData.errInfo = '裁判登录失败'
+            console.log(err)
+            app.globalData.errInfo = '\u88c1\u5224\u767b\u5f55\u5931\u8d25'
             wx.navigateTo({ url: '../error_page/error_page' })
           }
         })
       },
       fail: err => {
-        console.error('[cloud] [login] failed', err)
-        wx.navigateBack({ delta: 0 })
+        console.log(err)
+        app.globalData.errInfo = '\u88c1\u5224\u767b\u5f55\u5931\u8d25'
+        wx.navigateTo({ url: '../error_page/error_page' })
       }
     })
   },
 
-  onReady: function() {},
-
   onShow: function() {
-    this.setData({ loading: false })
-  },
-
-  onHide: function() {},
-
-  onUnload: function() {},
-
-  onPullDownRefresh: function() {},
-
-  onReachBottom: function() {},
-
-  onShareAppMessage: function() {
-    return {
-      title: 'PKUBA',
-      desc: '\u8d5b\u4e8b\u4fe1\u606f\u67e5\u8be2'
-    }
+    this.setData({
+      loading: false
+    })
   }
 })

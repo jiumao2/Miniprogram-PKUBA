@@ -1,8 +1,7 @@
 <!--miniprogram/pages/index/index.wxml-->
 
-<view class='imagesize'>
-  <image src="logo.jpg" mode="aspectFit">
-  </image>
+<view class="imagesize">
+  <image src="logo.jpg" mode="aspectFit"></image>
 </view>
 
 <text>\n</text>
@@ -10,17 +9,15 @@
   <a class="weui-btn weui-btn_primary" bindtap="to_schedule">赛程</a>
   <a class="weui-btn weui-btn_primary" bindtap="to_scoretable">积分表查询</a>
   <a class="weui-btn weui-btn_primary" bindtap="to_knockout">淘汰赛对阵</a>
-  <a class="weui-btn weui-btn_primary" bindtap="login_leader">领队登录</a>
-  <a class="weui-btn weui-btn_primary" bindtap="login_manager">管理员登录</a>
+  <a class="weui-btn weui-btn_primary" bindtap="to_login_select">登录入口</a>
 </view>
 
 <view class="fadeIn {{hideLoading ? 'fadeOut' : ''}}" wx:if="{{loading}}">
-	<view class="weui-mask_transparent"></view>
-	<view class="weui-toast">
-		<view class="weui-primary-loading weui-primary-loading_transparent">
-			<view class="weui-primary-loading__dot"></view>
-		</view>
-		<view class="weui-toast__content">加载中</view>
-	</view>
+  <view class="weui-mask_transparent"></view>
+  <view class="weui-toast">
+    <view class="weui-primary-loading weui-primary-loading_transparent">
+      <view class="weui-primary-loading__dot"></view>
+    </view>
+    <view class="weui-toast__content">加载中...</view>
+  </view>
 </view>
-

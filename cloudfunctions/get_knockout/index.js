@@ -1,78 +1,101 @@
 // 云函数入口文件
 const cloud = require('wx-server-sdk')
 
-cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV }) // 使用当前云环境
+cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV })
+
+const KNOCKOUT_DESCRIPTIONS = ['决赛', '半决赛', '淘汰赛']
+
+const GROUP_BRACKETS = {
+  男甲: ['', '', '', ''],
+  女甲: ['', ''],
+  男乙: ['', '', '', '', '', '', '', ''],
+  女乙: ['', '', '', '', '', '', '', '']
+}
+
+function createKnockoutTree(teams) {
+  const name = [teams.slice()]
+  const score = []
+  let currentSize = teams.length
+
+  while (currentSize > 1) {
+    score.push(Array(currentSize))
+    currentSize /= 2
+    name.push(Array(currentSize))
+  }
+
+  return { name, score }
+}
+
+function normalizeScorePair(scores, index) {
+  if (scores[index] == null || scores[index] === -1) {
+    scores[index] = ''
+    scores[index + 1] = ''
+    return false
+  }
+
+  return true
+}
+
+function resolveWinner(names, scores, index) {
+  if (!normalizeScorePair(scores, index)) {
+    return ' '
+  }
+
+  if (scores[index] > scores[index + 1]) {
+    return names[index]
+  }
+
+  if (scores[index] < scores[index + 1]) {
+    return names[index + 1]
+  }
+
+  return ' '
+}
 
 // 云函数入口函数
-exports.main = async (event, context) => {
-  const wxContext = cloud.getWXContext()
-  db = cloud.database({
+exports.main = async (event) => {
+  const db = cloud.database({
     env: cloud.DYNAMIC_CURRENT_ENV
   })
-  var tempname = []
-  var tempscore = []
-  const keywards = ['决赛','半决赛','淘汰赛']
-  var final = 0
-  if (event.group == "男篮"){
-    tempname = [["化学","元培","信科","生科","光经","工学","物理","医学"],Array(4),Array(2),Array(1)]
-    tempscore = [Array(8),Array(4),Array(2)]
-    final = 3
-  }
-  if (event.group == "女篮"){
-    tempname = [["医学","光经","元培","心理","物理","化学","工学","外院"],Array(4),Array(2),Array(1)]
-    tempscore = [Array(8),Array(4),Array(2)]
-    final = 3
-  }
-  if (event.group == "男甲"){
-    tempname = [["医学","化学","数学","城环"],Array(2),Array(1)]
-    tempscore = [Array(4),Array(2)]
-    final = 2
-  }
-  if (event.group == "女甲"){
-    tempname = [["",""],Array(1)]
-    tempscore = [Array(2)]
-    final = 1
-  }
-  if (event.group == "男乙"){
-    tempname = [["心理","教历","元培","计算机","物理","地政","叉院","智能"],Array(4),Array(2),Array(1)]
-    tempscore = [Array(8),Array(4),Array(2)]
-    final = 3
-  }
-  if (event.group == "女乙"){
-    tempname = [["地空","城环","燕京","国关","物理","光经","中文","新传"],Array(4),Array(2),Array(1)]
-    tempscore = [Array(8),Array(4),Array(2)]
-    final = 3
-  }
-  for(_=0;_ <final;_++){
-    var l = tempname[_].length
-    for( i=0 ; i<l ; i+=2){
-      let game = await db.collection('Schedule').where({
-        home_team: tempname[_][i],
-        away_team: tempname[_][i+1],
-        description: db.command.in(keywards),
-        group: event.group
-      }).get()
-      if (game.data.length>0){
-        tempscore[_][i] = game.data[0].home_team_score
-        tempscore[_][i+1] = game.data[0].away_team_score
-      }
-      if (tempscore[_][i] > tempscore[_][i + 1]) {
-        tempname[_ + 1][i / 2] = tempname[_][i]
-      }
-      if (tempscore[_][i] < tempscore[_][i + 1]) {
-        tempname[_ + 1][i / 2] = tempname[_][i + 1]
-      }
-      if (tempscore[_][i] == tempscore[_][i + 1]) {
-        tempname[_ + 1][i / 2] = " "
-        if (tempscore[_][i]==null | tempscore[_][i]==-1){
-          tempscore[_][i] = ""
-          tempscore[_][i+1] = ""
-        }
-      }
+  const teams = GROUP_BRACKETS[event.group]
+
+  if (!teams) {
+    return {
+      name: [],
+      score: []
     }
   }
+
+  const { name, score } = createKnockoutTree(teams)
+
+  for (let roundIndex = 0; roundIndex < score.length; roundIndex += 1) {
+    const roundTeams = name[roundIndex]
+
+    for (let teamIndex = 0; teamIndex < roundTeams.length; teamIndex += 2) {
+      const homeTeam = roundTeams[teamIndex]
+      const awayTeam = roundTeams[teamIndex + 1]
+      const game = await db.collection('Schedule').where({
+        home_team: homeTeam,
+        away_team: awayTeam,
+        description: db.command.in(KNOCKOUT_DESCRIPTIONS),
+        group: event.group
+      }).get()
+
+      if (game.data.length > 0) {
+        score[roundIndex][teamIndex] = game.data[0].home_team_score
+        score[roundIndex][teamIndex + 1] = game.data[0].away_team_score
+      }
+
+      name[roundIndex + 1][teamIndex / 2] = resolveWinner(
+        roundTeams,
+        score[roundIndex],
+        teamIndex
+      )
+    }
+  }
+
   return {
-    name: tempname,
-    score: tempscore
+    name,
+    score
   }
 }

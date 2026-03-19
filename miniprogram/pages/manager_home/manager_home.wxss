@@ -8,3 +8,7 @@
  .centering{
   text-align: center;
  }
+
+ .btn-group {
+  padding-bottom: 56rpx;
+ }

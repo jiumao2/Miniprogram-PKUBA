@@ -1,0 +1,48 @@
+<view class="schema-page">
+  <view class="schema-panel">
+    <view class="schema-field">
+      <text class="schema-label">集合列表</text>
+      <input
+        class="schema-input"
+        value="{{collectionsInput}}"
+        bindinput="onCollectionsInput"
+        placeholder="用英文逗号分隔集合名"
+      />
+    </view>
+
+    <view class="schema-field">
+      <text class="schema-label">样本数量</text>
+      <input
+        class="schema-input"
+        value="{{limit}}"
+        bindinput="onLimitInput"
+        type="number"
+      />
+    </view>
+
+    <button class="schema-button" bindtap="fetchSchema" loading="{{loading}}">
+      刷新结构
+    </button>
+  </view>
+
+  <view wx:if="{{error}}" class="schema-error">{{error}}</view>
+
+  <block wx:for="{{results}}" wx:key="collection" wx:for-item="result">
+    <view class="collection-card">
+      <view class="collection-header">
+        <text class="collection-title">{{result.collection}}</text>
+        <text class="collection-meta">共 {{result.count}} 条，抽样 {{result.sampleSize}} 条</text>
+      </view>
+
+      <view wx:if="{{result.error}}" class="collection-error">{{result.error}}</view>
+
+      <block wx:for="{{result.fields}}" wx:key="path" wx:for-item="field">
+        <view class="field-row">
+          <text class="field-path">{{field.path}}</text>
+          <text class="field-types">{{field.types}}</text>
+          <text class="field-example">{{field.example}}</text>
+        </view>
+      </block>
+    </view>
+  </block>
+</view>

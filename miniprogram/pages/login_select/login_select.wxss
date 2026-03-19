@@ -1,0 +1,8 @@
+.imagesize {
+  display: flex;
+  justify-content: center;
+}
+
+.btn-group {
+  padding-bottom: 56rpx;
+}

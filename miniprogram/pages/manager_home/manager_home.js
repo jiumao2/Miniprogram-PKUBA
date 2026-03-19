@@ -1,16 +1,16 @@
-// pages/manager_home/manager_home.js
+﻿// pages/manager_home/manager_home.js
 var app = getApp()
 Page({
 
   /**
-   * 页面的初始数据
+   * 椤甸潰鐨勫垵濮嬫暟鎹?
    */
   data: {
     loading:false,
   },
 
   /**
-   * 生命周期函数--监听页面加载
+   * 鐢熷懡鍛ㄦ湡鍑芥暟--鐩戝惉椤甸潰鍔犺浇
    */
   onLoad(options) {
     console.log(options)
@@ -31,7 +31,7 @@ Page({
       })
     }
     else{
-      app.globalData.errInfo = "当前无权限，请联系管理员"
+      app.globalData.errInfo = "No permission, please contact admin"
       wx.navigateTo({
         url: '../error_page/error_page',
       })
@@ -48,6 +48,42 @@ Page({
     })
   },
 
+  to_referee_edit(){
+    if (this.data.loading) return
+    this.setData({
+      loading: true
+    })
+    if (app.globalData.manager_info.type == 0){
+      wx.navigateTo({
+        url: '../schedule_referee/schedule_referee',
+      })
+    }
+    else{
+      app.globalData.errInfo = "No permission, please contact admin"
+      wx.navigateTo({
+        url: '../error_page/error_page',
+      })
+    }
+  },
+
+  to_referee_schedule_view(){
+    if (this.data.loading) return
+    this.setData({
+      loading: true
+    })
+    if (app.globalData.manager_info.type == 0){
+      wx.navigateTo({
+        url: '../referee_schedule/referee_schedule',
+      })
+    }
+    else{
+      app.globalData.errInfo = "No permission, please contact admin"
+      wx.navigateTo({
+        url: '../error_page/error_page',
+      })
+    }
+  },
+
   to_manager_view_apply(){
     if (this.data.loading) return
     this.setData({
@@ -59,14 +95,14 @@ Page({
   },
 
   /**
-   * 生命周期函数--监听页面初次渲染完成
+   * 鐢熷懡鍛ㄦ湡鍑芥暟--鐩戝惉椤甸潰鍒濇娓叉煋瀹屾垚
    */
   onReady() {
 
   },
 
   /**
-   * 生命周期函数--监听页面显示
+   * 鐢熷懡鍛ㄦ湡鍑芥暟--鐩戝惉椤甸潰鏄剧ず
    */
   onShow() {
     this.setData({
@@ -75,37 +111,38 @@ Page({
   },
 
   /**
-   * 生命周期函数--监听页面隐藏
+   * 鐢熷懡鍛ㄦ湡鍑芥暟--鐩戝惉椤甸潰闅愯棌
    */
   onHide() {
 
   },
 
   /**
-   * 生命周期函数--监听页面卸载
+   * 鐢熷懡鍛ㄦ湡鍑芥暟--鐩戝惉椤甸潰鍗歌浇
    */
   onUnload() {
 
   },
 
   /**
-   * 页面相关事件处理函数--监听用户下拉动作
+   * 椤甸潰鐩稿叧浜嬩欢澶勭悊鍑芥暟--鐩戝惉鐢ㄦ埛涓嬫媺鍔ㄤ綔
    */
   onPullDownRefresh() {
 
   },
 
   /**
-   * 页面上拉触底事件的处理函数
+   * 椤甸潰涓婃媺瑙﹀簳浜嬩欢鐨勫鐞嗗嚱鏁?
    */
   onReachBottom() {
 
   },
 
   /**
-   * 用户点击右上角分享
+   * 鐢ㄦ埛鐐瑰嚮鍙充笂瑙掑垎浜?
    */
   onShareAppMessage() {
 
   }
 })
+

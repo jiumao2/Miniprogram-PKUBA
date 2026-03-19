@@ -1,16 +1,12 @@
-﻿<!--pages/manager_home/manager_home.wxml-->
-
 <view class="imagesize">
   <image src="../index/logo.jpg" mode="aspectFit"></image>
 </view>
-<text>\n</text>
-<view class="centering">当前登录账号：{{name}}</view>
+
 <text>\n</text>
 <view class="btn-group">
-  <a class="weui-btn weui-btn_primary" bindtap="to_schedule_edit">更新比赛信息</a>
-  <a class="weui-btn weui-btn_primary" bindtap="to_scoresheet_edit">查看/上传图片</a>
-  <a class="weui-btn weui-btn_primary" bindtap="to_referee_edit">裁判安排</a>
-  <a class="weui-btn weui-btn_primary" bindtap="to_manager_view_apply">查看赛程调整</a>
+  <a class="weui-btn weui-btn_primary" bindtap="login_leader">领队登录</a>
+  <a class="weui-btn weui-btn_primary" bindtap="login_manager">管理员登录</a>
+  <a class="weui-btn weui-btn_primary" bindtap="login_referee">裁判登录</a>
 </view>
 
 <view class="fadeIn {{hideLoading ? 'fadeOut' : ''}}" wx:if="{{loading}}">

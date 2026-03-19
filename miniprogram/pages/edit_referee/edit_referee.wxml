@@ -1,0 +1,105 @@
+<view class="weui-form">
+  <view class="weui-form__text-area">
+    <h2 class="weui-form__title">裁判安排</h2>
+    <view class="weui-form__desc">{{game_info}}</view>
+    <view class="weui-form__desc">{{referee_update_text}}</view>
+  </view>
+
+  <view class="weui-form__control-area">
+    <view class="weui-cells__group weui-cells__group_form">
+      <view class="weui-cells__title">比赛信息</view>
+      <view class="weui-cells weui-cells_form">
+        <view class="weui-cell weui-cell_active">
+          <view class="weui-cell__hd">
+            <label class="weui-label">组别</label>
+          </view>
+          <view class="weui-cell__bd">
+            <text>{{game_raw.group}}</text>
+          </view>
+        </view>
+
+        <view class="weui-cell weui-cell_active">
+          <view class="weui-cell__hd">
+            <label class="weui-label">场地</label>
+          </view>
+          <view class="weui-cell__bd">
+            <text>{{game_raw.place}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="weui-cells__group weui-cells__group_form">
+      <view class="weui-cells__title">裁判录入</view>
+      <view class="weui-cells weui-cells_form">
+        <view class="weui-cell weui-cell_active">
+          <view class="weui-cell__hd">
+            <label class="weui-label">CC</label>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" value="{{CC}}" data-field="CC" bindinput="bind_input_change" placeholder="请输入 CC" />
+          </view>
+        </view>
+
+        <view class="weui-cell weui-cell_active">
+          <view class="weui-cell__hd">
+            <label class="weui-label">U1</label>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" value="{{U1}}" data-field="U1" bindinput="bind_input_change" placeholder="请输入 U1" />
+          </view>
+        </view>
+
+        <view class="weui-cell weui-cell_active">
+          <view class="weui-cell__hd">
+            <label class="weui-label">U2</label>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" value="{{U2}}" data-field="U2" bindinput="bind_input_change" placeholder="请输入 U2" />
+          </view>
+        </view>
+
+        <view class="weui-cell weui-cell_active">
+          <view class="weui-cell__hd">
+            <label class="weui-label">记录</label>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" value="{{Recorder}}" data-field="Recorder" bindinput="bind_input_change" placeholder="请输入记录" />
+          </view>
+        </view>
+
+        <view class="weui-cell weui-cell_active">
+          <view class="weui-cell__hd">
+            <label class="weui-label">计时</label>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" value="{{Timer}}" data-field="Timer" bindinput="bind_input_change" placeholder="请输入计时" />
+          </view>
+        </view>
+
+        <view class="weui-cell weui-cell_active">
+          <view class="weui-cell__hd">
+            <label class="weui-label">24秒</label>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" value="{{ShotClock24}}" data-field="ShotClock24" bindinput="bind_input_change" placeholder="请输入24秒" />
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="weui-form__opr-area">
+    <a class="weui-btn weui-btn_primary" bindtap="save_referee">保存</a>
+  </view>
+</view>
+
+<view class="fadeIn {{hideLoading ? 'fadeOut' : ''}}" wx:if="{{loading}}">
+  <view class="weui-mask_transparent"></view>
+  <view class="weui-toast">
+    <view class="weui-primary-loading weui-primary-loading_transparent">
+      <view class="weui-primary-loading__dot"></view>
+    </view>
+    <view class="weui-toast__content">加载中...</view>
+  </view>
+</view>

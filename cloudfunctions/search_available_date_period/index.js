@@ -31,12 +31,14 @@ async function getAllData(collectionName, query) {
 // 云函数入口函数
 exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext()
-  db = cloud.database({
+  const db = cloud.database({
     env: cloud.DYNAMIC_CURRENT_ENV
   })
   const _ = db.command
+  const metaDoc = await db.collection('Private').doc('META').get()
+  const gameStartDate = metaDoc.data.GAME_START_DATE || 1
   const nowyear = new Date().getFullYear()
-  const date0 = event.date0>=270? event.date0: 270
+  const date0 = event.date0 >= gameStartDate ? event.date0 : gameStartDate
   const date1 = event.date1
   const allGames = await getAllData('Schedule', {
     date: _.and(_.gte(date0), _.lte(date1))
@@ -50,18 +52,12 @@ exports.main = async (event, context) => {
   const maxGameMap = {
     weekday: [0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0],
     weekend: [0, 3, 3, 3, 2, 2, 0, 0, 0, 0, 0],
-    special: [0, 0, 0, 0, 0, 2, 0, 3, 3, 3, 2],
   }
 
   const available_time = []
   var nowday = new Date(nowyear, 0, date0).getDay()
   for (let i = date0; i <= date1; ++i) {
-    if (i>=270 && i<=271) {
-      var max_game = maxGameMap.special
-    }
-    else {
-      var max_game = (1 <= nowday && nowday <= 5) ? maxGameMap.weekday : maxGameMap.weekend
-    }
+    var max_game = (1 <= nowday && nowday <= 5) ? maxGameMap.weekday : maxGameMap.weekend
     let temp_available_time = []
     let flag = false
     for (let j = 1; j <= 10; ++j) {

@@ -1,12 +1,16 @@
 {
-  "pages": [
+  "pages":[
     "pages/index/index",
+    "pages/login_select/login_select",
     "pages/schedule/schedule",
     "pages/leader_home/leader_home",
     "pages/apply/apply",
     "pages/drawing/drawing",
     "pages/view_apply/view_apply",
     "pages/view_apply_details/view_apply_details",
+    "pages/referee_schedule/referee_schedule",
+    "pages/referee_register/referee_register",
+    "pages/referee_home/referee_home",
     "pages/leader_register/leader_register",
     "pages/error_page/error_page",
     "pages/apply_cross_round/apply_cross_round",
@@ -18,8 +22,11 @@
     "pages/schedule_edit/schedule_edit",
     "pages/manager_home/manager_home",
     "pages/schedule_scoresheet/schedule_scoresheet",
+    "pages/schedule_referee/schedule_referee",
     "pages/edit_scoresheet/edit_scoresheet",
+    "pages/edit_referee/edit_referee",
     "pages/knockout/knockout",
+    "pages/schema_viewer/schema_viewer",
     "pages/manager_view_apply/manager_view_apply",
     "pages/manager_view_apply_details/manager_view_apply_details"
   ],
@@ -27,7 +34,7 @@
     "backgroundColor": "#F6F6F6",
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#F6F6F6",
-    "navigationBarTitleText": "篮协小程序",
+    "navigationBarTitleText": "PKUBA",
     "navigationBarTextStyle": "black"
   },
   "sitemapLocation": "sitemap.json",
@@ -37,3 +44,4 @@
     "weui": true
   }
 }
+

@@ -1,0 +1,22 @@
+/* pages/schedule_referee/schedule_referee.wxss */
+.view_div_line {
+  width: 96%;
+  height: 50rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 0 2%;
+}
+
+.view_div_line view {
+  width: 33%;
+  height: 4rpx;
+  background: linear-gradient(to right, #dcefdc, #9cd9b6);
+}
+
+.text_div_line {
+  font-size: 32rpx;
+  color: #5f6978;
+  margin: 0 2%;
+}

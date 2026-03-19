@@ -127,20 +127,23 @@ Page({
     })
   },
   bindPickerChange1: function(e) {
+    const groupIndex = Number(e.detail.value)
+    const nextGroups = app.globalData.LITTLEGROUPS[groupIndex] || []
     this.setData({
-        group: this.data.array1[e.detail.value],
-        value1: e.detail.value,
-        array2: app.globalData.LITTLEGROUPS[e.detail.value],
+        group: this.data.array1[groupIndex],
+        value1: groupIndex,
+        array2: nextGroups,
         value2: 0,
-        littlegroup: app.globalData.LITTLEGROUPS[e.detail.value][0],
+        littlegroup: nextGroups[0] || '',
         loading: true
     })
     this.refresh_table()
   },
   bindPickerChange2: function(e) {
+    const littlegroupIndex = Number(e.detail.value)
     this.setData({
-        littlegroup: this.data.array2[e.detail.value],
-        value2: e.detail.value,
+        littlegroup: this.data.array2[littlegroupIndex],
+        value2: littlegroupIndex,
         loading: true
     })
     this.refresh_table()
@@ -149,11 +152,22 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    const groupIndex = Number(options.group || 0)
+    const groupNames = app.globalData.GROUP_NAMES || []
+    const littlegroups = app.globalData.LITTLEGROUPS || []
+    const currentLittlegroups = littlegroups[groupIndex] || []
+    const rawLittlegroupIndex = Number(options.littlegroup || 0)
+    const safeLittlegroupIndex = currentLittlegroups.length
+      ? Math.min(rawLittlegroupIndex, currentLittlegroups.length - 1)
+      : 0
+
     this.setData({
-      group: app.globalData.GROUP_NAMES[parseInt(options.group)],
-      littlegroup: app.globalData.LITTLEGROUPS[parseInt(options.group)][parseInt(options.littlegroup)],
-      array1: app.globalData.GROUP_NAMES,
-      array2: app.globalData.LITTLEGROUPS[0],
+      group: groupNames[groupIndex],
+      littlegroup: currentLittlegroups[safeLittlegroupIndex] || '',
+      array1: groupNames,
+      array2: currentLittlegroups,
+      value1: groupIndex,
+      value2: safeLittlegroupIndex,
     })
     this.refresh_table()
     console.log('1')

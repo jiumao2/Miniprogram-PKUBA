@@ -1,0 +1,54 @@
+<view class="page__bd">
+  <view wx:for="{{old_date}}" wx:for-index="i1" wx:for-item="array_date">
+    <view class="weui-cells__title">
+      {{array_date.month}}.{{array_date.date}} {{array_date.day}}
+    </view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" wx:for="{{old_game[i1]}}" wx:key="index" wx:for-item="game" bindtap="edit_this_game" data-game="{{game}}">
+        <view class="weui-cell__bd">
+          <text decode="true">{{game.hour}}:{{game.minute}}&nbsp;&nbsp;&nbsp;</text>
+          <text wx:if="{{game.home_team_score>=0}}" style="color:{{game.sex ? 'rgb(27, 111, 236)':'rgb(255, 72, 0)' }}">{{game.home_team}} {{game.home_team_score}}:{{game.away_team_score}} {{game.away_team}}</text>
+          <text wx:else style="color:{{game.sex ? 'rgb(27, 111, 236)':'rgb(255, 72, 0)' }}">{{game.home_team}} VS {{game.away_team}}</text>
+          <view class="weui-cell__desc">{{game.group}} {{game.description}} {{game.place}}</view>
+          <view class="weui-cell__desc" wx:if="{{game.CC || game.U1 || game.U2}}">
+            裁判 CC:{{game.CC || '-'}} U1:{{game.U1 || '-'}} U2:{{game.U2 || '-'}}
+          </view>
+          <view class="weui-cell__desc" wx:if="{{game.Recorder || game.Timer || game.ShotClock24}}">
+            记录:{{game.Recorder || '-'}} 计时:{{game.Timer || '-'}} 24秒:{{game.ShotClock24 || '-'}}
+          </view>
+        </view>
+        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+      </view>
+    </view>
+  </view>
+
+  <text>\n</text>
+  <view class="view_div_line">
+    <view></view>
+    <text class="text_div_line" id="text">Today</text>
+    <view></view>
+  </view>
+
+  <view wx:for="{{future_date}}" wx:for-index="i1" wx:for-item="array_date">
+    <view class="weui-cells__title">
+      {{array_date.month}}.{{array_date.date}} {{array_date.day}}
+    </view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" wx:for="{{future_game[i1]}}" wx:key="index" wx:for-item="game" bindtap="edit_this_game" data-game="{{game}}">
+        <view class="weui-cell__bd">
+          <text decode="true">{{game.hour}}:{{game.minute}}&nbsp;&nbsp;&nbsp;</text>
+          <text wx:if="{{game.home_team_score>=0}}" style="color:{{game.sex ? 'rgb(27, 111, 236)':'rgb(255, 72, 0)' }}">{{game.home_team}} {{game.home_team_score}}:{{game.away_team_score}} {{game.away_team}}</text>
+          <text wx:else style="color:{{game.sex ? 'rgb(27, 111, 236)':'rgb(255, 72, 0)' }}">{{game.home_team}} VS {{game.away_team}}</text>
+          <view class="weui-cell__desc">{{game.group}} {{game.description}} {{game.place}}</view>
+          <view class="weui-cell__desc" wx:if="{{game.CC || game.U1 || game.U2}}">
+            裁判 CC:{{game.CC || '-'}} U1:{{game.U1 || '-'}} U2:{{game.U2 || '-'}}
+          </view>
+          <view class="weui-cell__desc" wx:if="{{game.Recorder || game.Timer || game.ShotClock24}}">
+            记录:{{game.Recorder || '-'}} 计时:{{game.Timer || '-'}} 24秒:{{game.ShotClock24 || '-'}}
+          </view>
+        </view>
+        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+      </view>
+    </view>
+  </view>
+</view>

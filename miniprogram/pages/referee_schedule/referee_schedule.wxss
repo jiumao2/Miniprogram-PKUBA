@@ -1,0 +1,43 @@
+/* pages/referee_schedule/referee_schedule.wxss */
+.view_div_line {
+  width: 96%;
+  height: 50rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 0 2%;
+}
+
+.view_div_line view {
+  width: 33%;
+  height: 4rpx;
+  background: linear-gradient(to right, #dcefdc, #9cd9b6);
+}
+
+.text_div_line {
+  font-size: 32rpx;
+  color: #5f6978;
+  margin: 0 2%;
+}
+
+.empty-card {
+  margin: 24rpx;
+  padding: 24rpx;
+  border: 1px solid rgba(47, 58, 74, 0.08);
+  border-radius: 20rpx;
+  background: #ffffff;
+  color: #7b8594;
+  text-align: center;
+}
+
+.role-ft {
+  color: #222222;
+  font-weight: 600;
+}
+
+.place-highlight {
+  color: #7a4cff;
+  font-weight: 600;
+}
+

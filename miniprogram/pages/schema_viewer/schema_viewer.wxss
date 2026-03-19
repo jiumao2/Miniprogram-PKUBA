@@ -1,0 +1,100 @@
+.schema-page {
+  min-height: 100vh;
+  padding: 24rpx;
+  background: #f6f7fb;
+  box-sizing: border-box;
+}
+
+.schema-panel,
+.collection-card {
+  margin-bottom: 20rpx;
+  padding: 24rpx;
+  border-radius: 24rpx;
+  background: #ffffff;
+  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.04);
+}
+
+.schema-field + .schema-field {
+  margin-top: 16rpx;
+}
+
+.schema-label {
+  display: block;
+  margin-bottom: 10rpx;
+  color: #5d6677;
+  font-size: 24rpx;
+}
+
+.schema-input {
+  width: 100%;
+  padding: 16rpx 18rpx;
+  border: 1px solid #dbe1ea;
+  border-radius: 16rpx;
+  box-sizing: border-box;
+  background: #fafbfd;
+  color: #2f3a4a;
+  font-size: 24rpx;
+}
+
+.schema-button {
+  margin-top: 20rpx;
+  background: #2f6feb;
+  color: #ffffff;
+  border-radius: 16rpx;
+}
+
+.schema-error,
+.collection-error {
+  margin-bottom: 16rpx;
+  padding: 18rpx 20rpx;
+  border-radius: 16rpx;
+  background: #fff3f1;
+  color: #c14a3a;
+  font-size: 24rpx;
+}
+
+.collection-header {
+  margin-bottom: 16rpx;
+}
+
+.collection-title {
+  display: block;
+  color: #2f3a4a;
+  font-size: 32rpx;
+  font-weight: 700;
+}
+
+.collection-meta {
+  display: block;
+  margin-top: 8rpx;
+  color: #8691a4;
+  font-size: 22rpx;
+}
+
+.field-row {
+  padding: 16rpx 0;
+  border-top: 1px solid #edf1f5;
+}
+
+.field-path {
+  display: block;
+  color: #2f3a4a;
+  font-size: 24rpx;
+  font-weight: 600;
+  word-break: break-all;
+}
+
+.field-types {
+  display: block;
+  margin-top: 8rpx;
+  color: #5f6d82;
+  font-size: 22rpx;
+}
+
+.field-example {
+  display: block;
+  margin-top: 8rpx;
+  color: #97a1b1;
+  font-size: 22rpx;
+  word-break: break-all;
+}

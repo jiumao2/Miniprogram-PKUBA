@@ -1,0 +1,4 @@
+/* pages/edit_referee/edit_referee.wxss */
+.weui-form__desc {
+  word-break: break-word;
+}

@@ -1,9 +1,85 @@
 /* pages/scoretable/scoretable.wxss */
+.score-page {
+  min-height: 100vh;
+  padding: 24rpx 24rpx 36rpx;
+  background: linear-gradient(180deg, #fafbfd 0%, #f4f6f9 100%);
+  box-sizing: border-box;
+}
+
+.filter-panel {
+  padding: 16rpx;
+  border: 1px solid rgba(47, 58, 74, 0.06);
+  border-radius: 28rpx;
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.03);
+}
+
+.filter-cell {
+  margin-top: 12rpx;
+  border-radius: 20rpx;
+  background: #ffffff;
+}
+
+.filter-cell:first-child {
+  margin-top: 0;
+}
+
+.score-form {
+  margin-top: 24rpx;
+}
+
+.title-block {
+  margin-bottom: 12rpx;
+}
+
 .container {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 50px;
+  margin-top: 28rpx;
+}
+
+.table-scroll-wrap {
+  width: 100%;
+}
+
+.table-scroll-inner {
+  width: max-content;
+  margin: 0 auto;
+}
+
+.table-card {
+  display: inline-block;
+  min-width: max-content;
+  padding: 20rpx;
+  border: 1px solid rgba(47, 58, 74, 0.06);
+  border-radius: 28rpx;
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 10rpx 28rpx rgba(0, 0, 0, 0.025);
+}
+
+.summary-card {
+  min-width: 0;
+  margin: 0 auto;
+}
+
+.empty-card {
+  min-width: 320rpx;
+  padding: 28rpx 32rpx;
+  border: 1px solid rgba(47, 58, 74, 0.06);
+  border-radius: 28rpx;
+  background: rgba(255, 255, 255, 0.98);
+  color: #7b8594;
+  font-size: 26rpx;
+  text-align: center;
+  box-shadow: 0 10rpx 28rpx rgba(0, 0, 0, 0.025);
+}
+
+.summary-title {
+  margin-bottom: 14rpx;
+  color: #5f6978;
+  font-size: 24rpx;
+  text-align: center;
 }
 
 .table {
@@ -12,36 +88,44 @@
 
 .row {
   display: flex;
-  justify-content: space-between;
-  padding: 0px;
+  justify-content: flex-start;
+  padding: 0;
 }
 
-.cell1 {
-  font-size: 12pt;
-  border: 1px solid black;
-  width: 90rpx;
+.matrix-cell,
+.summary-cell {
+  border: 1px solid #58616f;
   text-align: center;
   padding: 10rpx 10rpx;
+  background: #ffffff;
+  box-sizing: border-box;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
-.cell2 {
+.matrix-cell {
+  width: 100rpx;
   font-size: 10pt;
-  border: 1px solid black;
-  width: 75rpx;
-  text-align: center;
-  padding: 10rpx 10rpx;
 }
 
-.cell3 {
-  font-size: 8pt;
-  border: 1px solid black;
-  width: 50rpx;
-  text-align: center;
-  padding: 10rpx 10rpx;
+.summary-cell {
+  width: 112rpx;
+  font-size: 12pt;
+}
+
+.wide-cell {
+  width: 140rpx !important;
+}
+
+.cell-diagonal {
+  color: #a5adba;
+  font-size: 30rpx;
+  font-weight: 500;
+  letter-spacing: -2rpx;
 }
 
 .scorecell {
-  text-decoration:underline;
+  text-decoration: underline;
 }
 
 .pad_down {

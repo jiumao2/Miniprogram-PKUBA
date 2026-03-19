@@ -1,0 +1,85 @@
+<view class="page__bd">
+  <view class="weui-form">
+    <view class="weui-form__control-area">
+      <view class="weui-cells__group weui-cells__group_form">
+        <view class="weui-cells__title">裁判信息</view>
+        <view class="weui-cells weui-cells_form">
+          <view class="weui-cell weui-cell_active">
+            <view class="weui-cell__hd">
+              <label class="weui-label">姓名</label>
+            </view>
+            <view class="weui-cell__bd">
+              <input class="weui-input" value="{{referee_name}}" bindinput="bind_name_change" placeholder="请输入姓名" />
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="weui-form__opr-area">
+      <a class="weui-btn weui-btn_primary" bindtap="search_my_games">查询我的安排</a>
+    </view>
+  </view>
+
+  <view wx:if="{{queried && schedule.length==0}}" class="empty-card">
+    暂无安排
+  </view>
+
+  <block wx:if="{{schedule.length>0}}">
+    <view wx:for="{{old_date}}" wx:for-index="i1" wx:for-item="array_date">
+      <view class="weui-cells__title">
+        {{array_date.month}}.{{array_date.date}} {{array_date.day}}
+      </view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell" wx:for="{{old_game[i1]}}" wx:key="index" wx:for-item="game">
+          <view class="weui-cell__bd">
+            <text decode="true">{{game.hour}}:{{game.minute}}&nbsp;&nbsp;&nbsp;</text>
+            <text wx:if="{{game.home_team_score>=0}}" style="color:{{game.sex ? 'rgb(27, 111, 236)':'rgb(255, 72, 0)' }}">{{game.home_team}} {{game.home_team_score}}:{{game.away_team_score}} {{game.away_team}}</text>
+            <text wx:else style="color:{{game.sex ? 'rgb(27, 111, 236)':'rgb(255, 72, 0)' }}">{{game.home_team}} VS {{game.away_team}}</text>
+            <view class="weui-cell__desc">{{game.group}} {{game.description}}</view>
+            <view class="weui-cell__desc place-highlight">地点：{{game.place}}</view>
+            <view class="weui-cell__desc">{{game.referee_text}}</view>
+            <view class="weui-cell__desc">{{game.staff_text}}</view>
+          </view>
+          <view class="weui-cell__ft role-ft">{{game.my_role || '-'}}</view>
+        </view>
+      </view>
+    </view>
+
+    <text>\n</text>
+    <view class="view_div_line">
+      <view></view>
+      <text class="text_div_line" id="text">Today</text>
+      <view></view>
+    </view>
+
+    <view wx:for="{{future_date}}" wx:for-index="i1" wx:for-item="array_date">
+      <view class="weui-cells__title">
+        {{array_date.month}}.{{array_date.date}} {{array_date.day}}
+      </view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell" wx:for="{{future_game[i1]}}" wx:key="index" wx:for-item="game">
+          <view class="weui-cell__bd">
+            <text decode="true">{{game.hour}}:{{game.minute}}&nbsp;&nbsp;&nbsp;</text>
+            <text wx:if="{{game.home_team_score>=0}}" style="color:{{game.sex ? 'rgb(27, 111, 236)':'rgb(255, 72, 0)' }}">{{game.home_team}} {{game.home_team_score}}:{{game.away_team_score}} {{game.away_team}}</text>
+            <text wx:else style="color:{{game.sex ? 'rgb(27, 111, 236)':'rgb(255, 72, 0)' }}">{{game.home_team}} VS {{game.away_team}}</text>
+            <view class="weui-cell__desc">{{game.group}} {{game.description}}</view>
+            <view class="weui-cell__desc place-highlight">地点：{{game.place}}</view>
+            <view class="weui-cell__desc">{{game.referee_text}}</view>
+            <view class="weui-cell__desc">{{game.staff_text}}</view>
+          </view>
+          <view class="weui-cell__ft role-ft">{{game.my_role || '-'}}</view>
+        </view>
+      </view>
+    </view>
+  </block>
+</view>
+
+<view class="fadeIn {{hideLoading ? 'fadeOut' : ''}}" wx:if="{{loading}}">
+  <view class="weui-mask_transparent"></view>
+  <view class="weui-toast">
+    <view class="weui-primary-loading weui-primary-loading_transparent">
+      <view class="weui-primary-loading__dot"></view>
+    </view>
+    <view class="weui-toast__content">加载中...</view>
+  </view>
+</view>
