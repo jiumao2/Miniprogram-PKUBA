@@ -16,6 +16,20 @@ Page({
     little_group_labels: []
   },
 
+  handleReviewError(err){
+    console.log(err)
+    const errMsg = err && err.errMsg ? err.errMsg : ''
+    this.setData({
+      loading: false
+    })
+    app.globalData.errInfo = errMsg.includes('TARGET_SLOT_FULL')
+      ? '\u8be5\u65f6\u95f4\u6bb5\u573a\u6b21\u5df2\u6ee1\uff0c\u7533\u8bf7\u5df2\u81ea\u52a8\u9a73\u56de\u3002'
+      : '\u64cd\u4f5c\u5931\u8d25\uff0c\u8bf7\u7a0d\u540e\u91cd\u8bd5'
+    wx.navigateTo({
+      url: '../error_page/error_page',
+    })
+  },
+
   bindPickerChange(e){
     this.setData({
         idx_little_group: e.detail.value,
@@ -64,7 +78,7 @@ Page({
               })
             },
             fail: err =>{
-              console.log(err)
+              this.handleReviewError(err)
             }
           })
         }
@@ -106,7 +120,7 @@ Page({
               })
             },
             fail: err =>{
-              console.log(err)
+              this.handleReviewError(err)
             }
           })
         }
@@ -148,7 +162,7 @@ Page({
               })
             },
             fail: err =>{
-              console.log(err)
+              this.handleReviewError(err)
             }
           })
         }
@@ -190,7 +204,7 @@ Page({
               })
             },
             fail: err =>{
-              console.log(err)
+              this.handleReviewError(err)
             }
           })
         }
@@ -275,7 +289,7 @@ Page({
               wx.navigateBack()
             },
             fail: err =>{
-              console.log(err)
+              this.handleReviewError(err)
             }
           })
         }

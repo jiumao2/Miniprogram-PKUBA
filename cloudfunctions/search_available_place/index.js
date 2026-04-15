@@ -17,12 +17,7 @@ exports.main = async (event, context) => {
     date: date_new,
     period: period_new
   }).get()).data.map(item => item.place)
-  const existed_place2 = (await db.collection('Request').where({
-    date: date_new,
-    period: period_new,
-    state: _.neq(2)
-  }).get()).data.map(item => item.place_new)
-  const available_place = all_place_names.filter(item => (!existed_place1.includes(item)) && (!existed_place2.includes(item)))
+  const available_place = all_place_names.filter(item => !existed_place1.includes(item))
   return {
     available_place: available_place,
   }

@@ -79,6 +79,7 @@ exports.main = async (event, context) => {
     '中文-艺术':'中艺',
     '地空-集电':'地集',
     '环科-哲学':'环哲',
+    '未来-现代':'未现',
   }
 
   for (var i = 0; i < len; i++) {

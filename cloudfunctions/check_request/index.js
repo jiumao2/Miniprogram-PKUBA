@@ -24,20 +24,11 @@ exports.main = async (event, context) => {
   }).get()
   let len1 = count1.data.length
 
-  let count2 = await db.collection('Request').where({
-    date: date_new,
-    period: period_new,
-    state: _.neq(2)
-  }).get()
-  let len2 = count2.data.length
   var place_not_available = []
   for (var i=0;i<count1.data.length;i++){
     place_not_available.push(count1.data[i].place)
   }
-  for (var i=0;i<count2.data.length;i++){
-    place_not_available.push(count2.data[i].place_new)
-  }
-  if (len1+len2<event.new_time.max_game_raw) return{
+  if (len1<event.new_time.max_game_raw) return{
     state: true,
     place_not_available: place_not_available
   }

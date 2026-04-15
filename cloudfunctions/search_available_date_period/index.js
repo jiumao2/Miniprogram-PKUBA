@@ -44,11 +44,6 @@ exports.main = async (event, context) => {
     date: _.and(_.gte(date0), _.lte(date1))
   })
 
-  const allRequests = await getAllData('Request', {
-    date_new: _.and(_.gte(date0), _.lte(date1)),
-    state: _.neq(2)
-  })
-
   const maxGameMap = {
     weekday: [0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0],
     weekend: [0, 3, 3, 3, 2, 2, 0, 0, 0, 0, 0],
@@ -62,8 +57,7 @@ exports.main = async (event, context) => {
     let flag = false
     for (let j = 1; j <= 10; ++j) {
       let existed_game_number = allGames.filter(game => game.date === i && game.period === j).length
-      let requested_game_number = allRequests.filter(request => request.date_new === i && request.period_new === j).length
-      if (existed_game_number + requested_game_number < max_game[j]) {
+      if (existed_game_number < max_game[j]) {
         temp_available_time.push(j)
         flag = true
       }

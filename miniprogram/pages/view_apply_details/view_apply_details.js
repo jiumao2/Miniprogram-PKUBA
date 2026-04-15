@@ -11,6 +11,20 @@ Page({
     type: '',
   },
 
+  handleUpdateRequestError(err){
+    console.log(err)
+    const errMsg = err && err.errMsg ? err.errMsg : ''
+    this.setData({
+      loading: false
+    })
+    app.globalData.errInfo = errMsg.includes('TARGET_SLOT_FULL')
+      ? '\u8be5\u65f6\u95f4\u6bb5\u573a\u6b21\u5df2\u6ee1\uff0c\u7533\u8bf7\u5df2\u81ea\u52a8\u5931\u6548\uff0c\u8bf7\u91cd\u65b0\u53d1\u8d77\u8c03\u6574\u3002'
+      : '\u64cd\u4f5c\u5931\u8d25\uff0c\u8bf7\u7a0d\u540e\u91cd\u8bd5'
+    wx.navigateTo({
+      url: '../error_page/error_page',
+    })
+  },
+
   checkRequestValidation(){
     var now = new Date()
     var time_ddl = new Date(
@@ -73,7 +87,7 @@ Page({
             })
           },
           fail: err =>{
-            console.log(err)
+            this.handleUpdateRequestError(err)
           }
         })
       }
@@ -103,8 +117,11 @@ Page({
         },
         fail: err =>{
           console.log(err)
+          this.setData({
+            loading: false
+          })
         }
-      })      
+      })
     }
   },
 
@@ -134,7 +151,10 @@ Page({
         },
 
         fail: err=>{
-          console.log(res)
+          console.log(err)
+          this.setData({
+            loading: false
+          })
           return
         }
       })

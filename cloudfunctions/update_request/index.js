@@ -1,15 +1,24 @@
-// 云函数入口文件
+// 浜戝嚱鏁板叆鍙ｆ枃浠?
 const cloud = require('wx-server-sdk')
 
 cloud.init({
   env: cloud.DYNAMIC_CURRENT_ENV
 })
+
+const SLOT_LOCK_COLLECTION = 'ScheduleSlotLock'
+const SLOT_FULL_ERROR = 'TARGET_SLOT_FULL'
+const MAX_GAME_MAP = {
+  weekday: [0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0],
+  weekend: [0, 3, 3, 3, 2, 2, 0, 0, 0, 0, 0],
+}
+
 function getdate(time){
   const nowtime = new Date(time)
   const month = nowtime.getMonth()
   const day = nowtime.getDate()
   return 10000*month+day
 }
+
 function getperiod(time){
   const nowtime = new Date(time)
   const hour = nowtime.getUTCHours()+8
@@ -36,43 +45,224 @@ function getperiod(time){
   return 0
 }
 
-// 云函数入口函数
+function createError(code, message) {
+  const error = new Error(message || code)
+  error.code = code
+  return error
+}
+
+function getMaxGameCount(time, period) {
+  const weekday = new Date(time).getDay()
+  const maxGame = (1 <= weekday && weekday <= 5) ? MAX_GAME_MAP.weekday : MAX_GAME_MAP.weekend
+  return maxGame[period] || 0
+}
+
+function getSlotLockId(time, date, period) {
+  const year = new Date(time).getFullYear()
+  return `${year}_${date}_${period}`
+}
+
+async function ensureSlotLockDoc(db, lockId) {
+  try {
+    await db.collection(SLOT_LOCK_COLLECTION).doc(lockId).get()
+    return
+  } catch (error) {
+    const message = error && error.errMsg ? error.errMsg : ''
+    if (
+      !message.includes('does not exist') &&
+      !message.includes('not exists') &&
+      !message.includes('DOCUMENT_NOT_FOUND')
+    ) {
+      throw error
+    }
+  }
+
+  try {
+    await db.collection(SLOT_LOCK_COLLECTION).add({
+      data: {
+        _id: lockId,
+        revision: 0,
+        updatedAt: new Date()
+      }
+    })
+  } catch (error) {
+    const message = error && error.errMsg ? error.errMsg : ''
+    if (!message.includes('already exists') && !message.includes('duplicate key')) {
+      throw error
+    }
+  }
+}
+
+async function applyApprovedRequest(db, request) {
+  const _ = db.command
+  const date_new = request.date_new || getdate(request.time_new)
+  const period_new = request.period_new || getperiod(request.time_new)
+  const sameSlot = request.date === date_new && request.period === period_new
+
+  if (!sameSlot) {
+    const maxGame = getMaxGameCount(request.time_new, period_new)
+    if (maxGame <= 0) {
+      throw createError(SLOT_FULL_ERROR)
+    }
+
+    const lockId = getSlotLockId(request.time_new, date_new, period_new)
+    await ensureSlotLockDoc(db, lockId)
+
+    let lastError = null
+    for (let attempt = 0; attempt < 3; attempt++) {
+      try {
+        await db.runTransaction(async transaction => {
+          const requestDoc = await transaction.collection('Request').doc(request._id).get()
+          if (requestDoc.data.state === 2) {
+            return
+          }
+
+          await transaction.collection(SLOT_LOCK_COLLECTION).doc(lockId).update({
+            data: {
+              revision: _.inc(1),
+              updatedAt: new Date()
+            }
+          })
+
+          const sameSlotGames = await transaction.collection('Schedule').where({
+            date: date_new,
+            period: period_new
+          }).get()
+          const occupiedGames = sameSlotGames.data.filter(item => item._id !== request.game_id).length
+          if (occupiedGames >= maxGame) {
+            throw createError(SLOT_FULL_ERROR)
+          }
+
+          await transaction.collection('Request').doc(request._id).update({
+            data: {
+              state: 2
+            }
+          })
+
+          await transaction.collection('Schedule').doc(request.game_id).update({
+            data: {
+              time: new Date(request.time_new),
+              place: request.place_new,
+              adjustable: true,
+              date: date_new,
+              period: period_new
+            }
+          })
+        })
+        return
+      } catch (error) {
+        if (error && error.code === SLOT_FULL_ERROR) {
+          throw error
+        }
+        lastError = error
+      }
+    }
+
+    throw lastError
+  }
+
+  await db.collection('Request').doc(request._id).update({
+    data: {
+      state: 2
+    }
+  })
+
+  await db.collection('Schedule').doc(request.game_id).update({
+    data: {
+      time: new Date(request.time_new),
+      place: request.place_new,
+      adjustable: true,
+      date: date_new,
+      period: period_new
+    }
+  })
+}
+
+async function closeRequestAsUnavailable(db, request) {
+  await db.collection('Request').doc(request._id).update({
+    data: {
+      state: 0
+    }
+  })
+
+  await db.collection('Schedule').doc(request.game_id).update({
+    data: {
+      adjustable: true
+    }
+  })
+}
+
+async function cancelConflictingRequestsIfSlotFull(db, request) {
+  const _ = db.command
+  const date_new = request.date_new || getdate(request.time_new)
+  const period_new = request.period_new || getperiod(request.time_new)
+  const maxGame = getMaxGameCount(request.time_new, period_new)
+  const sameSlotGames = await db.collection('Schedule').where({
+    date: date_new,
+    period: period_new
+  }).get()
+
+  if (sameSlotGames.data.length < maxGame) {
+    return
+  }
+
+  const conflictingRequests = (await db.collection('Request').where({
+    date_new: date_new,
+    period_new: period_new,
+    state: _.eq(1).or(_.gte(3))
+  }).get()).data.filter(item => item._id !== request._id)
+
+  for (const item of conflictingRequests) {
+    const originalNotes = item.notes ? `${item.notes}\n` : ''
+    await db.collection('Request').doc(item._id).update({
+      data: {
+        state: 0,
+        notes: `${originalNotes}\u8be5\u65f6\u6bb5\u5df2\u88ab\u5176\u4ed6\u7533\u8bf7\u786e\u8ba4\uff0c\u7cfb\u7edf\u81ea\u52a8\u53d6\u6d88\u4e86\u672c\u7533\u8bf7\u3002`
+      }
+    })
+
+    await db.collection('Schedule').doc(item.game_id).update({
+      data: {
+        adjustable: true
+      }
+    })
+  }
+}
+
+// 浜戝嚱鏁板叆鍙ｅ嚱鏁?
 exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext()
-  db = cloud.database({
+  const db = cloud.database({
     env: cloud.DYNAMIC_CURRENT_ENV
   })
-  const _ = db.command
 
   if (event.to_delete){
     await db.collection('Request').doc(event.request._id).remove()
   }
-  else{
+  else if (event.new_state !== 2){
     await db.collection('Request').doc(event.request._id).update({
       data:{
         state: event.new_state
       }
-    })    
-  }
-  date_new = getdate(event.request.time_new)
-  period_new = getperiod(event.request.time_new)
-  if (event.new_state==2){
-    await db.collection('Schedule').doc(event.request.game_id).update({
-      data:{
-        time: new Date(event.request.time_new),
-        place: event.request.place_new,
-        adjustable: true,
-        date: date_new,
-        period: period_new
-      }
     })
+  }
+
+  if (event.new_state==2){
+    try {
+      await applyApprovedRequest(db, event.request)
+      await cancelConflictingRequestsIfSlotFull(db, event.request)
+    } catch (error) {
+      if (error && error.code === SLOT_FULL_ERROR) {
+        await closeRequestAsUnavailable(db, event.request)
+      }
+      throw error
+    }
   }
   else if (event.new_state == 0){
     await db.collection('Schedule').doc(event.request.game_id).update({
       data:{
-        adjustable: true      
+        adjustable: true
       }
-    })    
+    })
   }
-
 }
